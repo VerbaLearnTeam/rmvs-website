@@ -20,7 +20,7 @@ export async function POST(request: Request) {
     const { name, email, subject, message } = result.data;
 
     // Send notification email to owner
-    const notifyEmail = process.env.NOTIFY_EMAIL || "rory@rmonaghanstudios.org";
+    const notifyEmail = process.env.NOTIFY_EMAIL || "rory.monaghan@eprescience.com";
     const template = contactNotificationTemplate({ name, email, subject, message });
     
     const emailResult = await sendEmail({

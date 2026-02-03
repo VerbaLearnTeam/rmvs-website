@@ -127,8 +127,8 @@ export default function TermsPage() {
               If you have questions about these Terms of Use, please contact us at:
             </p>
             <p style={{ marginTop: 12 }}>
-              <a href="mailto:rory@rmonaghanstudios.org" style={{ color: "var(--accent)" }}>
-                rory@rmonaghanstudios.org
+              <a href="mailto:rory.monaghan@eprescience.com" style={{ color: "var(--accent)" }}>
+                rory.monaghan@eprescience.com
               </a>
             </p>
           </div>

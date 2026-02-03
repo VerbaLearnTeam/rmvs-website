@@ -9,8 +9,8 @@ import { motion } from "framer-motion";
 const contactMethods = [
   {
     title: "Email",
-    content: "rory@rmonaghanstudios.org",
-    href: "mailto:rory@rmonaghanstudios.org",
+    content: "rory.monaghan@eprescience.com",
+    href: "mailto:rory.monaghan@eprescience.com",
   },
   {
     title: "LinkedIn",
@@ -20,7 +20,7 @@ const contactMethods = [
   {
     title: "YouTube",
     content: "@SunkistGoofbox",
-    href: "https://www.youtube.com/@SunkistGoofbox",
+    href: "https://www.youtube.com/channel/UCXabldsOQzq4tvq5airbQMQ",
   },
   {
     title: "Auron Intelligence",

@@ -130,7 +130,7 @@ export default function SunkistGoofboxPage() {
           <div className="nav-cta" style={{ justifyContent: "center", marginTop: 18 }}>
             <a 
               className="btn btn-primary" 
-              href="https://www.youtube.com/@SunkistGoofbox" 
+              href="https://www.youtube.com/channel/UCXabldsOQzq4tvq5airbQMQ" 
               target="_blank" 
               rel="noopener noreferrer"
             >
