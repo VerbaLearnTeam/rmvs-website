@@ -1,0 +1,112 @@
+import Link from "next/link";
+
+export const metadata = {
+  title: "Projects | RMonaghan Venture Studios",
+  description: "Explore our portfolio of AI-integrated iOS apps, medical AI systems, and digital products."
+};
+
+const projects = [
+  {
+    title: "ePrescience",
+    tagline: "All-in-one learning suite",
+    description: "AI-powered study tools designed for students who want to learn faster and retain more. Features flashcards, spaced repetition, and intelligent practice sessions. Formerly known as VerbaLearn.",
+    href: "/projects/eprescience",
+    badge: "iOS App",
+    status: "Active Development"
+  },
+  {
+    title: "Spec'd",
+    tagline: "Your car, fully digitized",
+    description: "The ultimate mobile companion for car enthusiasts, collectors, and everyday drivers. Track maintenance, log mileage, set reminders, and digitize your entire garage experience.",
+    href: "/projects/specd",
+    badge: "iOS App",
+    status: "Live on App Store"
+  },
+  {
+    title: "Auron Tomography Intelligence System",
+    tagline: "Arterial CT intelligence",
+    description: "Machine learning system that automatically analyzes CTA brain scans, identifies arterial abnormalities linked to stroke risk, and notifies clinicians in real time.",
+    href: "/projects/auron",
+    badge: "Medical AI",
+    status: "In Development"
+  },
+  {
+    title: "Neura",
+    tagline: "Smarter sleep starts here",
+    description: "Next-generation smart sleep mask using EOG sensors to detect sleep stages and wake you at the optimal moment. Developed in collaboration with Case Western Reserve University.",
+    href: "/projects/neura",
+    badge: "Hardware + App",
+    status: "Prototype"
+  },
+  {
+    title: "Sunkist Goofbox",
+    tagline: "Car culture & storytelling",
+    description: "YouTube channel featuring POV drives, car reviews, DIY maintenance content, and the ongoing saga of owning a chrome orange 2005 Lotus Elise.",
+    href: "/projects/sunkist-goofbox",
+    badge: "YouTube",
+    status: "Active"
+  },
+  {
+    title: "Unplugged PGH",
+    tagline: "Music festivals & community events",
+    description: "Student-run event management collective organizing music festivals and community events across Pittsburgh, Cleveland, and New York. Raised over $10,000 for local nonprofits.",
+    href: "/projects/unplugged",
+    badge: "Events",
+    status: "Active"
+  }
+];
+
+export default function ProjectsPage() {
+  return (
+    <main>
+      <section className="hero">
+        <div className="container">
+          <span className="badge">Our Work</span>
+          <h1>Projects & Ventures</h1>
+          <p style={{ maxWidth: 700 }}>
+            From empowering students with AI-powered learning tools to helping car enthusiasts manage 
+            their collections, our portfolio keeps expanding into new frontiers.
+          </p>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container">
+          <div className="cards">
+            {projects.map((project) => (
+              <Link key={project.title} href={project.href} className="card-link">
+                <div className="card">
+                  <div style={{ display: "flex", gap: 8, marginBottom: 12, flexWrap: "wrap" }}>
+                    <span className="badge">{project.badge}</span>
+                    <span className="badge" style={{ background: "rgba(34, 197, 94, 0.12)", color: "#4ade80" }}>
+                      {project.status}
+                    </span>
+                  </div>
+                  <h3>{project.title}</h3>
+                  <p className="muted" style={{ fontSize: "0.9rem", marginBottom: 8 }}>
+                    {project.tagline}
+                  </p>
+                  <p className="muted">{project.description}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container panel" style={{ textAlign: "center" }}>
+          <h2>Want to Collaborate?</h2>
+          <p className="muted">
+            Have an idea or want to work together on something new?
+          </p>
+          <div className="nav-cta" style={{ justifyContent: "center", marginTop: 18 }}>
+            <Link className="btn btn-primary" href="/contact">
+              Get in Touch
+            </Link>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}

@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# RMonaghan Venture Studios
 
-## Getting Started
+Portfolio website for RMonaghan Venture Studios LLC - a digital innovation lab specializing in AI-integrated iOS apps and end-to-end product development.
 
-First, run the development server:
+## Tech Stack
+
+- **Framework**: Next.js 16 (App Router) + TypeScript
+- **Styling**: Custom CSS (futuristic blue theme)
+- **Forms**: React Hook Form + Zod
+- **Email**: Resend
+- **Hosting**: Railway
+
+## Quick Start
 
 ```bash
+npm install
+cp .env.example .env
+# Edit .env with your Resend API key
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Variable | Description |
+|----------|-------------|
+| `RESEND_API_KEY` | Your Resend API key (from resend.com) |
+| `EMAIL_FROM` | Sender email address |
+| `NOTIFY_EMAIL` | Email to receive contact form submissions |
 
-## Learn More
+## Pages
 
-To learn more about Next.js, take a look at the following resources:
+- `/` - Home page with intro, projects, and skills
+- `/about` - Full bio and background
+- `/projects` - Portfolio overview
+- `/projects/[slug]` - Individual project pages
+- `/contact` - Contact form
+- `/privacy` - Privacy policy
+- `/terms` - Terms of use
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Projects Featured
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **ePrescience** - AI-powered learning suite (formerly VerbaLearn)
+- **Spec'd** - Car ownership/maintenance iOS app
+- **Auron Intelligence** - Medical AI for arterial CT analysis
+- **Neura** - Smart sleep mask (Case Western collab)
+- **Sunkist Goofbox** - YouTube car channel
+- **Unplugged PGH** - Music festivals & events
 
-## Deploy on Vercel
+## Deployment (Railway)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Create a Railway project from this GitHub repo
+2. Add environment variables:
+   - `RESEND_API_KEY`
+   - `EMAIL_FROM`
+   - `NOTIFY_EMAIL`
+3. Generate a public domain in Networking settings
+4. Deploy!
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+No database needed - this is a static marketing site with email delivery.
+
+## License
+
+Copyright © 2026 RMonaghan Venture Studios LLC. All rights reserved.
