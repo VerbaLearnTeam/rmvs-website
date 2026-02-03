@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion, useInView } from "framer-motion";
-import { useRef, ReactNode } from "react";
+import { useRef, ReactNode, useState, useEffect } from "react";
 import { fadeUpVariants, staggerContainerVariants, staggerItemVariants } from "@/lib/motion/variants";
 
 interface ScrollRevealProps {
@@ -21,24 +21,32 @@ export default function ScrollReveal({
   once = true,
   amount = 0.2,
 }: ScrollRevealProps) {
+  const [hasMounted, setHasMounted] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once, amount });
   const prefersReducedMotion = useReducedMotion();
 
-  if (prefersReducedMotion) {
-    return <div className={className}>{children}</div>;
+  useEffect(() => {
+    // Small delay to let IntersectionObserver initialize properly on mobile
+    const timer = setTimeout(() => setHasMounted(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Before mount or on reduced motion: show content immediately (visible by default)
+  if (!hasMounted || prefersReducedMotion) {
+    return <div ref={ref} className={className}>{children}</div>;
   }
 
   return (
     <motion.div
       ref={ref}
       className={className}
-      initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
+      initial={{ opacity: 1, y: 0 }}
+      animate={isInView ? "visible" : "initial"}
       variants={{
-        hidden: {
-          opacity: 0,
-          y: 30,
+        initial: {
+          opacity: 1,
+          y: 0,
         },
         visible: {
           opacity: 1,
@@ -72,12 +80,19 @@ export function StaggerContainer({
   once = true,
   style,
 }: StaggerContainerProps) {
+  const [hasMounted, setHasMounted] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once, amount: 0.1 });
   const prefersReducedMotion = useReducedMotion();
 
-  if (prefersReducedMotion) {
-    return <div className={className} style={style}>{children}</div>;
+  useEffect(() => {
+    const timer = setTimeout(() => setHasMounted(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Before mount or on reduced motion: show content immediately
+  if (!hasMounted || prefersReducedMotion) {
+    return <div ref={ref} className={className} style={style}>{children}</div>;
   }
 
   return (
@@ -85,10 +100,10 @@ export function StaggerContainer({
       ref={ref}
       className={className}
       style={style}
-      initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
+      initial={{ opacity: 1 }}
+      animate={isInView ? "visible" : "initial"}
       variants={{
-        hidden: { opacity: 0 },
+        initial: { opacity: 1 },
         visible: {
           opacity: 1,
           transition: {
@@ -110,9 +125,16 @@ interface StaggerItemProps {
 }
 
 export function StaggerItem({ children, className = "" }: StaggerItemProps) {
+  const [hasMounted, setHasMounted] = useState(false);
   const prefersReducedMotion = useReducedMotion();
 
-  if (prefersReducedMotion) {
+  useEffect(() => {
+    const timer = setTimeout(() => setHasMounted(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Before mount or on reduced motion: show content immediately
+  if (!hasMounted || prefersReducedMotion) {
     return <div className={className}>{children}</div>;
   }
 
@@ -120,9 +142,9 @@ export function StaggerItem({ children, className = "" }: StaggerItemProps) {
     <motion.div
       className={className}
       variants={{
-        hidden: {
-          opacity: 0,
-          y: 20,
+        initial: {
+          opacity: 1,
+          y: 0,
         },
         visible: {
           opacity: 1,
@@ -153,20 +175,27 @@ export function FadeIn({
   delay = 0,
   once = true,
 }: FadeInProps) {
+  const [hasMounted, setHasMounted] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once, amount: 0.2 });
   const prefersReducedMotion = useReducedMotion();
 
-  if (prefersReducedMotion) {
-    return <div className={className}>{children}</div>;
+  useEffect(() => {
+    const timer = setTimeout(() => setHasMounted(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Before mount or on reduced motion: show content immediately
+  if (!hasMounted || prefersReducedMotion) {
+    return <div ref={ref} className={className}>{children}</div>;
   }
 
   return (
     <motion.div
       ref={ref}
       className={className}
-      initial={{ opacity: 0 }}
-      animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+      initial={{ opacity: 1 }}
+      animate={{ opacity: 1 }}
       transition={{
         duration: 0.5,
         delay,
@@ -192,20 +221,27 @@ export function ScaleIn({
   delay = 0,
   once = true,
 }: ScaleInProps) {
+  const [hasMounted, setHasMounted] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once, amount: 0.3 });
   const prefersReducedMotion = useReducedMotion();
 
-  if (prefersReducedMotion) {
-    return <div className={className}>{children}</div>;
+  useEffect(() => {
+    const timer = setTimeout(() => setHasMounted(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Before mount or on reduced motion: show content immediately
+  if (!hasMounted || prefersReducedMotion) {
+    return <div ref={ref} className={className}>{children}</div>;
   }
 
   return (
     <motion.div
       ref={ref}
       className={className}
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
+      initial={{ opacity: 1, scale: 1 }}
+      animate={{ opacity: 1, scale: 1 }}
       transition={{
         duration: 0.4,
         delay,

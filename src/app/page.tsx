@@ -1,9 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import HeroBackground from "@/components/HeroBackground";
 import GlassCard from "@/components/GlassCard";
-import ScrollReveal, { StaggerContainer, StaggerItem, FadeIn } from "@/components/ScrollReveal";
+import ScrollReveal, { StaggerContainer, StaggerItem } from "@/components/ScrollReveal";
 import AnimatedButton from "@/components/AnimatedButton";
 import { motion, useReducedMotion } from "framer-motion";
 
@@ -77,45 +76,25 @@ export default function HomePage() {
         <HeroBackground />
         <div className="container hero-grid" style={{ position: "relative", zIndex: 1 }}>
           <ScrollReveal>
-            <motion.span
-              className="badge"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
-            >
+            <span className="badge">
               Digital Innovation Lab
-            </motion.span>
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-            >
+            </span>
+            <h1>
               We solve problems we&apos;ve had ourselves.
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
+            </h1>
+            <p>
               RMonaghan Venture Studios is a cutting-edge digital innovation lab specializing in AI-integrated 
               iOS apps and end-to-end product development. We build elegant, high-performance solutions 
               fueled by creativity and dedication.
-            </motion.p>
-            <motion.div
-              className="nav-cta"
-              style={{ marginBottom: 18 }}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-            >
+            </p>
+            <div className="nav-cta" style={{ marginBottom: 18 }}>
               <AnimatedButton href="/projects" variant="primary">
                 View Projects
               </AnimatedButton>
               <AnimatedButton href="/contact" variant="outline">
                 Get in Touch
               </AnimatedButton>
-            </motion.div>
+            </div>
           </ScrollReveal>
 
           <ScrollReveal delay={0.3}>
@@ -222,34 +201,20 @@ export default function HomePage() {
       {/* CTA Section */}
       <section className="section">
         <ScrollReveal>
-          <motion.div
-            className="container panel"
-            style={{ textAlign: "center" }}
-            whileHover={prefersReducedMotion ? {} : {
-              boxShadow: "0 0 60px rgba(56, 189, 248, 0.1)",
-            }}
-            transition={{ duration: 0.4 }}
-          >
+          <div className="container panel" style={{ textAlign: "center" }}>
             <h2>Let&apos;s Build Something Together</h2>
             <p className="muted">
               Interested in collaborating, investing, or just want to chat about technology?
             </p>
-            <motion.div
-              className="nav-cta"
-              style={{ justifyContent: "center", marginTop: 18 }}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
+            <div className="nav-cta" style={{ justifyContent: "center", marginTop: 18 }}>
               <AnimatedButton href="/contact" variant="primary">
                 Get in Touch
               </AnimatedButton>
               <AnimatedButton href="/about" variant="outline">
                 About Rory
               </AnimatedButton>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </ScrollReveal>
       </section>
     </main>

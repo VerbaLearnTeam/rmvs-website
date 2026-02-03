@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import ScrollReveal, { StaggerContainer, StaggerItem } from "@/components/ScrollReveal";
 import GlassCard from "@/components/GlassCard";
 import AnimatedButton from "@/components/AnimatedButton";
@@ -47,30 +46,16 @@ export default function AboutPage() {
         <HeroBackground />
         <div className="container" style={{ position: "relative", zIndex: 1 }}>
           <ScrollReveal>
-            <motion.span
-              className="badge"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
+            <span className="badge">
               About the Founder
-            </motion.span>
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-            >
+            </span>
+            <h1>
               Rory David Monaghan
-            </motion.h1>
-            <motion.p
-              style={{ maxWidth: 700 }}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
+            </h1>
+            <p style={{ maxWidth: 700 }}>
               Neuroscience and psychology student at the University of Pittsburgh, full-stack developer, 
               and entrepreneur building AI-integrated products across healthcare, education, and automotive.
-            </motion.p>
+            </p>
           </ScrollReveal>
         </div>
       </section>

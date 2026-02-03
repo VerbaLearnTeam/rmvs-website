@@ -64,6 +64,46 @@ body::before {
 }
 
 /* ============================================
+   Content Visibility Fallback
+   Ensures content is visible even if JS animations fail
+   ============================================ */
+
+/* All major content containers default to visible */
+main,
+.hero,
+.section,
+.container,
+.cards,
+.card,
+.glass-card,
+.panel,
+.split,
+.skills-grid,
+.feature-list,
+.nav-cta,
+h1, h2, h3, h4, p,
+.badge,
+.btn {
+  opacity: 1;
+  transform: none;
+  visibility: visible;
+}
+
+/* Prevent any animation from hiding content on initial load */
+@media (prefers-reduced-motion: no-preference) {
+  /* 
+   * Progressive enhancement: 
+   * Content is visible by default.
+   * JS animations only enhance, never hide.
+   */
+  .hero > *,
+  .section > *,
+  .container > * {
+    opacity: 1;
+  }
+}
+
+/* ============================================
    Typography
    ============================================ */
 

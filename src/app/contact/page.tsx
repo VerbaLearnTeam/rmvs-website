@@ -4,7 +4,6 @@ import ContactForm from "@/components/ContactForm";
 import ScrollReveal, { StaggerContainer, StaggerItem } from "@/components/ScrollReveal";
 import GlassCard from "@/components/GlassCard";
 import HeroBackground from "@/components/HeroBackground";
-import { motion } from "framer-motion";
 
 const contactMethods = [
   {
@@ -36,30 +35,16 @@ export default function ContactPage() {
         <HeroBackground />
         <div className="container" style={{ position: "relative", zIndex: 1 }}>
           <ScrollReveal>
-            <motion.span
-              className="badge"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
+            <span className="badge">
               Get in Touch
-            </motion.span>
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-            >
+            </span>
+            <h1>
               Contact
-            </motion.h1>
-            <motion.p
-              style={{ maxWidth: 600 }}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
+            </h1>
+            <p style={{ maxWidth: 600 }}>
               Interested in collaborating, investing, or just want to chat about technology? 
               Fill out the form below or reach out directly.
-            </motion.p>
+            </p>
           </ScrollReveal>
         </div>
       </section>

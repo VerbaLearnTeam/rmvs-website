@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import ScrollReveal, { StaggerContainer, StaggerItem } from "@/components/ScrollReveal";
 import GlassCard from "@/components/GlassCard";
 import AnimatedButton from "@/components/AnimatedButton";
@@ -68,30 +67,16 @@ export default function ProjectsPage() {
         <HeroBackground />
         <div className="container" style={{ position: "relative", zIndex: 1 }}>
           <ScrollReveal>
-            <motion.span
-              className="badge"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
+            <span className="badge">
               Our Work
-            </motion.span>
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-            >
+            </span>
+            <h1>
               Projects & Ventures
-            </motion.h1>
-            <motion.p
-              style={{ maxWidth: 700 }}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
+            </h1>
+            <p style={{ maxWidth: 700 }}>
               From empowering students with AI-powered learning tools to helping car enthusiasts manage 
               their collections, our portfolio keeps expanding into new frontiers.
-            </motion.p>
+            </p>
           </ScrollReveal>
         </div>
       </section>
