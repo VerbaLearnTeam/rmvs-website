@@ -1,4 +1,11 @@
+"use client";
+
 import Link from "next/link";
+import HeroBackground from "@/components/HeroBackground";
+import GlassCard from "@/components/GlassCard";
+import ScrollReveal, { StaggerContainer, StaggerItem, FadeIn } from "@/components/ScrollReveal";
+import AnimatedButton from "@/components/AnimatedButton";
+import { motion, useReducedMotion } from "framer-motion";
 
 const projects = [
   {
@@ -51,106 +58,179 @@ const skills = [
 ];
 
 export default function HomePage() {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <main>
-      <section className="hero">
-        <div className="container hero-grid">
-          <div>
-            <span className="badge">Digital Innovation Lab</span>
-            <h1>We solve problems we&apos;ve had ourselves.</h1>
-            <p>
+      {/* Hero Section with Animated Background */}
+      <section className="hero" style={{ position: "relative", overflow: "hidden" }}>
+        <HeroBackground />
+        <div className="container hero-grid" style={{ position: "relative", zIndex: 1 }}>
+          <ScrollReveal>
+            <motion.span
+              className="badge"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
+            >
+              Digital Innovation Lab
+            </motion.span>
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
+              We solve problems we&apos;ve had ourselves.
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
               RMonaghan Venture Studios is a cutting-edge digital innovation lab specializing in AI-integrated 
               iOS apps and end-to-end product development. We build elegant, high-performance solutions 
               fueled by creativity and dedication.
-            </p>
-            <div className="nav-cta" style={{ marginBottom: 18 }}>
-              <Link className="btn btn-primary" href="/projects">
+            </motion.p>
+            <motion.div
+              className="nav-cta"
+              style={{ marginBottom: 18 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+            >
+              <AnimatedButton href="/projects" variant="primary">
                 View Projects
-              </Link>
-              <Link className="btn btn-outline" href="/contact">
+              </AnimatedButton>
+              <AnimatedButton href="/contact" variant="outline">
                 Get in Touch
-              </Link>
-            </div>
-          </div>
-          <div className="hero-card">
-            <h3>Meet the Founder</h3>
-            <p className="muted">
-              Rory Monaghan is a neuroscience student at the University of Pittsburgh, full-stack developer, 
-              and entrepreneur building AI-integrated products across healthcare, education, and automotive.
-            </p>
-            <Link className="btn btn-ghost" href="/about" style={{ marginTop: 16 }}>
-              Learn More
-            </Link>
-          </div>
+              </AnimatedButton>
+            </motion.div>
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.3}>
+            <GlassCard className="hero-card" href="/about">
+              <h3>Meet the Founder</h3>
+              <p className="muted">
+                Rory Monaghan is a neuroscience student at the University of Pittsburgh, full-stack developer, 
+                and entrepreneur building AI-integrated products across healthcare, education, and automotive.
+              </p>
+              <span className="btn btn-ghost" style={{ marginTop: 16, display: "inline-flex" }}>
+                Learn More →
+              </span>
+            </GlassCard>
+          </ScrollReveal>
         </div>
       </section>
 
+      {/* Projects Section */}
       <section className="section">
         <div className="container">
-          <h2>Our Projects</h2>
-          <p className="muted">
-            From empowering students with AI-powered learning tools to helping car enthusiasts manage their 
-            collections, our portfolio keeps expanding into new frontiers.
-          </p>
-          <div className="cards">
+          <ScrollReveal>
+            <h2>Our Projects</h2>
+            <p className="muted">
+              From empowering students with AI-powered learning tools to helping car enthusiasts manage their 
+              collections, our portfolio keeps expanding into new frontiers.
+            </p>
+          </ScrollReveal>
+
+          <StaggerContainer className="cards">
             {projects.map((project) => (
-              <Link key={project.title} href={project.href} className="card-link">
-                <div className="card">
-                  <span className="badge" style={{ marginBottom: 12 }}>{project.badge}</span>
+              <StaggerItem key={project.title}>
+                <GlassCard href={project.href}>
+                  <motion.span
+                    className="badge"
+                    style={{ marginBottom: 12 }}
+                    whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
+                  >
+                    {project.badge}
+                  </motion.span>
                   <h3>{project.title}</h3>
                   <p className="muted">{project.description}</p>
-                </div>
-              </Link>
+                </GlassCard>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
 
+      {/* What We Do Section */}
       <section className="section">
         <div className="container split">
-          <div>
+          <ScrollReveal>
             <h2>What We Do</h2>
             <p className="muted">
               We utilize Xcode and Swift alongside Firebase, Cloudflare, App Store Connect, RevenueCat, 
               Google AdMob, and a diverse array of APIs — enhanced by AI engines like GPT, Claude, Gemini, 
               and Cursor — to build elegant, high-performance solutions.
             </p>
-            <div className="skills-grid">
+            <StaggerContainer className="skills-grid">
               {skills.map((skill) => (
-                <div key={skill} className="skill-item">{skill}</div>
+                <StaggerItem key={skill}>
+                  <motion.div
+                    className="skill-item"
+                    whileHover={prefersReducedMotion ? {} : { 
+                      scale: 1.02,
+                      borderColor: "rgba(125, 211, 252, 0.4)",
+                    }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    {skill}
+                  </motion.div>
+                </StaggerItem>
               ))}
-            </div>
-          </div>
-          <div className="panel">
-            <h3>Our Approach</h3>
-            <p className="muted" style={{ marginBottom: 16 }}>
-              Backed by an ever-growing network of experts and fueled by creativity and dedication, 
-              we tackle tough problems we have experienced ourselves, bringing our products to life 
-              with passion and excitement.
-            </p>
-            <p className="muted">
-              From accessible learning platforms to neuroscience-based sleep tools, we&apos;re always 
-              exploring new frontiers.
-            </p>
-          </div>
+            </StaggerContainer>
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.2}>
+            <GlassCard enableTilt={false}>
+              <h3>Our Approach</h3>
+              <p className="muted" style={{ marginBottom: 16 }}>
+                Backed by an ever-growing network of experts and fueled by creativity and dedication, 
+                we tackle tough problems we have experienced ourselves, bringing our products to life 
+                with passion and excitement.
+              </p>
+              <p className="muted">
+                From accessible learning platforms to neuroscience-based sleep tools, we&apos;re always 
+                exploring new frontiers.
+              </p>
+            </GlassCard>
+          </ScrollReveal>
         </div>
       </section>
 
+      {/* CTA Section */}
       <section className="section">
-        <div className="container panel" style={{ textAlign: "center" }}>
-          <h2>Let&apos;s Build Something Together</h2>
-          <p className="muted">
-            Interested in collaborating, investing, or just want to chat about technology?
-          </p>
-          <div className="nav-cta" style={{ justifyContent: "center", marginTop: 18 }}>
-            <Link className="btn btn-primary" href="/contact">
-              Get in Touch
-            </Link>
-            <Link className="btn btn-outline" href="/about">
-              About Rory
-            </Link>
-          </div>
-        </div>
+        <ScrollReveal>
+          <motion.div
+            className="container panel"
+            style={{ textAlign: "center" }}
+            whileHover={prefersReducedMotion ? {} : {
+              boxShadow: "0 0 60px rgba(56, 189, 248, 0.1)",
+            }}
+            transition={{ duration: 0.4 }}
+          >
+            <h2>Let&apos;s Build Something Together</h2>
+            <p className="muted">
+              Interested in collaborating, investing, or just want to chat about technology?
+            </p>
+            <motion.div
+              className="nav-cta"
+              style={{ justifyContent: "center", marginTop: 18 }}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <AnimatedButton href="/contact" variant="primary">
+                Get in Touch
+              </AnimatedButton>
+              <AnimatedButton href="/about" variant="outline">
+                About Rory
+              </AnimatedButton>
+            </motion.div>
+          </motion.div>
+        </ScrollReveal>
       </section>
     </main>
   );

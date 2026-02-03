@@ -1,9 +1,11 @@
-import Link from "next/link";
+"use client";
 
-export const metadata = {
-  title: "About Rory Monaghan | RMonaghan Venture Studios",
-  description: "Neuroscience student, full-stack developer, and entrepreneur building AI-integrated products across healthcare, education, and automotive."
-};
+import Link from "next/link";
+import ScrollReveal, { StaggerContainer, StaggerItem } from "@/components/ScrollReveal";
+import GlassCard from "@/components/GlassCard";
+import AnimatedButton from "@/components/AnimatedButton";
+import HeroBackground from "@/components/HeroBackground";
+import { motion, useReducedMotion } from "framer-motion";
 
 const skills = [
   { category: "Mobile Development", items: ["Swift", "Xcode", "iOS", "App Store Connect", "RevenueCat"] },
@@ -37,22 +39,45 @@ const roles = [
 ];
 
 export default function AboutPage() {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <main>
-      <section className="hero">
-        <div className="container">
-          <span className="badge">About the Founder</span>
-          <h1>Rory David Monaghan</h1>
-          <p style={{ maxWidth: 700 }}>
-            Neuroscience and psychology student at the University of Pittsburgh, full-stack developer, 
-            and entrepreneur building AI-integrated products across healthcare, education, and automotive.
-          </p>
+      <section className="hero" style={{ position: "relative", overflow: "hidden" }}>
+        <HeroBackground />
+        <div className="container" style={{ position: "relative", zIndex: 1 }}>
+          <ScrollReveal>
+            <motion.span
+              className="badge"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              About the Founder
+            </motion.span>
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
+              Rory David Monaghan
+            </motion.h1>
+            <motion.p
+              style={{ maxWidth: 700 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              Neuroscience and psychology student at the University of Pittsburgh, full-stack developer, 
+              and entrepreneur building AI-integrated products across healthcare, education, and automotive.
+            </motion.p>
+          </ScrollReveal>
         </div>
       </section>
 
       <section className="section">
         <div className="container split">
-          <div>
+          <ScrollReveal>
             <h2>Background</h2>
             <p className="muted" style={{ marginBottom: 16 }}>
               Rory Monaghan is the Founder and CEO of ePrescience, inspired by and born out of his 
@@ -70,61 +95,84 @@ export default function AboutPage() {
               AI and automation, and the corresponding gap between what could exist and what did, he 
               acquired an obsessive passion for learning about and building new technology to bridge those gaps.
             </p>
-          </div>
-          <div className="panel">
-            <h3>Quick Facts</h3>
-            <ul className="feature-list">
-              <li>University of Pittsburgh (Neuroscience & Psychology)</li>
-              <li>Minors in Chemistry and Mandarin Chinese</li>
-              <li>Fluent in Mandarin</li>
-              <li>Dual US-EU citizenship</li>
-              <li>20+ countries visited in 3 years</li>
-              <li>Aspiring EMT and jazz drummer</li>
-              <li>Real estate investor in Pittsburgh&apos;s East End</li>
-            </ul>
-          </div>
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.2}>
+            <GlassCard enableTilt={false}>
+              <h3>Quick Facts</h3>
+              <ul className="feature-list">
+                <li>University of Pittsburgh (Neuroscience & Psychology)</li>
+                <li>Minors in Chemistry and Mandarin Chinese</li>
+                <li>Fluent in Mandarin</li>
+                <li>Dual US-EU citizenship</li>
+                <li>20+ countries visited in 3 years</li>
+                <li>Aspiring EMT and jazz drummer</li>
+                <li>Real estate investor in Pittsburgh&apos;s East End</li>
+              </ul>
+            </GlassCard>
+          </ScrollReveal>
         </div>
       </section>
 
       <section className="section">
         <div className="container">
-          <h2>Current Roles</h2>
-          <div className="cards">
+          <ScrollReveal>
+            <h2>Current Roles</h2>
+          </ScrollReveal>
+          <StaggerContainer className="cards">
             {roles.map((role) => (
-              <div key={role.company} className="card">
-                <span className="badge" style={{ marginBottom: 12 }}>{role.company}</span>
-                <h3>{role.title}</h3>
-                <p className="muted">{role.description}</p>
-              </div>
+              <StaggerItem key={role.company}>
+                <GlassCard>
+                  <motion.span
+                    className="badge"
+                    style={{ marginBottom: 12 }}
+                    whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
+                  >
+                    {role.company}
+                  </motion.span>
+                  <h3>{role.title}</h3>
+                  <p className="muted">{role.description}</p>
+                </GlassCard>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
 
       <section className="section">
         <div className="container">
-          <h2>Skills & Technologies</h2>
-          <p className="muted">
-            Full-stack expertise spanning mobile development, web applications, AI/ML, and cloud infrastructure.
-          </p>
-          <div className="cards">
+          <ScrollReveal>
+            <h2>Skills & Technologies</h2>
+            <p className="muted">
+              Full-stack expertise spanning mobile development, web applications, AI/ML, and cloud infrastructure.
+            </p>
+          </ScrollReveal>
+          <StaggerContainer className="cards">
             {skills.map((category) => (
-              <div key={category.category} className="card">
-                <h3>{category.category}</h3>
-                <div className="skills-grid" style={{ marginTop: 12 }}>
-                  {category.items.map((skill) => (
-                    <span key={skill} className="badge">{skill}</span>
-                  ))}
-                </div>
-              </div>
+              <StaggerItem key={category.category}>
+                <GlassCard enableTilt={false}>
+                  <h3>{category.category}</h3>
+                  <div className="skills-grid" style={{ marginTop: 12 }}>
+                    {category.items.map((skill) => (
+                      <motion.span
+                        key={skill}
+                        className="badge"
+                        whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
+                      >
+                        {skill}
+                      </motion.span>
+                    ))}
+                  </div>
+                </GlassCard>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
 
       <section className="section">
         <div className="container split">
-          <div>
+          <ScrollReveal>
             <h2>Philosophy</h2>
             <p className="muted" style={{ marginBottom: 16 }}>
               His approach blends hands-on product engineering with a deep interest in how people actually 
@@ -135,42 +183,45 @@ export default function AboutPage() {
               That&apos;s why he pledges to ensure users are involved in all conversations and decision-making 
               as his companies evolve.
             </p>
-          </div>
-          <div className="panel">
-            <h3>Beyond Work</h3>
-            <p className="muted" style={{ marginBottom: 16 }}>
-              When not building products, Rory works on his side quests: becoming an EMT, drumming in a 
-              jazz band, driving cool cars (including his chrome orange 2005 Lotus Elise nicknamed the 
-              &quot;Sunkist Goofbox&quot;), and traveling extensively.
-            </p>
-            <p className="muted">
-              He&apos;s also the founder of Unplugged PGH, having organized more than ten music festivals 
-              and raised over $10,000 for community causes.
-            </p>
-          </div>
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.2}>
+            <GlassCard enableTilt={false}>
+              <h3>Beyond Work</h3>
+              <p className="muted" style={{ marginBottom: 16 }}>
+                When not building products, Rory works on his side quests: becoming an EMT, drumming in a 
+                jazz band, driving cool cars (including his chrome orange 2005 Lotus Elise nicknamed the 
+                &quot;Sunkist Goofbox&quot;), and traveling extensively.
+              </p>
+              <p className="muted">
+                He&apos;s also the founder of Unplugged PGH, having organized more than ten music festivals 
+                and raised over $10,000 for community causes.
+              </p>
+            </GlassCard>
+          </ScrollReveal>
         </div>
       </section>
 
       <section className="section">
-        <div className="container panel" style={{ textAlign: "center" }}>
-          <h2>Let&apos;s Connect</h2>
-          <p className="muted">
-            Interested in collaborating, investing, or just want to chat?
-          </p>
-          <div className="nav-cta" style={{ justifyContent: "center", marginTop: 18 }}>
-            <Link className="btn btn-primary" href="/contact">
-              Get in Touch
-            </Link>
-            <a 
-              className="btn btn-outline" 
-              href="https://www.linkedin.com/in/rory-monaghan-300439260" 
-              target="_blank" 
-              rel="noopener noreferrer"
-            >
-              LinkedIn
-            </a>
+        <ScrollReveal>
+          <div className="container panel" style={{ textAlign: "center" }}>
+            <h2>Let&apos;s Connect</h2>
+            <p className="muted">
+              Interested in collaborating, investing, or just want to chat?
+            </p>
+            <div className="nav-cta" style={{ justifyContent: "center", marginTop: 18 }}>
+              <AnimatedButton href="/contact" variant="primary">
+                Get in Touch
+              </AnimatedButton>
+              <AnimatedButton
+                href="https://www.linkedin.com/in/rory-monaghan-300439260"
+                variant="outline"
+              >
+                LinkedIn
+              </AnimatedButton>
+            </div>
           </div>
-        </div>
+        </ScrollReveal>
       </section>
     </main>
   );

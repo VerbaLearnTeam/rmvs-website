@@ -1,9 +1,11 @@
-import Link from "next/link";
+"use client";
 
-export const metadata = {
-  title: "Projects | RMonaghan Venture Studios",
-  description: "Explore our portfolio of AI-integrated iOS apps, medical AI systems, and digital products."
-};
+import Link from "next/link";
+import ScrollReveal, { StaggerContainer, StaggerItem } from "@/components/ScrollReveal";
+import GlassCard from "@/components/GlassCard";
+import AnimatedButton from "@/components/AnimatedButton";
+import HeroBackground from "@/components/HeroBackground";
+import { motion, useReducedMotion } from "framer-motion";
 
 const projects = [
   {
@@ -57,55 +59,89 @@ const projects = [
 ];
 
 export default function ProjectsPage() {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <main>
-      <section className="hero">
-        <div className="container">
-          <span className="badge">Our Work</span>
-          <h1>Projects & Ventures</h1>
-          <p style={{ maxWidth: 700 }}>
-            From empowering students with AI-powered learning tools to helping car enthusiasts manage 
-            their collections, our portfolio keeps expanding into new frontiers.
-          </p>
+      <section className="hero" style={{ position: "relative", overflow: "hidden" }}>
+        <HeroBackground />
+        <div className="container" style={{ position: "relative", zIndex: 1 }}>
+          <ScrollReveal>
+            <motion.span
+              className="badge"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              Our Work
+            </motion.span>
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
+              Projects & Ventures
+            </motion.h1>
+            <motion.p
+              style={{ maxWidth: 700 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              From empowering students with AI-powered learning tools to helping car enthusiasts manage 
+              their collections, our portfolio keeps expanding into new frontiers.
+            </motion.p>
+          </ScrollReveal>
         </div>
       </section>
 
       <section className="section">
         <div className="container">
-          <div className="cards">
+          <StaggerContainer className="cards">
             {projects.map((project) => (
-              <Link key={project.title} href={project.href} className="card-link">
-                <div className="card">
+              <StaggerItem key={project.title}>
+                <GlassCard href={project.href}>
                   <div style={{ display: "flex", gap: 8, marginBottom: 12, flexWrap: "wrap" }}>
-                    <span className="badge">{project.badge}</span>
-                    <span className="badge" style={{ background: "rgba(34, 197, 94, 0.12)", color: "#4ade80" }}>
+                    <motion.span
+                      className="badge"
+                      whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
+                    >
+                      {project.badge}
+                    </motion.span>
+                    <motion.span
+                      className="badge"
+                      style={{ background: "rgba(34, 197, 94, 0.12)", color: "#4ade80" }}
+                      whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
+                    >
                       {project.status}
-                    </span>
+                    </motion.span>
                   </div>
                   <h3>{project.title}</h3>
                   <p className="muted" style={{ fontSize: "0.9rem", marginBottom: 8 }}>
                     {project.tagline}
                   </p>
                   <p className="muted">{project.description}</p>
-                </div>
-              </Link>
+                </GlassCard>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
 
       <section className="section">
-        <div className="container panel" style={{ textAlign: "center" }}>
-          <h2>Want to Collaborate?</h2>
-          <p className="muted">
-            Have an idea or want to work together on something new?
-          </p>
-          <div className="nav-cta" style={{ justifyContent: "center", marginTop: 18 }}>
-            <Link className="btn btn-primary" href="/contact">
-              Get in Touch
-            </Link>
+        <ScrollReveal>
+          <div className="container panel" style={{ textAlign: "center" }}>
+            <h2>Want to Collaborate?</h2>
+            <p className="muted">
+              Have an idea or want to work together on something new?
+            </p>
+            <div className="nav-cta" style={{ justifyContent: "center", marginTop: 18 }}>
+              <AnimatedButton href="/contact" variant="primary">
+                Get in Touch
+              </AnimatedButton>
+            </div>
           </div>
-        </div>
+        </ScrollReveal>
       </section>
     </main>
   );
