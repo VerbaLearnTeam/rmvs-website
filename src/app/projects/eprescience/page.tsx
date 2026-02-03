@@ -23,11 +23,25 @@ export default function EPresciencePage() {
             ← Back to Projects
           </Link>
           <div className="project-header">
-            <span className="badge">iOS App</span>
+            <div style={{ display: "flex", gap: 8, marginBottom: 8, flexWrap: "wrap" }}>
+              <span className="badge">iOS App</span>
+              <span className="badge" style={{ background: "rgba(34, 197, 94, 0.12)", color: "#4ade80" }}>
+                Live on App Store
+              </span>
+            </div>
             <h1>ePrescience</h1>
             <p className="muted" style={{ fontSize: "1.1rem" }}>
               All-in-one learning suite for students
             </p>
+            <a 
+              href="https://apps.apple.com/us/app/eprescience/id6748284897"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary"
+              style={{ marginTop: 16 }}
+            >
+              Download on App Store →
+            </a>
           </div>
         </div>
       </section>
@@ -94,12 +108,20 @@ export default function EPresciencePage() {
 
       <section className="section">
         <div className="container panel" style={{ textAlign: "center" }}>
-          <h2>Interested in ePrescience?</h2>
+          <h2>Download ePrescience</h2>
           <p className="muted">
-            Contact us for beta access or partnership opportunities.
+            Available now on the App Store for iPhone, iPad, and Mac.
           </p>
           <div className="nav-cta" style={{ justifyContent: "center", marginTop: 18 }}>
-            <Link className="btn btn-primary" href="/contact">
+            <a 
+              className="btn btn-primary" 
+              href="https://apps.apple.com/us/app/eprescience/id6748284897"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Download on App Store
+            </a>
+            <Link className="btn btn-outline" href="/contact">
               Get in Touch
             </Link>
             <Link className="btn btn-outline" href="/privacy">

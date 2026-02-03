@@ -14,7 +14,8 @@ const projects = [
     description: "AI-powered study tools designed for students who want to learn faster and retain more. Features flashcards, spaced repetition, and intelligent practice sessions. Formerly known as VerbaLearn.",
     href: "/projects/eprescience",
     badge: "iOS App",
-    status: "Active Development"
+    status: "Live on App Store",
+    appStoreUrl: "https://apps.apple.com/us/app/eprescience/id6748284897"
   },
   {
     title: "Spec'd",

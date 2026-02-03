@@ -477,20 +477,244 @@ a:focus-visible {
   border-color: rgba(125, 211, 252, 0.2);
 }
 
+/* Tablet (iPad) */
+@media (max-width: 1024px) {
+  .container {
+    width: min(1100px, 94vw);
+  }
+
+  .hero-grid {
+    gap: 24px;
+  }
+
+  .cards {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+  }
+
+  .split {
+    gap: 22px;
+  }
+}
+
+/* Mobile (iPhone) */
 @media (max-width: 768px) {
+  .container {
+    width: min(1100px, 90vw);
+  }
+
+  .header-inner {
+    padding: 14px 0;
+    gap: 12px;
+  }
+
+  .logo-text {
+    font-size: 0.95rem;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
   .nav-cta {
     width: 100%;
   }
 
   .nav-cta .btn {
     flex: 1;
+    font-size: 0.9rem;
+    padding: 10px 14px;
   }
 
   .hero {
-    padding: 50px 0 30px;
+    padding: 40px 0 28px;
   }
 
-  .nav-links {
-    display: none;
+  .hero h1 {
+    font-size: clamp(1.8rem, 6vw, 2.4rem);
+    margin-bottom: 14px;
+  }
+
+  .hero p {
+    font-size: 0.95rem;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .section {
+    padding: 32px 0;
+  }
+
+  .section h2 {
+    font-size: clamp(1.4rem, 4vw, 1.8rem);
+    margin-bottom: 12px;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .card,
+  .glass-card {
+    padding: 18px;
+    border-radius: 16px;
+  }
+
+  .card h3 {
+    font-size: 1rem;
+  }
+
+  .split {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .panel {
+    padding: 18px;
+    border-radius: 16px;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .skill-item {
+    padding: 12px 14px;
+    font-size: 0.85rem;
+    border-radius: 10px;
+  }
+
+  .badge {
+    padding: 5px 10px;
+    font-size: 0.8rem;
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    text-align: center;
+  }
+
+  .footer-logo {
+    justify-content: center;
+  }
+
+  .footer-links {
+    text-align: center;
+  }
+
+  .site-footer {
+    margin-top: 40px;
+    padding: 32px 0 20px;
+  }
+
+  .project-header h1 {
+    font-size: clamp(1.6rem, 5vw, 2rem);
+  }
+
+  .feature-list {
+    gap: 10px;
+  }
+
+  .back-link {
+    font-size: 0.85rem;
+    margin-bottom: 16px;
+  }
+
+  .form-grid {
+    gap: 12px;
+  }
+
+  .input,
+  .select,
+  .textarea {
+    padding: 12px 14px;
+    font-size: 16px; /* Prevents iOS zoom on focus */
+  }
+
+  .btn {
+    padding: 12px 18px;
+    font-size: 0.95rem;
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  .container {
+    width: min(1100px, 88vw);
+  }
+
+  .hero h1 {
+    font-size: 1.6rem;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-card {
+    padding: 18px;
+  }
+
+  .nav-cta .btn {
+    padding: 10px 12px;
+    font-size: 0.85rem;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .btn {
+    min-height: 44px; /* Apple's recommended touch target */
+  }
+
+  .nav-links a,
+  .footer-links a {
+    padding: 8px 0;
+  }
+
+  .card:hover,
+  .glass-card:hover {
+    transform: none; /* Disable hover effects on touch */
+  }
+
+  .skill-item:hover {
+    transform: none;
+  }
+}
+
+/* High resolution displays (Retina) */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Safe areas for notched devices (iPhone X+) */
+@supports (padding: max(0px)) {
+  .site-header {
+    padding-left: max(18px, env(safe-area-inset-left));
+    padding-right: max(18px, env(safe-area-inset-right));
+  }
+
+  .site-footer {
+    padding-bottom: max(20px, env(safe-area-inset-bottom));
+  }
+}
+
+/* Landscape orientation adjustments */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero {
+    padding: 30px 0 20px;
+  }
+
+  .section {
+    padding: 24px 0;
   }
 }

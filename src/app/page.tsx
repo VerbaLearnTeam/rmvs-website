@@ -7,18 +7,28 @@ import ScrollReveal, { StaggerContainer, StaggerItem, FadeIn } from "@/component
 import AnimatedButton from "@/components/AnimatedButton";
 import { motion, useReducedMotion } from "framer-motion";
 
-const projects = [
+interface Project {
+  title: string;
+  description: string;
+  href: string;
+  badge: string;
+  status?: string;
+}
+
+const projects: Project[] = [
   {
     title: "ePrescience",
     description: "All-in-one learning suite for students. AI-powered study tools, flashcards, and spaced repetition.",
     href: "/projects/eprescience",
-    badge: "iOS App"
+    badge: "iOS App",
+    status: "Live on App Store"
   },
   {
     title: "Spec'd",
     description: "The ultimate mobile companion for car enthusiasts. Track maintenance, log mileage, and digitize your garage.",
     href: "/projects/specd",
-    badge: "iOS App"
+    badge: "iOS App",
+    status: "Live on App Store"
   },
   {
     title: "Auron Intelligence",
@@ -138,13 +148,23 @@ export default function HomePage() {
             {projects.map((project) => (
               <StaggerItem key={project.title}>
                 <GlassCard href={project.href}>
-                  <motion.span
-                    className="badge"
-                    style={{ marginBottom: 12 }}
-                    whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
-                  >
-                    {project.badge}
-                  </motion.span>
+                  <div style={{ display: "flex", gap: 8, marginBottom: 12, flexWrap: "wrap" }}>
+                    <motion.span
+                      className="badge"
+                      whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
+                    >
+                      {project.badge}
+                    </motion.span>
+                    {project.status && (
+                      <motion.span
+                        className="badge"
+                        style={{ background: "rgba(34, 197, 94, 0.12)", color: "#4ade80" }}
+                        whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
+                      >
+                        {project.status}
+                      </motion.span>
+                    )}
+                  </div>
                   <h3>{project.title}</h3>
                   <p className="muted">{project.description}</p>
                 </GlassCard>
