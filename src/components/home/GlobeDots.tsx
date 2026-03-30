@@ -70,6 +70,8 @@ export default function GlobeDots() {
         ctx.fill();
       }
 
+      const projected: { sx: number; sy: number; brightness: number; loc: typeof locations[0] }[] = [];
+
       for (const loc of locations) {
         const p = latLngToXYZ(loc.lat, loc.lng, radius);
         const rx = p.x * cosR - p.z * sinR;
@@ -80,6 +82,7 @@ export default function GlobeDots() {
         const sx = cx + rx;
         const sy = cy - p.y;
         const brightness = (rz + radius) / (2 * radius);
+        projected.push({ sx, sy, brightness, loc });
 
         ctx.beginPath();
         ctx.arc(sx, sy, loc.isHQ ? 5 : 3.5, 0, Math.PI * 2);
@@ -92,10 +95,50 @@ export default function GlobeDots() {
         glow.addColorStop(1, "transparent");
         ctx.fillStyle = glow;
         ctx.fillRect(sx - glowR, sy - glowR, glowR * 2, glowR * 2);
+      }
 
-        ctx.font = "500 10px var(--font-sans), system-ui, sans-serif";
+      // Label placement with collision avoidance
+      const labelRects: { x: number; y: number; w: number; h: number }[] = [];
+      const LABEL_H = 12;
+      ctx.font = "500 10px var(--font-sans), system-ui, sans-serif";
+
+      for (const { sx, sy, brightness, loc } of projected) {
+        const text = loc.city;
+        const tw = ctx.measureText(text).width;
+        const baseOff = loc.isHQ ? 8 : 6;
+
+        // Try several candidate positions: right, above-right, below-right, left, above-left, below-left
+        const candidates = [
+          { lx: sx + baseOff,      ly: sy + 3 },
+          { lx: sx + baseOff,      ly: sy - 10 },
+          { lx: sx + baseOff,      ly: sy + 16 },
+          { lx: sx - tw - baseOff, ly: sy + 3 },
+          { lx: sx - tw - baseOff, ly: sy - 10 },
+          { lx: sx - tw - baseOff, ly: sy + 16 },
+        ];
+
+        let bestLx = candidates[0].lx;
+        let bestLy = candidates[0].ly;
+
+        for (const { lx, ly } of candidates) {
+          const rect = { x: lx, y: ly - LABEL_H, w: tw, h: LABEL_H };
+          const overlaps = labelRects.some(
+            (r) =>
+              rect.x < r.x + r.w &&
+              rect.x + rect.w > r.x &&
+              rect.y < r.y + r.h &&
+              rect.y + rect.h > r.y
+          );
+          if (!overlaps) {
+            bestLx = lx;
+            bestLy = ly;
+            break;
+          }
+        }
+
+        labelRects.push({ x: bestLx, y: bestLy - LABEL_H, w: tw, h: LABEL_H });
         ctx.fillStyle = `rgba(240, 246, 252, ${0.4 + brightness * 0.5})`;
-        ctx.fillText(loc.city, sx + (loc.isHQ ? 8 : 6), sy + 3);
+        ctx.fillText(text, bestLx, bestLy);
       }
 
       animRef.current = requestAnimationFrame(draw);
