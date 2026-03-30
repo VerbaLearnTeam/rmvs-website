@@ -47,7 +47,7 @@ export default function DockNav() {
       className="fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-1 px-4 py-2.5 rounded-2xl"
       style={{
         zIndex: "var(--z-dock)",
-        background: "rgba(10, 15, 28, 0.85)",
+        background: "var(--dock-bg)",
         backdropFilter: "blur(20px)",
         WebkitBackdropFilter: "blur(20px)",
         border: "1px solid var(--glass-border)",

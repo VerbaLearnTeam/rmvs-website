@@ -17,7 +17,7 @@ export function TopBarScroll({ children }: { children: ReactNode }) {
       className="site-header"
       style={{
         background: scrolled
-          ? "linear-gradient(180deg, rgba(10, 15, 28, 0.92) 0%, rgba(10, 15, 28, 0.85) 100%)"
+          ? "var(--header-bg)"
           : "transparent",
         borderBottom: scrolled ? undefined : "1px solid transparent",
         backdropFilter: scrolled ? "blur(20px) saturate(180%)" : "none",

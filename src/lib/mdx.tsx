@@ -40,7 +40,7 @@ const mdxComponents = {
   pre: (props: React.ComponentProps<"pre">) => (
     <pre
       style={{
-        background: "rgba(10, 15, 28, 0.8)",
+        background: "var(--code-bg)",
         border: "1px solid var(--border)",
         borderRadius: "var(--radius-md)",
         padding: 20,
