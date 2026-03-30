@@ -318,7 +318,7 @@ export default function HomePage() {
             <GlobeDots />
             <div>
               <p className="muted" style={{ marginBottom: 20 }}>
-                RMVS partners span Pittsburgh, Cleveland, San Francisco, London,
+                RMVS partners span Pittsburgh, Cleveland, New York, Seoul,
                 and East Africa. Our network connects builders, researchers, and
                 communities across every continent.
               </p>
