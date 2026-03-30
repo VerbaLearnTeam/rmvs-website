@@ -3,7 +3,7 @@ export interface Project {
   slug: string;
   description: string;
   badge: string;
-  status: "live" | "development" | "prototype" | "active";
+  status: "live" | "development" | "prototype" | "active" | "planning";
   statusLabel: string;
   tags: string[];
 }
@@ -48,6 +48,16 @@ export const projects: Project[] = [
     status: "prototype",
     statusLabel: "Prototype",
     tags: ["Swift", "BLE", "PCB Design", "Signal Processing"],
+  },
+  {
+    title: "Orchard",
+    slug: "orchard",
+    description:
+      "Agent-native development environment for Apple platforms. Supervise AI agents across code, simulators, and release pipelines — with evidence, not vibes.",
+    badge: "Developer Tools",
+    status: "planning",
+    statusLabel: "Early Planning",
+    tags: ["Swift", "Rust", "GPUI", "MCP", "Xcode"],
   },
   {
     title: "Sunkist Goofbox",

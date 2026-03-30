@@ -55,6 +55,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "eprescience",
     "specd",
     "auron",
+    "orchard",
     "neura",
     "sunkist-goofbox",
     "unplugged",

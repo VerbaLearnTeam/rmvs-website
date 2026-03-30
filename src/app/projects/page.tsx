@@ -41,6 +41,14 @@ const projects = [
     status: "Prototype"
   },
   {
+    title: "Orchard",
+    tagline: "The IDE that proves your app works",
+    description: "Agent-native development environment for Apple platforms. Supervise AI agents across code, simulators, browsers, and release pipelines — with evidence, not vibes.",
+    href: "/projects/orchard",
+    badge: "Developer Tools",
+    status: "Early Planning"
+  },
+  {
     title: "Sunkist Goofbox",
     tagline: "Car culture & storytelling",
     description: "YouTube channel featuring POV drives, car reviews, DIY maintenance content, and the ongoing saga of owning a chrome orange 2005 Lotus Elise.",
