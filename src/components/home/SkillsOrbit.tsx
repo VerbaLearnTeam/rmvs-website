@@ -51,7 +51,7 @@ export default function SkillsOrbit() {
   return (
     <div
       className="relative mx-auto"
-      style={{ width: 520, height: 520, maxWidth: "100%" }}
+      style={{ width: 520, height: 520, maxWidth: "100%", overflow: "hidden" }}
       aria-hidden="true"
     >
       {/* Center logo */}
