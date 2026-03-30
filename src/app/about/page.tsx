@@ -235,18 +235,25 @@ export default function AboutPage() {
           </ScrollReveal>
 
           <ScrollReveal delay={0.2}>
-            <GlassCard enableTilt={false}>
-              <h3>Beyond Work</h3>
-              <p className="muted" style={{ marginBottom: 16 }}>
-                When not building products, Rory works on his side quests: becoming an EMT, drumming in a 
-                jazz band, driving cool cars (including his chrome orange 2005 Lotus Elise nicknamed the 
-                &quot;Sunkist Goofbox&quot;), and traveling extensively.
-              </p>
-              <p className="muted">
-                He&apos;s also the founder of Unplugged PGH, having organized more than ten music festivals 
-                and raised over $10,000 for community causes.
-              </p>
-            </GlassCard>
+            <a
+              href="https://www.instagram.com/disorganised_crimee/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ textDecoration: "none", display: "block" }}
+            >
+              <GlassCard enableTilt={false}>
+                <h3>Beyond Work</h3>
+                <p className="muted" style={{ marginBottom: 16 }}>
+                  When not building products, Rory works on his side quests: becoming an EMT, drumming in a 
+                  jazz band, driving cool cars (including his chrome orange 2005 Lotus Elise nicknamed the 
+                  &quot;Sunkist Goofbox&quot;), and traveling extensively.
+                </p>
+                <p className="muted">
+                  He&apos;s also the founder of Unplugged PGH, having organized more than ten music festivals 
+                  and raised over $10,000 for community causes.
+                </p>
+              </GlassCard>
+            </a>
           </ScrollReveal>
         </div>
       </section>
