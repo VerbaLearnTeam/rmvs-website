@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import ScrollReveal, { StaggerContainer, StaggerItem } from "@/components/ScrollReveal";
 import GlassCard from "@/components/GlassCard";
 import AnimatedButton from "@/components/AnimatedButton";
@@ -44,7 +45,7 @@ export default function AboutPage() {
     <main>
       <section className="hero" style={{ position: "relative", overflow: "hidden" }}>
         <HeroBackground />
-        <div className="container" style={{ position: "relative", zIndex: 1 }}>
+        <div className="container split" style={{ position: "relative", zIndex: 1, alignItems: "center" }}>
           <ScrollReveal>
             <span className="badge">
               About the Founder
@@ -56,6 +57,31 @@ export default function AboutPage() {
               Neuroscience and psychology student at the University of Pittsburgh, full-stack developer, 
               and entrepreneur building AI-integrated products across healthcare, education, and automotive.
             </p>
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.2}>
+            <div
+              style={{
+                position: "relative",
+                width: "100%",
+                maxWidth: 340,
+                aspectRatio: "4 / 5",
+                borderRadius: 16,
+                overflow: "hidden",
+                border: "1px solid var(--glass-border)",
+                boxShadow: "0 0 40px rgba(34, 211, 238, 0.08)",
+                margin: "0 auto",
+              }}
+            >
+              <Image
+                src="/images/rory-about.png"
+                alt="Rory Monaghan"
+                fill
+                sizes="(max-width: 768px) 80vw, 340px"
+                style={{ objectFit: "cover" }}
+                priority
+              />
+            </div>
           </ScrollReveal>
         </div>
       </section>
