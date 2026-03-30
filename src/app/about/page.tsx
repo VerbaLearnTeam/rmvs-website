@@ -30,7 +30,7 @@ const skills = [
     { name: "Automation", url: "https://en.wikipedia.org/wiki/Automation" },
   ]},
   { category: "Infrastructure", items: [
-    { name: "Firebase", url: "https://en.wikipedia.org/wiki/Firebase" },
+    { name: "AWS", url: "https://en.wikipedia.org/wiki/Amazon_Web_Services" },
     { name: "Cloudflare", url: "https://en.wikipedia.org/wiki/Cloudflare" },
     { name: "Railway", url: "https://railway.com" },
     { name: "PostgreSQL", url: "https://en.wikipedia.org/wiki/PostgreSQL" },
@@ -41,6 +41,7 @@ const skills = [
     { name: "Project Management", url: "https://en.wikipedia.org/wiki/Project_management" },
     { name: "Digital Marketing", url: "https://en.wikipedia.org/wiki/Digital_marketing" },
     { name: "AdMob", url: "https://en.wikipedia.org/wiki/AdMob" },
+    { name: "SEO / AEO", url: "https://www.forbes.com/sites/lutzfinger/2025/06/19/answer-engine-optimization-aeo--what-brands-need-to-know/" },
   ]},
 ];
 
