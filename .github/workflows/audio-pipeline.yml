@@ -1,0 +1,90 @@
+name: Audio Blog Pipeline
+
+on:
+  push:
+    paths:
+      - "content/blog/**/*.mdx"
+      - "content/blog/**/*.md"
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: "Blog post slug to process"
+        required: true
+        type: string
+
+jobs:
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      changed_posts: ${{ steps.detect.outputs.posts }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Detect changed blog posts
+        id: detect
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "posts=[\"content/blog/${{ inputs.slug }}.mdx\"]" >> $GITHUB_OUTPUT
+          else
+            CHANGED=$(git diff --name-only HEAD~1 -- content/blog/ | jq -R -s -c 'split("\n")[:-1]')
+            echo "posts=$CHANGED" >> $GITHUB_OUTPUT
+          fi
+
+  process-audio:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.changed_posts != '[]'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        post: ${{ fromJson(needs.detect-changes.outputs.changed_posts) }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: AEO Enrichment
+        run: node scripts/pipeline/enrich-aeo.js "${{ matrix.post }}"
+
+      - name: Editorial Review
+        run: node scripts/pipeline/editorial-review.js "${{ matrix.post }}"
+
+      - name: Generate Audio Script
+        run: node scripts/pipeline/generate-audio-script.js "${{ matrix.post }}"
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      - name: Notify for Review
+        run: node scripts/pipeline/notify-review.js "review-ready" "${{ matrix.post }}"
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+  # Manual approval step would go here in production
+  # synthesize:
+  #   needs: process-audio
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Synthesize Audio
+  #       run: node scripts/pipeline/synthesize-audio.js ...
+  #     - name: Upload to R2
+  #       run: node scripts/pipeline/upload-audio.js ...
+
+  publish-check:
+    runs-on: ubuntu-latest
+    # Runs on schedule to check for posts ready to publish
+    # schedule:
+    #   - cron: "0 9 * * *"  # Daily at 9am UTC
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Check Scheduled Posts
+        run: node scripts/pipeline/check-scheduled.js

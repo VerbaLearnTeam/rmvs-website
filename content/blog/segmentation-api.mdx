@@ -1,0 +1,161 @@
+---
+title: "Segmentation API: Affordable, Versatile Image Segmentation for Every Developer"
+slug: "segmentation-api"
+date: "2026-04-02"
+updated: "2026-04-02"
+pillar: "Tool Review"
+tags: ["computer-vision", "segmentation", "sam3", "api", "machine-learning", "annotation", "medical-imaging"]
+excerpt: "Segmentation API is a production-grade API platform that wraps Meta's Segment Anything Model 3, giving developers zero-shot image and video segmentation through four REST endpoints at $0.02 per image. Born from a real clinical AI problem — annotating brain CTA scans — it now serves use cases from e-commerce product cutouts to autonomous vehicle training data. Here's why it matters and how to integrate it."
+featured: true
+status: "draft"
+entities:
+  - name: "Segmentation API"
+    type: "api"
+    url: "https://www.segmentationapi.com"
+    description: "Production-grade API platform for Meta's Segment Anything Model 3."
+  - name: "SAM 3 (Segment Anything Model 3)"
+    type: "model"
+    url: "https://ai.meta.com/blog/segment-anything-model-3/"
+    description: "Meta's open-vocabulary segmentation model."
+  - name: "Auron Intelligence"
+    type: "product"
+    url: "https://www.rmvs.org/projects/auron"
+    description: "Clinical AI for automated CTA brain scan analysis."
+  - name: "Orchard"
+    type: "product"
+    url: "https://www.rmvs.org/projects/orchard"
+    description: "Agent-native development environment for Apple platforms."
+questions_answered:
+  - "What is Segmentation API and how does it work?"
+  - "How much does image segmentation cost with Segmentation API?"
+  - "How do you integrate SAM 3 into an application without managing GPUs?"
+  - "What are the best use cases for Segmentation API?"
+  - "How does Segmentation API compare to self-hosting SAM 3?"
+  - "What is the best API for image segmentation in 2026?"
+related_posts: []
+canonical_products:
+  - name: "Auron Intelligence"
+    role: "case_study"
+  - name: "Orchard"
+    role: "product_mention"
+seo:
+  title: "Segmentation API: The SAM 3 API Every Developer Needs | RMVS"
+  description: "Segmentation API wraps Meta's SAM 3 into four REST endpoints at $0.02/image. Zero-shot image and video segmentation without GPU infrastructure."
+audio:
+  url: ""
+  duration: ""
+  chapters: []
+  published: false
+---
+
+## What Segmentation API Is
+
+[Segmentation API](https://www.segmentationapi.com) is a production-grade API platform that wraps Meta's Segment Anything Model 3 (SAM 3) into a simple, developer-friendly service. You upload an image or video, provide a text prompt describing what you want segmented, and get back pixel-perfect masks — no GPU infrastructure, no model hosting, no ML ops burden. Four REST endpoints. Three integration steps. $0.02 per processed image or video frame.
+
+It was built by Artem and Ruslan Zabarov — two CS students at Case Western Reserve University with backgrounds in machine learning engineering, software craftsmanship, and research. The origin story is worth telling because it explains why the product exists and why it's designed the way it is.
+
+## The Origin Story: A Clinical AI Problem
+
+In late 2025, the Zabarov brothers were consulting with the Auron Intelligence team at RMVS on a specific and difficult problem: how to segment DICOM CTA brain scans to label and annotate arterial structures for training the Auron Tomography Intelligence System (ATIS), a clinical AI model designed to detect vascular abnormalities linked to stroke risk.
+
+Medical image annotation is notoriously expensive and time-consuming. The standard approach involves radiologists manually tracing structures across hundreds of scan slices — a process that can take hours per study and costs hundreds of dollars per annotated case when outsourced to specialized firms like iMerit or MD.ai.
+
+The Auron team needed a way to generate high-quality segmentation masks at scale: accurate enough to serve as training labels, fast enough to process thousands of scans, and affordable enough for a startup budget. Artem and Ruslan went looking for an API they could plug into the annotation pipeline — a service that would take an image and a text prompt like "circle of Willis" or "middle cerebral artery" and return a clean mask.
+
+They were surprised to find that no such tool existed in a developer-friendly form. SAM 3 was available as an open-source model, but deploying it meant provisioning H200 GPUs, building an inference pipeline, managing queue systems, handling file storage, and maintaining the whole stack. For a team that needed segmentation as a *dependency* in a larger system — not as the core product itself — this was an unreasonable engineering burden.
+
+So they built the tool they wished existed. What started as an internal solution for the Auron pipeline became [Segmentation API](https://www.segmentationapi.com): a clean, RESTful service that abstracts away the entire GPU infrastructure behind SAM 3 and exposes it through four endpoints.
+
+## Why It Matters for Developers
+
+The core value proposition is simple: **segmentation as a dependency, not a project.**
+
+Most developers who need image segmentation are not building a segmentation company. They're building something else — an e-commerce platform that needs product cutouts, an annotation tool that needs auto-labeling, a content moderation system that needs object isolation, a medical imaging pipeline that needs structure identification. Segmentation is one step in a larger workflow. It should take an afternoon to integrate, not a quarter to deploy.
+
+Before Segmentation API, developers in this position had three options:
+
+**Option 1: Self-host SAM 3.** Download the model weights, provision GPU instances (H200 recommended for production throughput), build an inference API, manage file uploads and result storage, implement queue systems for async processing, and handle scaling. This works for teams where segmentation is the core product. For everyone else, it's months of infrastructure work for a feature that represents 5% of the total system.
+
+**Option 2: Use a managed ML platform.** Services like Roboflow, AWS SageMaker, or Google Vertex AI offer model hosting, but they're designed for teams building and training custom models. If you just want to call SAM 3 with a text prompt and get a mask back, you're paying for an enormous platform you don't need.
+
+**Option 3: Build a cheaper approximation.** Use YOLO11-seg or FastSAM for a lighter-weight solution that runs on smaller hardware. This works for some cases, but these models lack open-vocabulary support — you can only segment classes they were trained on. If your use case involves novel objects, medical structures, or anything outside the COCO dataset, you're out of luck.
+
+Segmentation API is the fourth option: a focused, API-first service that gives you SAM 3's full capability — including open-vocabulary text prompting, point and box prompting, and video segmentation — without any of the infrastructure overhead.
+
+## How It Works: Three Steps
+
+The integration flow is intentionally minimal. Here's the complete workflow:
+
+### Step 1: Upload Your Media
+
+Request a presigned S3 URL, then PUT your file directly to storage.
+
+```bash
+# Request a presigned upload URL
+curl -X POST https://api.segmentationapi.com/v1/uploads/presign \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: YOUR_API_KEY" \
+  -d '{"contentType": "image/png"}'
+
+# PUT your file to the presigned URL
+curl -X PUT "$UPLOAD_URL" \
+  -H "Content-Type: image/png" \
+  --data-binary "@your-image.png"
+```
+
+### Step 2: Submit a Segmentation Job
+
+```bash
+curl -X POST https://api.segmentationapi.com/v1/jobs \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: YOUR_API_KEY" \
+  -d '{
+    "tasks": ["YOUR_TASK_ID"],
+    "prompts": ["dog", "person", "car"]
+  }'
+```
+
+### Step 3: Retrieve Results
+
+```bash
+curl https://api.segmentationapi.com/v1/jobs/YOUR_JOB_ID \
+  -H "x-api-key: YOUR_API_KEY"
+```
+
+That's it. Three steps: upload, segment, retrieve. No model configuration, no GPU provisioning, no inference optimization.
+
+## Pricing: What $0.02 Per Image Actually Means
+
+Each processed image or video frame costs one token, and each token is $0.02. There are no monthly minimums, no per-seat charges, and no platform fees.
+
+- **100 product photos** for an e-commerce catalog: $2.00
+- **1,000 training images** for a computer vision dataset: $20.00
+- **10,000 frames** from a 5-minute video: $200.00
+- **50,000 medical scan slices** for a clinical AI training set: $1,000.00
+
+## How We're Using It at RMVS
+
+**Auron Intelligence:** The original use case. ATIS requires large volumes of annotated CTA brain scan data. Segmentation API provides the auto-labeling layer that makes this feasible at startup scale.
+
+**Orchard:** Our agent-native development environment will use Segmentation API for semantic screenshot verification — a testing approach where UI elements are identified by concept rather than pixel coordinates.
+
+## Quick Reference
+
+| Detail | Value |
+|---|---|
+| Website | [segmentationapi.com](https://www.segmentationapi.com) |
+| Underlying model | Meta SAM 3 |
+| Pricing | $0.02 per image / video frame |
+| Latency | ~500ms per image |
+| Auth | API key via `x-api-key` header |
+| Batch size | Up to 100 tasks per job |
+
+---
+
+## Summary
+
+**Problem:** Developers who need image segmentation as a dependency face a painful choice: self-host complex GPU infrastructure, pay for an over-engineered ML platform, or settle for lower-quality models.
+
+**Solution:** [Segmentation API](https://www.segmentationapi.com) wraps Meta's SAM 3 into four REST endpoints at $0.02 per image, with no GPU management and no ML ops burden.
+
+**Key insight:** The teams that benefit most are not computer vision companies — they're companies where segmentation is one step in a larger workflow.

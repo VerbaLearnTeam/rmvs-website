@@ -1,0 +1,72 @@
+export interface Project {
+  title: string;
+  slug: string;
+  description: string;
+  badge: string;
+  status: "live" | "development" | "prototype" | "active";
+  statusLabel: string;
+  tags: string[];
+}
+
+export const projects: Project[] = [
+  {
+    title: "ePrescience",
+    slug: "eprescience",
+    description:
+      "All-in-one learning suite for students. AI-powered study tools, flashcards, and spaced repetition.",
+    badge: "iOS App",
+    status: "live",
+    statusLabel: "Live on App Store",
+    tags: ["Swift", "CoreML", "Firebase", "RevenueCat"],
+  },
+  {
+    title: "Spec'd",
+    slug: "specd",
+    description:
+      "The ultimate mobile companion for car enthusiasts. Track maintenance, log mileage, and digitize your garage.",
+    badge: "iOS App",
+    status: "live",
+    statusLabel: "Live on App Store",
+    tags: ["Swift", "CloudKit", "App Store Connect"],
+  },
+  {
+    title: "Auron Intelligence",
+    slug: "auron",
+    description:
+      "Medical AI system for arterial CT analysis. Automated detection of vascular abnormalities linked to stroke risk.",
+    badge: "Medical AI",
+    status: "development",
+    statusLabel: "In Development",
+    tags: ["Python", "PyTorch", "DICOM", "AWS"],
+  },
+  {
+    title: "Neura",
+    slug: "neura",
+    description:
+      "Smart sleep mask with EOG sensors. Wake at the optimal point in your sleep cycle.",
+    badge: "Hardware + App",
+    status: "prototype",
+    statusLabel: "Prototype",
+    tags: ["Swift", "BLE", "PCB Design", "Signal Processing"],
+  },
+  {
+    title: "Sunkist Goofbox",
+    slug: "sunkist-goofbox",
+    description:
+      "YouTube channel documenting car ownership, POV drives, and automotive culture.",
+    badge: "Content",
+    status: "active",
+    statusLabel: "Active",
+    tags: ["Video Production", "Automotive"],
+  },
+  {
+    title: "Unplugged PGH",
+    slug: "unplugged",
+    description:
+      "Student-run event collective organizing music festivals and community events in Pittsburgh.",
+    badge: "Events",
+    status: "active",
+    statusLabel: "Active",
+    tags: ["Event Production", "Community"],
+  },
+];

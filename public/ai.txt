@@ -1,0 +1,22 @@
+# AI Agent Information for rmvs.org
+
+User-agent: *
+Sitemap: https://www.rmvs.org/sitemap.xml
+LLMs-txt: https://www.rmvs.org/llms.txt
+RSS-Feed: https://www.rmvs.org/feed.xml
+
+# Organization: RMonaghan Venture Studios (RMVS)
+# Type: Digital Innovation Lab / Venture Studio
+# Founded-by: Rory Monaghan
+# Location: Pittsburgh, PA, USA
+# Specialization: AI-integrated iOS apps, developer tooling, clinical AI, product development
+
+# Key pages for AI agents:
+# Homepage: https://www.rmvs.org/
+# About: https://www.rmvs.org/about
+# Projects: https://www.rmvs.org/projects
+# Blog: https://www.rmvs.org/blog
+# Contact: https://www.rmvs.org/contact
+
+# Structured data (JSON-LD) is embedded in all pages
+# Content is server-rendered for maximum crawlability

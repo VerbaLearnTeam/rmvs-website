@@ -1,221 +1,392 @@
-"use client";
-
-import HeroBackground from "@/components/HeroBackground";
-import GlassCard from "@/components/GlassCard";
-import ScrollReveal, { StaggerContainer, StaggerItem } from "@/components/ScrollReveal";
-import AnimatedButton from "@/components/AnimatedButton";
-import { motion, useReducedMotion } from "framer-motion";
-
-interface Project {
-  title: string;
-  description: string;
-  href: string;
-  badge: string;
-  status?: string;
-}
-
-const projects: Project[] = [
-  {
-    title: "ePrescience",
-    description: "All-in-one learning suite for students. AI-powered study tools, flashcards, and spaced repetition.",
-    href: "/projects/eprescience",
-    badge: "iOS App",
-    status: "Live on App Store"
-  },
-  {
-    title: "Spec'd",
-    description: "The ultimate mobile companion for car enthusiasts. Track maintenance, log mileage, and digitize your garage.",
-    href: "/projects/specd",
-    badge: "iOS App",
-    status: "Live on App Store"
-  },
-  {
-    title: "Auron Intelligence",
-    description: "Medical AI system for arterial CT analysis. Automated detection of vascular abnormalities.",
-    href: "/projects/auron",
-    badge: "Medical AI"
-  },
-  {
-    title: "Neura",
-    description: "Smart sleep mask with EOG sensors. Wake at the optimal point in your sleep cycle.",
-    href: "/projects/neura",
-    badge: "Hardware + App"
-  },
-  {
-    title: "Sunkist Goofbox",
-    description: "YouTube channel documenting car ownership, POV drives, and automotive culture.",
-    href: "/projects/sunkist-goofbox",
-    badge: "Content"
-  },
-  {
-    title: "Unplugged PGH",
-    description: "Student-run event collective organizing music festivals and community events in Pittsburgh.",
-    href: "/projects/unplugged",
-    badge: "Events"
-  }
-];
-
-const skills = [
-  "iOS Development (Swift, Xcode)",
-  "Full-Stack Web Development",
-  "Machine Learning & AI",
-  "Firebase & Cloud Infrastructure",
-  "API Design & Integration",
-  "Product Strategy",
-  "UI/UX Design",
-  "Automation Engineering"
-];
+import Image from "next/image";
+import Link from "next/link";
+import { projects } from "@/data/projects";
+import { skillCategories, infrastructureSkills } from "@/data/skills";
+import { locations } from "@/data/locations";
+import Counter from "@/components/home/Counter";
+import SkillsOrbit from "@/components/home/SkillsOrbit";
+import GlobeDots from "@/components/home/GlobeDots";
+import SectionHeader from "@/components/shared/SectionHeader";
+import ProjectCard from "@/components/shared/ProjectCard";
 
 export default function HomePage() {
-  const prefersReducedMotion = useReducedMotion();
-
   return (
     <main>
-      {/* Hero Section with Animated Background */}
-      <section className="hero" style={{ position: "relative", overflow: "hidden" }}>
-        <HeroBackground />
-        <div className="container hero-grid" style={{ position: "relative", zIndex: 1 }}>
-          <ScrollReveal>
-            <span className="badge">
-              Digital Innovation Lab
+      {/* ─── Hero ─── */}
+      <section id="hero" className="hero" style={{ position: "relative" }}>
+        <div className="container hero-grid">
+          <div>
+            <span className="badge" style={{ marginBottom: 20 }}>
+              <span
+                style={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: "50%",
+                  background: "#4ade80",
+                  display: "inline-block",
+                }}
+              />
+              Digital Innovation Lab — Pittsburgh, PA
             </span>
-            <h1>
-              We solve problems we&apos;ve had ourselves.
-            </h1>
+
+            <h1>We build what we wish existed.</h1>
+
             <p>
-              RMonaghan Venture Studios is a cutting-edge digital innovation lab specializing in AI-integrated 
-              iOS apps and end-to-end product development. We build elegant, high-performance solutions 
-              fueled by creativity and dedication.
+              RMonaghan Venture Studios is a digital innovation lab specializing
+              in AI-integrated iOS apps, developer tooling, clinical AI, and
+              end-to-end product development. From concept to App Store — fueled
+              by creativity and dedication.
             </p>
-            <div className="nav-cta" style={{ marginBottom: 18 }}>
-              <AnimatedButton href="/projects" variant="primary">
+
+            <div className="nav-cta" style={{ marginBottom: 24 }}>
+              <Link href="/projects" className="btn btn-primary">
                 View Projects
-              </AnimatedButton>
-              <AnimatedButton href="/contact" variant="outline">
-                Get in Touch
-              </AnimatedButton>
+              </Link>
+              <Link href="/blog" className="btn btn-outline">
+                Read the Blog →
+              </Link>
             </div>
-          </ScrollReveal>
 
-          <ScrollReveal delay={0.3}>
-            <GlassCard className="hero-card" href="/about">
-              <h3>Meet the Founder</h3>
-              <p className="muted">
-                Rory Monaghan is a neuroscience student at the University of Pittsburgh, full-stack developer, 
-                and entrepreneur building AI-integrated products across healthcare, education, and automotive.
-              </p>
-              <span className="btn btn-ghost" style={{ marginTop: 16, display: "inline-flex" }}>
-                Learn More →
-              </span>
-            </GlassCard>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* Projects Section */}
-      <section className="section">
-        <div className="container">
-          <ScrollReveal>
-            <h2>Our Projects</h2>
-            <p className="muted">
-              From empowering students with AI-powered learning tools to helping car enthusiasts manage their 
-              collections, our portfolio keeps expanding into new frontiers.
-            </p>
-          </ScrollReveal>
-
-          <StaggerContainer className="cards">
-            {projects.map((project) => (
-              <StaggerItem key={project.title}>
-                <GlassCard href={project.href}>
-                  <div style={{ display: "flex", gap: 8, marginBottom: 12, flexWrap: "wrap" }}>
-                    <motion.span
-                      className="badge"
-                      whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
-                    >
-                      {project.badge}
-                    </motion.span>
-                    {project.status && (
-                      <motion.span
-                        className="badge"
-                        style={{ background: "rgba(34, 197, 94, 0.12)", color: "#4ade80" }}
-                        whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
-                      >
-                        {project.status}
-                      </motion.span>
-                    )}
-                  </div>
-                  <h3>{project.title}</h3>
-                  <p className="muted">{project.description}</p>
-                </GlassCard>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
-        </div>
-      </section>
-
-      {/* What We Do Section */}
-      <section className="section">
-        <div className="container split">
-          <ScrollReveal>
-            <h2>What We Do</h2>
-            <p className="muted">
-              We utilize Xcode and Swift alongside Firebase, Cloudflare, App Store Connect, RevenueCat, 
-              Google AdMob, and a diverse array of APIs — enhanced by AI engines like GPT, Claude, Gemini, 
-              and Cursor — to build elegant, high-performance solutions.
-            </p>
-            <StaggerContainer className="skills-grid">
-              {skills.map((skill) => (
-                <StaggerItem key={skill}>
-                  <motion.div
-                    className="skill-item"
-                    whileHover={prefersReducedMotion ? {} : { 
-                      scale: 1.02,
-                      borderColor: "rgba(125, 211, 252, 0.4)",
-                    }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    {skill}
-                  </motion.div>
-                </StaggerItem>
-              ))}
-            </StaggerContainer>
-          </ScrollReveal>
-
-          <ScrollReveal delay={0.2}>
-            <GlassCard enableTilt={false}>
-              <h3>Our Approach</h3>
-              <p className="muted" style={{ marginBottom: 16 }}>
-                Backed by an ever-growing network of experts and fueled by creativity and dedication, 
-                we tackle tough problems we have experienced ourselves, bringing our products to life 
-                with passion and excitement.
-              </p>
-              <p className="muted">
-                From accessible learning platforms to neuroscience-based sleep tools, we&apos;re always 
-                exploring new frontiers.
-              </p>
-            </GlassCard>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="section">
-        <ScrollReveal>
-          <div className="container panel" style={{ textAlign: "center" }}>
-            <h2>Let&apos;s Build Something Together</h2>
-            <p className="muted">
-              Interested in collaborating, investing, or just want to chat about technology?
-            </p>
-            <div className="nav-cta" style={{ justifyContent: "center", marginTop: 18 }}>
-              <AnimatedButton href="/contact" variant="primary">
-                Get in Touch
-              </AnimatedButton>
-              <AnimatedButton href="/about" variant="outline">
-                About Rory
-              </AnimatedButton>
+            <div className="flex gap-12 mt-8">
+              <Counter end={6} label="Active Projects" suffix="+" />
+              <Counter end={20} label="Countries Visited" suffix="+" />
+              <Counter end={3} label="Products Live" />
             </div>
           </div>
-        </ScrollReveal>
+
+          <Link href="/about" className="hero-card" style={{ display: "block" }}>
+            <div
+              className="overflow-hidden rounded-xl mb-4"
+              style={{ aspectRatio: "4/3" }}
+            >
+              <Image
+                src="/images/rory-founder.png"
+                alt="Rory Monaghan, Founder of RMVS"
+                width={400}
+                height={300}
+                priority
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <h3>Meet the Founder</h3>
+            <p
+              className="muted"
+              style={{ fontSize: "0.92rem", marginBottom: 12 }}
+            >
+              Rory Monaghan is a neuroscience student at the University of
+              Pittsburgh, full-stack developer, and entrepreneur building
+              AI-integrated products across healthcare, education, and
+              automotive.
+            </p>
+            <span className="btn btn-ghost" style={{ display: "inline-flex" }}>
+              Learn More →
+            </span>
+          </Link>
+        </div>
+
+        <div
+          className="text-center mt-12"
+          style={{ color: "var(--white-dim)", fontSize: "0.82rem" }}
+        >
+          <p>Scroll to explore</p>
+          <svg
+            width="20"
+            height="30"
+            viewBox="0 0 20 30"
+            fill="none"
+            className="mx-auto mt-2"
+            style={{ opacity: 0.4 }}
+          >
+            <rect
+              x="1"
+              y="1"
+              width="18"
+              height="28"
+              rx="9"
+              stroke="currentColor"
+              strokeWidth="1.5"
+            />
+            <circle cx="10" cy="10" r="2" fill="currentColor">
+              <animate
+                attributeName="cy"
+                values="10;18;10"
+                dur="1.5s"
+                repeatCount="indefinite"
+              />
+              <animate
+                attributeName="opacity"
+                values="1;0.3;1"
+                dur="1.5s"
+                repeatCount="indefinite"
+              />
+            </circle>
+          </svg>
+        </div>
+      </section>
+
+      {/* ─── Projects & Ventures ─── */}
+      <section id="projects" className="section">
+        <div className="container">
+          <SectionHeader
+            label="PORTFOLIO"
+            title="Projects & Ventures"
+            description="From empowering students with AI-powered learning tools to helping car enthusiasts manage their collections, our portfolio keeps expanding into new frontiers."
+          />
+          <div className="cards">
+            {projects.map((project) => (
+              <ProjectCard key={project.slug} project={project} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Capabilities / Skills Orbit ─── */}
+      <section id="capabilities" className="section">
+        <div className="container" style={{ textAlign: "center" }}>
+          <SectionHeader
+            label="CAPABILITIES"
+            title="Tech Stack & Tools"
+          />
+
+          <SkillsOrbit />
+
+          {/* Server-rendered fallback for crawlers */}
+          <div className="sr-only">
+            {skillCategories.map((cat) => (
+              <div key={cat.name}>
+                <h3>{cat.name}</h3>
+                <p>{cat.skills.join(", ")}</p>
+              </div>
+            ))}
+            <div>
+              <h3>Infrastructure</h3>
+              <p>{infrastructureSkills.join(", ")}</p>
+            </div>
+          </div>
+
+          <noscript>
+            <div style={{ marginTop: 32 }}>
+              <ul
+                style={{
+                  listStyle: "none",
+                  display: "flex",
+                  flexWrap: "wrap",
+                  gap: 8,
+                  justifyContent: "center",
+                }}
+              >
+                {skillCategories
+                  .flatMap((c) => c.skills)
+                  .concat(infrastructureSkills)
+                  .map((s) => (
+                    <li
+                      key={s}
+                      style={{
+                        padding: "6px 14px",
+                        background: "var(--glass)",
+                        border: "1px solid var(--glass-border)",
+                        borderRadius: "var(--radius-full)",
+                        fontSize: "0.85rem",
+                      }}
+                    >
+                      {s}
+                    </li>
+                  ))}
+              </ul>
+            </div>
+          </noscript>
+        </div>
+      </section>
+
+      {/* ─── What We Do ─── */}
+      <section className="section">
+        <div className="container split">
+          <div>
+            <SectionHeader
+              label="APPROACH"
+              title="What We Do"
+              description="We utilize Xcode and Swift alongside Firebase, Cloudflare, App Store Connect, RevenueCat, and a diverse array of APIs — enhanced by AI engines like Claude, GPT, Gemini, and Cursor — to build elegant, high-performance solutions."
+            />
+          </div>
+          <div className="glass-card" style={{ cursor: "default" }}>
+            <h3>Our Approach</h3>
+            <p className="muted" style={{ marginBottom: 16 }}>
+              Backed by an ever-growing network of experts and fueled by
+              creativity and dedication, we tackle tough problems we have
+              experienced ourselves, bringing our products to life with passion
+              and excitement.
+            </p>
+            <p className="muted">
+              From accessible learning platforms to neuroscience-based sleep
+              tools, we&apos;re always exploring new frontiers.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Blog Preview ─── */}
+      <section id="blog" className="section">
+        <div className="container">
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "flex-start",
+              flexWrap: "wrap",
+              gap: 16,
+              marginBottom: 32,
+            }}
+          >
+            <SectionHeader
+              label="ENGINEERING BLOG"
+              title="Latest Posts"
+            />
+            <Link href="/blog" className="btn btn-outline">
+              View All Posts →
+            </Link>
+          </div>
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+              gap: 20,
+            }}
+          >
+            {[
+              {
+                slug: "segmentation-api",
+                title: "Segmentation API: Affordable Image Segmentation for Every Developer",
+                pillar: "Tool Review",
+                date: "Apr 2, 2026",
+                readTime: "10 min read",
+              },
+              {
+                slug: "blacksnow-research",
+                title: "BlackSnow Research: The Deterministic World Compiler",
+                pillar: "Tool Review",
+                date: "Apr 14, 2026",
+                readTime: "12 min read",
+              },
+            ].map((post) => (
+              <Link
+                key={post.slug}
+                href={`/blog/${post.slug}`}
+                className="glass-card"
+                style={{ display: "block" }}
+              >
+                <span
+                  className="font-mono"
+                  style={{
+                    fontSize: "0.72rem",
+                    fontWeight: 600,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.08em",
+                    color: "var(--pillar-tool-review)",
+                    marginBottom: 8,
+                    display: "block",
+                  }}
+                >
+                  {post.pillar}
+                </span>
+                <h3 style={{ fontSize: "1.05rem", marginBottom: 8 }}>{post.title}</h3>
+                <span
+                  className="font-mono"
+                  style={{
+                    fontSize: "0.75rem",
+                    color: "var(--white-dim)",
+                  }}
+                >
+                  {post.date} · {post.readTime}
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Global Network ─── */}
+      <section id="global" className="section">
+        <div className="container">
+          <SectionHeader
+            label="GLOBAL REACH"
+            title="Building Across Borders"
+          />
+          <div className="split" style={{ alignItems: "center" }}>
+            <GlobeDots />
+            <div>
+              <p className="muted" style={{ marginBottom: 20 }}>
+                RMVS partners span Pittsburgh, Cleveland, San Francisco, London,
+                and East Africa. Our network connects builders, researchers, and
+                communities across every continent.
+              </p>
+              <div
+                style={{
+                  display: "grid",
+                  gap: 10,
+                }}
+              >
+                {locations.slice(0, 5).map((loc) => (
+                  <div
+                    key={loc.city}
+                    className="flex items-center gap-3"
+                    style={{
+                      padding: "10px 14px",
+                      borderRadius: "var(--radius-md)",
+                      border: "1px solid var(--border)",
+                      background: "var(--glass)",
+                    }}
+                  >
+                    <span style={{ fontSize: "1.2rem" }}>{loc.flag}</span>
+                    <div>
+                      <div
+                        style={{
+                          fontWeight: 600,
+                          fontSize: "0.9rem",
+                          color: "var(--white-bright)",
+                        }}
+                      >
+                        {loc.city}, {loc.country}
+                      </div>
+                      <div
+                        style={{
+                          fontSize: "0.78rem",
+                          color: "var(--white-dim)",
+                        }}
+                      >
+                        {loc.role}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── CTA ─── */}
+      <section id="contact" className="section">
+        <div className="container" style={{ textAlign: "center", maxWidth: 600, margin: "0 auto" }}>
+          <h2>Let&apos;s Build Something</h2>
+          <p className="muted" style={{ marginBottom: 24 }}>
+            Interested in collaborating, investing, or just want to chat about
+            technology? We&apos;d love to hear from you.
+          </p>
+          <div className="nav-cta" style={{ justifyContent: "center" }}>
+            <Link href="/contact" className="btn btn-primary">
+              Get in Touch
+            </Link>
+            <a
+              href="https://www.linkedin.com/in/rory-monaghan-300439260"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-outline"
+            >
+              LinkedIn →
+            </a>
+          </div>
+        </div>
       </section>
     </main>
   );

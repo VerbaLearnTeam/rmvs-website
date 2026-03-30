@@ -1,45 +1,56 @@
 /* ============================================
-   RMVS Design Tokens
-   Premium futuristic design system
+   RMVS Design Tokens — Cyan on Dark Navy
    ============================================ */
 
 :root {
-  /* ─────────────────────────────────────────
-     Colors
-     ───────────────────────────────────────── */
-  --bg: #0b0d12;
-  --bg-alt: #111827;
+  /* ─── Background ─── */
+  --bg: #0a0f1c;
+  --bg-card: rgba(13, 20, 36, 0.6);
+
+  /* ─── Accent: Cyan ─── */
+  --cyan: #22d3ee;
+  --cyan-dim: #06b6d4;
+  --cyan-glow: rgba(34, 211, 238, 0.12);
+  --cyan-subtle: rgba(34, 211, 238, 0.06);
+  --cyan-border: rgba(34, 211, 238, 0.2);
+
+  /* ─── Text ─── */
+  --white: #e8edf4;
+  --white-bright: #f0f6fc;
+  --white-dim: rgba(136, 160, 185, 0.85);
+  --white-faint: rgba(136, 160, 185, 0.12);
+
+  /* ─── Borders ─── */
+  --border: rgba(255, 255, 255, 0.06);
+  --border-hover: rgba(255, 255, 255, 0.1);
+
+  /* ─── Glass ─── */
+  --glass: rgba(15, 23, 42, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.08);
+
+  /* ─── Legacy aliases (for existing component compat) ─── */
+  --text: var(--white);
+  --muted: var(--white-dim);
+  --accent: var(--cyan);
+  --accent-strong: var(--cyan-dim);
+  --accent-glow: var(--cyan-glow);
   --surface: #141a24;
   --surface-light: #1b2230;
-  --text: #f3f4f6;
-  --muted: #9ca3af;
-  --accent: #7dd3fc;
-  --accent-strong: #38bdf8;
-  --accent-glow: rgba(56, 189, 248, 0.5);
-  --line: rgba(148, 163, 184, 0.2);
-  --line-glow: rgba(125, 211, 252, 0.4);
+  --line: var(--border);
+  --line-glow: var(--cyan-border);
 
-  /* ─────────────────────────────────────────
-     Gradients
-     ───────────────────────────────────────── */
-  --gradient-primary: linear-gradient(120deg, var(--accent), var(--accent-strong));
-  --gradient-glass: linear-gradient(140deg, rgba(125, 211, 252, 0.1), rgba(15, 23, 42, 0.8));
-  --gradient-orb-1: radial-gradient(circle, rgba(56, 189, 248, 0.4), transparent 70%);
-  --gradient-orb-2: radial-gradient(circle, rgba(125, 211, 252, 0.3), transparent 60%);
-  --gradient-orb-3: radial-gradient(circle, rgba(96, 165, 250, 0.25), transparent 65%);
+  /* ─── Gradients ─── */
+  --gradient-primary: linear-gradient(135deg, var(--cyan), var(--cyan-dim));
+  --gradient-glass: linear-gradient(140deg, rgba(34, 211, 238, 0.06), rgba(15, 23, 42, 0.85));
+  --gradient-heading: linear-gradient(135deg, #f0f6fc 20%, #22d3ee 80%);
 
-  /* ─────────────────────────────────────────
-     Shadows
-     ───────────────────────────────────────── */
-  --shadow-sm: 0 4px 12px rgba(15, 23, 42, 0.2);
-  --shadow-md: 0 16px 40px rgba(15, 23, 42, 0.35);
-  --shadow-lg: 0 24px 60px rgba(15, 23, 42, 0.5);
-  --shadow-glow: 0 0 30px rgba(56, 189, 248, 0.3);
-  --shadow-glow-strong: 0 0 50px rgba(56, 189, 248, 0.5);
+  /* ─── Shadows ─── */
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 16px 40px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 30px var(--cyan-glow), 0 8px 32px rgba(0, 0, 0, 0.3);
 
-  /* ─────────────────────────────────────────
-     Spacing Scale
-     ───────────────────────────────────────── */
+  /* ─── Spacing ─── */
   --space-xs: 4px;
   --space-sm: 8px;
   --space-md: 16px;
@@ -48,53 +59,75 @@
   --space-2xl: 60px;
   --space-3xl: 80px;
 
-  /* ─────────────────────────────────────────
-     Border Radius
-     ───────────────────────────────────────── */
+  /* ─── Border Radius ─── */
   --radius-sm: 8px;
   --radius-md: 12px;
-  --radius-lg: 18px;
-  --radius-xl: 24px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
   --radius-full: 999px;
 
-  /* ─────────────────────────────────────────
-     Motion Tokens
-     ───────────────────────────────────────── */
+  /* ─── Motion ─── */
   --duration-instant: 100ms;
   --duration-fast: 150ms;
   --duration-normal: 300ms;
   --duration-slow: 500ms;
   --duration-slower: 700ms;
-  
   --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
   --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
   --ease-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
   --ease-out: cubic-bezier(0, 0, 0.2, 1);
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
-
   --stagger-delay: 50ms;
   --reveal-distance: 30px;
 
-  /* ─────────────────────────────────────────
-     Z-Index Scale
-     ───────────────────────────────────────── */
+  /* ─── Z-Index ─── */
   --z-base: 0;
   --z-elevated: 10;
-  --z-header: 20;
-  --z-modal: 30;
-  --z-tooltip: 40;
-  --z-max: 50;
+  --z-header: 100;
+  --z-dock: 1000;
+  --z-modal: 2000;
 
-  /* ─────────────────────────────────────────
-     Blur Values
-     ───────────────────────────────────────── */
+  /* ─── Blur ─── */
   --blur-sm: 4px;
   --blur-md: 12px;
   --blur-lg: 24px;
   --blur-xl: 40px;
+
+  /* ─── Pillar badge colors ─── */
+  --pillar-methodology: #22d3ee;
+  --pillar-build-log: #fb923c;
+  --pillar-architecture: #5eead4;
+  --pillar-tool-review: #a78bfa;
+  --pillar-industry: #fde047;
 }
 
-/* Reduced motion preferences */
+/* ─── Light mode ─── */
+[data-theme="light"] {
+  --bg: #f8fafc;
+  --bg-card: rgba(255, 255, 255, 0.8);
+  --cyan: #0891b2;
+  --cyan-dim: #0e7490;
+  --cyan-glow: rgba(8, 145, 178, 0.12);
+  --cyan-subtle: rgba(8, 145, 178, 0.06);
+  --cyan-border: rgba(8, 145, 178, 0.2);
+  --white: #0f172a;
+  --white-bright: #020617;
+  --white-dim: rgba(51, 65, 85, 0.85);
+  --white-faint: rgba(51, 65, 85, 0.08);
+  --border: rgba(0, 0, 0, 0.06);
+  --border-hover: rgba(0, 0, 0, 0.1);
+  --glass: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(0, 0, 0, 0.06);
+  --surface: #f1f5f9;
+  --surface-light: #e2e8f0;
+  --gradient-heading: linear-gradient(135deg, #020617 20%, #0891b2 80%);
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 16px 40px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.12);
+  --shadow-glow: 0 0 30px rgba(8, 145, 178, 0.08), 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* ─── Reduced motion ─── */
 @media (prefers-reduced-motion: reduce) {
   :root {
     --duration-instant: 0ms;

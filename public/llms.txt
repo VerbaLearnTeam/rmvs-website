@@ -1,0 +1,41 @@
+# RMVS — RMonaghan Venture Studios
+> Digital Innovation Lab — AI-Integrated Products
+
+## Organization
+- Name: RMonaghan Venture Studios (RMVS)
+- URL: https://www.rmvs.org
+- Founded by: Rory Monaghan
+- Location: Pittsburgh, PA
+- Focus: AI-integrated iOS apps, developer tooling, clinical AI, end-to-end product development
+
+## Products & Projects
+- ePrescience: AI-powered learning suite for students (Live on App Store)
+  - URL: https://www.rmvs.org/projects/eprescience
+  - Technologies: Swift, CoreML, Firebase, RevenueCat
+- Spec'd: Mobile companion for car enthusiasts (Live on App Store)
+  - URL: https://www.rmvs.org/projects/specd
+  - Technologies: Swift, CloudKit
+- Auron Intelligence: Medical AI for arterial CT analysis (In Development)
+  - URL: https://www.rmvs.org/projects/auron
+  - Technologies: Python, PyTorch, DICOM, AWS
+- Neura: Smart sleep mask with EOG sensors (Prototype)
+  - URL: https://www.rmvs.org/projects/neura
+  - Technologies: Swift, BLE, PCB Design, Signal Processing
+
+## Technical Capabilities
+- Mobile: Swift, Xcode, iOS, Metal, App Store Connect, RevenueCat
+- Web: Next.js, React, TypeScript, Node.js, Tailwind CSS
+- AI/ML: Claude, GPT, Gemini, ElevenLabs, CoreML, PyTorch
+- Infrastructure: AWS, Cloudflare, Railway, PostgreSQL, Firebase
+
+## Blog
+- URL: https://www.rmvs.org/blog
+- RSS: https://www.rmvs.org/feed.xml
+- Topics: Build logs, architecture decisions, tool reviews, methodology deep-dives
+
+## Contact
+- Website: https://www.rmvs.org/contact
+- LinkedIn: https://www.linkedin.com/in/rory-monaghan-300439260
+
+## Sitemap
+- https://www.rmvs.org/sitemap.xml

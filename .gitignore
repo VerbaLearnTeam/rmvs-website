@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# source materials (not for deployment)
+Rory Photos/
+RMVS website blog n updates/

@@ -1,10 +1,8 @@
-"use client";
-
 import { ReactNode } from "react";
-import Header from "./Header";
-import Footer from "./Footer";
-import LoadingScreen from "./LoadingScreen";
-import MotionProvider from "./MotionProvider";
+import TopBar from "./layout/TopBar";
+import FooterNew from "./layout/Footer";
+import AuroraBackground from "./layout/AuroraBackground";
+import DockNav from "./layout/DockNav";
 
 interface AppShellProps {
   children: ReactNode;
@@ -12,12 +10,12 @@ interface AppShellProps {
 
 export default function AppShell({ children }: AppShellProps) {
   return (
-    <MotionProvider>
-      <LoadingScreen minLoadTime={1000}>
-        <Header />
-        {children}
-        <Footer />
-      </LoadingScreen>
-    </MotionProvider>
+    <>
+      <AuroraBackground />
+      <TopBar />
+      <div style={{ position: "relative", zIndex: 1 }}>{children}</div>
+      <FooterNew />
+      <DockNav />
+    </>
   );
 }
