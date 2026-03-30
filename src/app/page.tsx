@@ -84,44 +84,6 @@ export default function HomePage() {
           </Link>
         </div>
 
-        <div
-          className="text-center mt-12"
-          style={{ color: "var(--white-dim)", fontSize: "0.82rem" }}
-        >
-          <p>Scroll to explore</p>
-          <svg
-            width="20"
-            height="30"
-            viewBox="0 0 20 30"
-            fill="none"
-            className="mx-auto mt-2"
-            style={{ opacity: 0.4 }}
-          >
-            <rect
-              x="1"
-              y="1"
-              width="18"
-              height="28"
-              rx="9"
-              stroke="currentColor"
-              strokeWidth="1.5"
-            />
-            <circle cx="10" cy="10" r="2" fill="currentColor">
-              <animate
-                attributeName="cy"
-                values="10;18;10"
-                dur="1.5s"
-                repeatCount="indefinite"
-              />
-              <animate
-                attributeName="opacity"
-                values="1;0.3;1"
-                dur="1.5s"
-                repeatCount="indefinite"
-              />
-            </circle>
-          </svg>
-        </div>
       </section>
 
       {/* ─── Projects & Ventures ─── */}
