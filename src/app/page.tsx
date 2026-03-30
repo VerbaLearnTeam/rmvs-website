@@ -148,7 +148,9 @@ export default function HomePage() {
             title="Tech Stack & Tools"
           />
 
-          <SkillsOrbit />
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <SkillsOrbit />
+          </div>
 
           {/* Server-rendered fallback for crawlers */}
           <div className="sr-only">

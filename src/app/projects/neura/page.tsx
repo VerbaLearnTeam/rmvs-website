@@ -98,9 +98,14 @@ export default function NeuraPage() {
             Developed in collaboration with Case Western Reserve University.
           </p>
           <div className="nav-cta" style={{ justifyContent: "center", marginTop: 18 }}>
-            <Link className="btn btn-primary" href="/contact">
+            <a
+              className="btn btn-primary"
+              href="https://www.linkedin.com/company/neurasleep/posts/?feedView=all"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Learn More
-            </Link>
+            </a>
           </div>
         </div>
       </section>

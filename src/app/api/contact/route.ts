@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { contactSchema, zodFieldErrors } from "@/lib/forms/schemas";
 import { sendEmail, contactNotificationTemplate } from "@/lib/email/send";
+import { sendSmsNotification } from "@/lib/sms/send";
 
 export async function POST(request: Request) {
   try {
@@ -32,8 +33,11 @@ export async function POST(request: Request) {
 
     if (!emailResult.ok) {
       console.error("Failed to send notification email:", emailResult.error);
-      // Still return success to user - we logged the submission
     }
+
+    await sendSmsNotification({
+      body: `RMVS Contact: ${name} (${email}) — ${subject}`,
+    });
 
     return NextResponse.json({
       message: "Thanks for reaching out! I'll get back to you as soon as possible.",

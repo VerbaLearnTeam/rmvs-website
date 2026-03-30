@@ -91,7 +91,7 @@ export default function AuronPage() {
             </a>
             <a 
               className="btn btn-outline" 
-              href="https://auron-tomography-intelligence-system-website-production.up.railway.app" 
+              href="https://auronintelligence.com/" 
               target="_blank" 
               rel="noopener noreferrer"
             >

@@ -5,19 +5,19 @@ import { useEffect, useRef, useState } from "react";
 const orbits = [
   {
     radius: 100,
-    speed: 0.02,
+    speed: 0.0066,
     direction: 1,
     skills: ["Swift", "Xcode", "iOS", "Metal"],
   },
   {
     radius: 165,
-    speed: 0.012,
+    speed: 0.004,
     direction: -1,
     skills: ["Next.js", "React", "TypeScript", "Node.js", "Tailwind"],
   },
   {
     radius: 230,
-    speed: 0.007,
+    speed: 0.0023,
     direction: 1,
     skills: ["Claude", "Cursor", "GPT", "Gemini", "ElevenLabs", "Codex"],
   },
