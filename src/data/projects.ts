@@ -60,6 +60,16 @@ export const projects: Project[] = [
     tags: ["Swift", "Rust", "GPUI", "MCP", "Xcode"],
   },
   {
+    title: "We Make Pages",
+    slug: "wemakepages",
+    description:
+      "Flat-rate website builds and full digital presence management. One price, no surprises, 48-hour turnaround.",
+    badge: "Web Agency",
+    status: "live",
+    statusLabel: "Live",
+    tags: ["React", "Vite", "SEO", "n8n", "AI Chat"],
+  },
+  {
     title: "Sunkist Goofbox",
     slug: "sunkist-goofbox",
     description:

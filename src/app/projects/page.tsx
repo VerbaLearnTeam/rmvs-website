@@ -49,6 +49,14 @@ const projects = [
     status: "Early Planning"
   },
   {
+    title: "We Make Pages",
+    tagline: "Websites that actually work",
+    description: "Flat-rate website builds and full digital presence management for small businesses. Custom sites starting at $500, with ongoing hosting, SEO, ads, and AI chat agent plans.",
+    href: "/projects/wemakepages",
+    badge: "Web Agency",
+    status: "Live"
+  },
+  {
     title: "Sunkist Goofbox",
     tagline: "Car culture & storytelling",
     description: "YouTube channel featuring POV drives, car reviews, DIY maintenance content, and the ongoing saga of owning a chrome orange 2005 Lotus Elise.",

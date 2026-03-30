@@ -56,6 +56,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "specd",
     "auron",
     "orchard",
+    "wemakepages",
     "neura",
     "sunkist-goofbox",
     "unplugged",
