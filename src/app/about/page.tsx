@@ -8,11 +8,40 @@ import HeroBackground from "@/components/HeroBackground";
 import { motion, useReducedMotion } from "framer-motion";
 
 const skills = [
-  { category: "Mobile Development", items: ["Swift", "Xcode", "iOS", "App Store Connect", "RevenueCat"] },
-  { category: "Web Development", items: ["Next.js", "React", "TypeScript", "Node.js", "APIs"] },
-  { category: "AI & ML", items: ["GPT", "Claude", "Gemini", "Neural Networks", "Automation"] },
-  { category: "Infrastructure", items: ["Firebase", "Cloudflare", "Railway", "PostgreSQL", "Prisma"] },
-  { category: "Business", items: ["Product Strategy", "Project Management", "Digital Marketing", "AdMob"] }
+  { category: "Mobile Development", items: [
+    { name: "Swift", url: "https://en.wikipedia.org/wiki/Swift_(programming_language)" },
+    { name: "Xcode", url: "https://en.wikipedia.org/wiki/Xcode" },
+    { name: "iOS", url: "https://en.wikipedia.org/wiki/IOS" },
+    { name: "App Store Connect", url: "https://developer.apple.com/app-store-connect" },
+    { name: "RevenueCat", url: "https://en.wikipedia.org/wiki/In-app_purchase" },
+  ]},
+  { category: "Web Development", items: [
+    { name: "Next.js", url: "https://en.wikipedia.org/wiki/Next.js" },
+    { name: "React", url: "https://en.wikipedia.org/wiki/React_(software)" },
+    { name: "TypeScript", url: "https://en.wikipedia.org/wiki/TypeScript" },
+    { name: "Node.js", url: "https://en.wikipedia.org/wiki/Node.js" },
+    { name: "APIs", url: "https://en.wikipedia.org/wiki/API" },
+  ]},
+  { category: "AI & ML", items: [
+    { name: "GPT", url: "https://en.wikipedia.org/wiki/Generative_pre-trained_transformer" },
+    { name: "Claude", url: "https://en.wikipedia.org/wiki/Claude_(language_model)" },
+    { name: "Gemini", url: "https://en.wikipedia.org/wiki/Gemini_(language_model)" },
+    { name: "Neural Networks", url: "https://en.wikipedia.org/wiki/Neural_network_(machine_learning)" },
+    { name: "Automation", url: "https://en.wikipedia.org/wiki/Automation" },
+  ]},
+  { category: "Infrastructure", items: [
+    { name: "Firebase", url: "https://en.wikipedia.org/wiki/Firebase" },
+    { name: "Cloudflare", url: "https://en.wikipedia.org/wiki/Cloudflare" },
+    { name: "Railway", url: "https://railway.com" },
+    { name: "PostgreSQL", url: "https://en.wikipedia.org/wiki/PostgreSQL" },
+    { name: "Prisma", url: "https://en.wikipedia.org/wiki/Object%E2%80%93relational_mapping" },
+  ]},
+  { category: "Business", items: [
+    { name: "Product Strategy", url: "https://en.wikipedia.org/wiki/Product_management" },
+    { name: "Project Management", url: "https://en.wikipedia.org/wiki/Project_management" },
+    { name: "Digital Marketing", url: "https://en.wikipedia.org/wiki/Digital_marketing" },
+    { name: "AdMob", url: "https://en.wikipedia.org/wiki/AdMob" },
+  ]},
 ];
 
 const roles = [
@@ -165,13 +194,21 @@ export default function AboutPage() {
                   <h3>{category.category}</h3>
                   <div className="skills-grid" style={{ marginTop: 12 }}>
                     {category.items.map((skill) => (
-                      <motion.span
-                        key={skill}
-                        className="badge"
-                        whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
+                      <a
+                        key={skill.name}
+                        href={skill.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ textDecoration: "none" }}
                       >
-                        {skill}
-                      </motion.span>
+                        <motion.span
+                          className="badge"
+                          whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
+                          style={{ cursor: "pointer" }}
+                        >
+                          {skill.name}
+                        </motion.span>
+                      </a>
                     ))}
                   </div>
                 </GlassCard>
