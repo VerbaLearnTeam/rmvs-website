@@ -24,15 +24,15 @@ const orbits = [
 ];
 
 export default function SkillsOrbit() {
+  const [mounted, setMounted] = useState(false);
   const [angles, setAngles] = useState(() => orbits.map(() => 0));
   const animRef = useRef<number>(0);
-  const reducedMotion = useRef(false);
 
   useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    reducedMotion.current = mq.matches;
+    setMounted(true);
 
-    if (reducedMotion.current) {
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReduced) {
       setAngles(orbits.map((_, i) => (i * Math.PI) / 3));
       return;
     }
@@ -87,34 +87,35 @@ export default function SkillsOrbit() {
         />
       ))}
 
-      {/* Skill pills */}
-      {orbits.map((orbit, orbitIdx) =>
-        orbit.skills.map((skill, skillIdx) => {
-          const angleOffset = (skillIdx / orbit.skills.length) * Math.PI * 2;
-          const angle = angles[orbitIdx] + angleOffset;
-          const x = Math.cos(angle) * orbit.radius;
-          const y = Math.sin(angle) * orbit.radius;
+      {/* Skill pills — only rendered client-side to avoid hydration mismatch from animated transforms */}
+      {mounted &&
+        orbits.map((orbit, orbitIdx) =>
+          orbit.skills.map((skill, skillIdx) => {
+            const angleOffset = (skillIdx / orbit.skills.length) * Math.PI * 2;
+            const angle = angles[orbitIdx] + angleOffset;
+            const x = Math.cos(angle) * orbit.radius;
+            const y = Math.sin(angle) * orbit.radius;
 
-          return (
-            <div
-              key={`${orbitIdx}-${skill}`}
-              className="absolute font-mono text-xs whitespace-nowrap px-2.5 py-1 rounded-full"
-              style={{
-                top: "50%",
-                left: "50%",
-                transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`,
-                background: "var(--bg)",
-                border: "1px solid var(--glass-border)",
-                color: "var(--white)",
-                fontSize: "0.72rem",
-                zIndex: 5,
-              }}
-            >
-              {skill}
-            </div>
-          );
-        })
-      )}
+            return (
+              <div
+                key={`${orbitIdx}-${skill}`}
+                className="absolute font-mono text-xs whitespace-nowrap px-2.5 py-1 rounded-full"
+                style={{
+                  top: "50%",
+                  left: "50%",
+                  transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`,
+                  background: "var(--bg)",
+                  border: "1px solid var(--glass-border)",
+                  color: "var(--white)",
+                  fontSize: "0.72rem",
+                  zIndex: 5,
+                }}
+              >
+                {skill}
+              </div>
+            );
+          })
+        )}
     </div>
   );
 }
