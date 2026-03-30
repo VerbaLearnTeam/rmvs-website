@@ -86,6 +86,26 @@ export default function HomePage() {
 
       </section>
 
+      {/* ─── Trailer ─── */}
+      <section id="trailer" className="section">
+        <div className="container" style={{ maxWidth: 896, margin: "0 auto" }}>
+          <span className="section-label">WATCH</span>
+          <div
+            className="relative w-full rounded-xl overflow-hidden shadow-2xl"
+            style={{ aspectRatio: "16 / 9" }}
+          >
+            <iframe
+              className="absolute inset-0 w-full h-full"
+              src="https://www.youtube.com/embed/1NZnxGDy3Uo"
+              title="RMVS Trailer"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            />
+          </div>
+        </div>
+      </section>
+
       {/* ─── Projects & Ventures ─── */}
       <section id="projects" className="section">
         <div className="container">
