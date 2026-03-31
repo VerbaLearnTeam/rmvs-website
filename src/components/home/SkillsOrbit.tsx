@@ -4,19 +4,19 @@ import { useEffect, useRef, useState } from "react";
 
 const orbits = [
   {
-    radius: 100,
+    radius: 75,
     speed: 0.0066,
     direction: 1,
     skills: ["Swift", "Xcode", "iOS", "Metal"],
   },
   {
-    radius: 165,
+    radius: 124,
     speed: 0.004,
     direction: -1,
     skills: ["Next.js", "React", "TypeScript", "Node.js", "Tailwind"],
   },
   {
-    radius: 230,
+    radius: 173,
     speed: 0.0023,
     direction: 1,
     skills: ["Claude", "Cursor", "GPT", "Gemini", "ElevenLabs", "Codex"],
@@ -51,15 +51,15 @@ export default function SkillsOrbit() {
   return (
     <div
       className="relative mx-auto"
-      style={{ width: 520, height: 520, maxWidth: "100%", overflow: "hidden" }}
+      style={{ width: 390, height: 390, maxWidth: "100%", overflow: "hidden" }}
       aria-hidden="true"
     >
       {/* Center logo */}
       <div
         className="absolute rounded-xl flex items-center justify-center font-bold text-2xl"
         style={{
-          width: 72,
-          height: 72,
+          width: 54,
+          height: 54,
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
