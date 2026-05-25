@@ -467,6 +467,7 @@ footer a{color:var(--purple-light);text-decoration:none}
 </nav>
 
 <header class="hero" id="hero">
+<img src="/images/paaru-backflip.png" alt="Paaru mascot" style="width:120px;height:auto;margin-bottom:1.5rem;position:relative;z-index:1;animation:fadeUp .8s ease both" />
 <div class="hero-badge"><span class="dot"></span> A personal note for Mateus</div>
 <h1>ePrescience <span class="grad">\u00d7 Mateus</span></h1>
 <p class="subtitle">Where executive function research meets the learning OS built to solve task initiation \u2014 by students, for everyone.</p>
