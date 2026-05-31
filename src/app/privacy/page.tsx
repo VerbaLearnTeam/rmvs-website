@@ -1,6 +1,6 @@
 export const metadata = {
   title: "Privacy Policy | RMonaghan Venture Studios",
-  description: "Privacy policy for RMonaghan Venture Studios and our applications including VerbaLearn and Spec'd."
+  description: "Privacy policy for RMonaghan Venture Studios and our applications including VerbaLearn."
 };
 
 export default function PrivacyPage() {
@@ -17,7 +17,7 @@ export default function PrivacyPage() {
             <h2>Overview</h2>
             <p className="muted">
               RMonaghan Venture Studios LLC (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;) operates this website and 
-              develops mobile applications including VerbaLearn (formerly ePrescience) and Spec&apos;d. This Privacy 
+              develops mobile applications including VerbaLearn (formerly ePrescience). This Privacy 
               Policy explains how we collect, use, disclose, and safeguard your information.
             </p>
           </div>
@@ -38,9 +38,6 @@ export default function PrivacyPage() {
             <h3 style={{ marginTop: 16 }}>App-Specific Data</h3>
             <p className="muted">
               <strong>VerbaLearn:</strong> Study materials, learning progress, and preferences you create within the app.
-            </p>
-            <p className="muted">
-              <strong>Spec&apos;d:</strong> Vehicle information, maintenance records, and mileage logs you input.
             </p>
           </div>
 

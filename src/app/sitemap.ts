@@ -53,11 +53,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const projectPages: MetadataRoute.Sitemap = [
     "verbalearn",
-    "specd",
     "auron",
     "orchard",
     "wemakepages",
-    "neura",
     "sunkist-goofbox",
     "unplugged",
   ].map((slug) => ({

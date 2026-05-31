@@ -20,16 +20,6 @@ export const projects: Project[] = [
     tags: ["Swift", "CoreML", "Firebase", "RevenueCat"],
   },
   {
-    title: "Spec'd",
-    slug: "specd",
-    description:
-      "The ultimate mobile companion for car enthusiasts. Track maintenance, log mileage, and digitize your garage.",
-    badge: "iOS App",
-    status: "live",
-    statusLabel: "Live on App Store",
-    tags: ["Swift", "CloudKit", "App Store Connect"],
-  },
-  {
     title: "Auron Intelligence",
     slug: "auron",
     description:
@@ -40,23 +30,13 @@ export const projects: Project[] = [
     tags: ["Python", "PyTorch", "DICOM", "AWS"],
   },
   {
-    title: "Neura",
-    slug: "neura",
-    description:
-      "Smart sleep mask with EOG sensors. Wake at the optimal point in your sleep cycle.",
-    badge: "Hardware + App",
-    status: "prototype",
-    statusLabel: "Prototype",
-    tags: ["Swift", "BLE", "PCB Design", "Signal Processing"],
-  },
-  {
     title: "Orchard",
     slug: "orchard",
     description:
-      "Agent-native development environment for Apple platforms. Supervise AI agents across code, simulators, and release pipelines — with evidence, not vibes.",
+      "Agent-native development environment for Apple platforms. Supervise AI agents across code, simulators, and release pipelines — with evidence, not vibes. Prototype in testing — reach out for early access.",
     badge: "Developer Tools",
-    status: "planning",
-    statusLabel: "Early Planning",
+    status: "prototype",
+    statusLabel: "Prototype",
     tags: ["Swift", "Rust", "GPUI", "MCP", "Xcode"],
   },
   {

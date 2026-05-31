@@ -680,7 +680,41 @@ button {
    Project pages
    ============================================ */
 
-.project-header { margin-bottom: 30px; }
+.project-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: clamp(24px, 4vw, 48px);
+  margin-bottom: 30px;
+}
+
+.project-header-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.project-header-sticker-wrap {
+  flex-shrink: 0;
+  width: clamp(140px, 20vw, 220px);
+}
+
+.project-header-sticker {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+}
+
+@media (max-width: 768px) {
+  .project-header {
+    flex-direction: column;
+  }
+
+  .project-header-sticker-wrap {
+    width: min(200px, 70vw);
+    align-self: center;
+  }
+}
 
 .project-header h1 {
   font-size: clamp(2rem, 2.5vw, 2.8rem);

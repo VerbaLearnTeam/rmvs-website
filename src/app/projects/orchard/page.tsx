@@ -1,9 +1,10 @@
 import Link from "next/link";
+import ProjectPageHeader from "@/components/shared/ProjectPageHeader";
 
 export const metadata = {
   title: "Orchard | RMonaghan Venture Studios",
   description:
-    "Agent-native development environment for Apple platforms. Supervise AI agents across code, simulators, browsers, and release pipelines — with evidence, not vibes.",
+    "Agent-native development environment for Apple platforms. Prototype in testing and early access — reach out to try Orchard.",
 };
 
 const features = [
@@ -23,13 +24,22 @@ export default function OrchardPage() {
           <Link href="/projects" className="back-link">
             ← Back to Projects
           </Link>
-          <div className="project-header">
-            <span className="badge">Developer Tools</span>
+          <ProjectPageHeader
+            stickerSrc="/images/projects/orchard-sticker.png"
+            stickerAlt="Orchard sticker"
+          >
+            <div style={{ display: "flex", gap: 8, marginBottom: 8, flexWrap: "wrap" }}>
+              <span className="badge">Developer Tools</span>
+              <span className="badge badge-purple">Prototype</span>
+            </div>
             <h1>Orchard</h1>
             <p className="muted" style={{ fontSize: "1.1rem" }}>
               The IDE that proves your app works
             </p>
-          </div>
+            <p className="muted" style={{ marginTop: 12, maxWidth: 640 }}>
+              A prototype is in testing and early access. Reach out if you&apos;d like to try it.
+            </p>
+          </ProjectPageHeader>
         </div>
       </section>
 
@@ -49,8 +59,9 @@ export default function OrchardPage() {
               development loop as observable as browser DevTools.
             </p>
             <p className="muted">
-              Orchard is currently in early-stage planning and architecture. We are seeking a
-              technical co-founder and early design partners.
+              Orchard has a working prototype in testing and early access. We&apos;re actively
+              exercising the agent-native workflow on real Apple platform projects and onboarding
+              early partners. Reach out if you&apos;d like access or want to collaborate.
             </p>
           </div>
           <div className="panel">
@@ -125,14 +136,14 @@ export default function OrchardPage() {
 
       <section className="section">
         <div className="container panel" style={{ textAlign: "center" }}>
-          <h2>Interested in Orchard?</h2>
+          <h2>Request Early Access</h2>
           <p className="muted">
-            We&apos;re seeking a technical co-founder (Rust/GPUI or Swift), seed investors, and
-            early design partners.
+            Orchard&apos;s prototype is in testing and early access. Reach out to request a demo,
+            join the early access program, or discuss partnerships and investment.
           </p>
           <div className="nav-cta" style={{ justifyContent: "center", marginTop: 18 }}>
             <Link className="btn btn-primary" href="/contact">
-              Get in Touch
+              Request Early Access
             </Link>
           </div>
         </div>

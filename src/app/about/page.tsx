@@ -52,11 +52,6 @@ const roles = [
     description: "Leading product vision and execution for an all-in-one learning suite, simplifying the modern study stack into a single, faster workflow."
   },
   {
-    title: "Full-Stack Developer & ML Engineer",
-    company: "GapTech",
-    description: "Building production-ready mobile and web products end-to-end, specializing in iOS development, scalable backends, and AI-powered workflows."
-  },
-  {
     title: "Co-Founder",
     company: "Auron Tomography Intelligence System",
     description: "Developing machine learning systems to analyze CTA brain scans and identify arterial abnormalities linked to stroke risk."

@@ -12,15 +12,12 @@
 - VerbaLearn: AI-powered learning suite for students (Live on App Store)
   - URL: https://www.rmvs.org/projects/verbalearn
   - Technologies: Swift, CoreML, Firebase, RevenueCat
-- Spec'd: Mobile companion for car enthusiasts (Live on App Store)
-  - URL: https://www.rmvs.org/projects/specd
-  - Technologies: Swift, CloudKit
 - Auron Intelligence: Medical AI for arterial CT analysis (In Development)
   - URL: https://www.rmvs.org/projects/auron
   - Technologies: Python, PyTorch, DICOM, AWS
-- Neura: Smart sleep mask with EOG sensors (Prototype)
-  - URL: https://www.rmvs.org/projects/neura
-  - Technologies: Swift, BLE, PCB Design, Signal Processing
+- Orchard: Agent-native IDE for Apple platforms (Prototype in testing — reach out for early access)
+  - URL: https://www.rmvs.org/projects/orchard
+  - Technologies: Swift, Rust, GPUI, MCP, Xcode
 
 ## Technical Capabilities
 - Mobile: Swift, Xcode, iOS, Metal, App Store Connect, RevenueCat

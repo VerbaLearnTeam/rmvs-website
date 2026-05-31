@@ -136,9 +136,6 @@ export default function SunkistGoofboxPage() {
             >
               Visit Channel
             </a>
-            <Link className="btn btn-outline" href="/projects/specd">
-              See Spec&apos;d App
-            </Link>
           </div>
         </div>
       </section>

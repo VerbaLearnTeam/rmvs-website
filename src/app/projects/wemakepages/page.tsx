@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ProjectPageHeader from "@/components/shared/ProjectPageHeader";
 
 export const metadata = {
   title: "We Make Pages | RMonaghan Venture Studios",
@@ -24,13 +25,16 @@ export default function WeMakePagesPage() {
           <Link href="/projects" className="back-link">
             ← Back to Projects
           </Link>
-          <div className="project-header">
+          <ProjectPageHeader
+            stickerSrc="/images/projects/wemakepages-sticker.png"
+            stickerAlt="We Make Pages sticker"
+          >
             <span className="badge">Web Agency</span>
             <h1>We Make Pages</h1>
             <p className="muted" style={{ fontSize: "1.1rem" }}>
               Websites that actually work.
             </p>
-          </div>
+          </ProjectPageHeader>
         </div>
       </section>
 

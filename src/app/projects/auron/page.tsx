@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ProjectPageHeader from "@/components/shared/ProjectPageHeader";
 
 export const metadata = {
   title: "Auron Tomography Intelligence System | RMonaghan Venture Studios",
@@ -13,13 +14,16 @@ export default function AuronPage() {
           <Link href="/projects" className="back-link">
             ← Back to Projects
           </Link>
-          <div className="project-header">
+          <ProjectPageHeader
+            stickerSrc="/images/projects/auron-sticker.png"
+            stickerAlt="Auron Tomography Intelligence System sticker"
+          >
             <span className="badge">Medical AI</span>
             <h1>Auron Tomography Intelligence System</h1>
             <p className="muted" style={{ fontSize: "1.1rem" }}>
               Arterial CT intelligence for fast, consistent vascular review
             </p>
-          </div>
+          </ProjectPageHeader>
         </div>
       </section>
 

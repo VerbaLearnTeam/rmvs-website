@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ProjectPageHeader from "@/components/shared/ProjectPageHeader";
 
 export const metadata = {
   title: "VerbaLearn | RMonaghan Venture Studios",
@@ -22,7 +23,10 @@ export default function VerbaLearnPage() {
           <Link href="/projects" className="back-link">
             ← Back to Projects
           </Link>
-          <div className="project-header">
+          <ProjectPageHeader
+            stickerSrc="/images/projects/verbalearn-sticker.png"
+            stickerAlt="VerbaLearn sticker"
+          >
             <div style={{ display: "flex", gap: 8, marginBottom: 8, flexWrap: "wrap" }}>
               <span className="badge">iOS App</span>
               <span className="badge" style={{ background: "rgba(34, 197, 94, 0.12)", color: "#4ade80" }}>
@@ -42,7 +46,7 @@ export default function VerbaLearnPage() {
             >
               Download on App Store →
             </a>
-          </div>
+          </ProjectPageHeader>
         </div>
       </section>
 

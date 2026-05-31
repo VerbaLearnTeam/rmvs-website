@@ -112,7 +112,7 @@ export default function HomePage() {
           <SectionHeader
             label="PORTFOLIO"
             title="Projects & Ventures"
-            description="From empowering students with AI-powered learning tools to helping car enthusiasts manage their collections, our portfolio keeps expanding into new frontiers."
+            description="From AI-powered learning tools to clinical AI and agent-native developer tooling, our portfolio keeps expanding into new frontiers."
           />
           <div className="cards">
             {projects.map((project) => (

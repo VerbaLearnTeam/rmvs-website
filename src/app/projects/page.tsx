@@ -17,14 +17,6 @@ const projects = [
     appStoreUrl: "https://apps.apple.com/us/app/eprescience/id6748284897"
   },
   {
-    title: "Spec'd",
-    tagline: "Your car, fully digitized",
-    description: "The ultimate mobile companion for car enthusiasts, collectors, and everyday drivers. Track maintenance, log mileage, set reminders, and digitize your entire garage experience.",
-    href: "/projects/specd",
-    badge: "iOS App",
-    status: "Live on App Store"
-  },
-  {
     title: "Auron Tomography Intelligence System",
     tagline: "Arterial CT intelligence",
     description: "Machine learning system that automatically analyzes CTA brain scans, identifies arterial abnormalities linked to stroke risk, and notifies clinicians in real time.",
@@ -33,20 +25,12 @@ const projects = [
     status: "In Development"
   },
   {
-    title: "Neura",
-    tagline: "Smarter sleep starts here",
-    description: "Next-generation smart sleep mask using EOG sensors to detect sleep stages and wake you at the optimal moment. Developed in collaboration with Case Western Reserve University.",
-    href: "/projects/neura",
-    badge: "Hardware + App",
-    status: "Prototype"
-  },
-  {
     title: "Orchard",
     tagline: "The IDE that proves your app works",
-    description: "Agent-native development environment for Apple platforms. Supervise AI agents across code, simulators, browsers, and release pipelines — with evidence, not vibes.",
+    description: "Agent-native development environment for Apple platforms. Supervise AI agents across code, simulators, browsers, and release pipelines — with evidence, not vibes. Prototype in testing — reach out for early access.",
     href: "/projects/orchard",
     badge: "Developer Tools",
-    status: "Early Planning"
+    status: "Prototype"
   },
   {
     title: "We Make Pages",
@@ -74,6 +58,14 @@ const projects = [
   }
 ];
 
+const statusBadgeClass: Record<string, string> = {
+  "Live on App Store": "badge-green",
+  Live: "badge-green",
+  "In Development": "badge-amber",
+  Prototype: "badge-purple",
+  Active: "",
+};
+
 export default function ProjectsPage() {
   const prefersReducedMotion = useReducedMotion();
 
@@ -90,8 +82,8 @@ export default function ProjectsPage() {
               Projects & Ventures
             </h1>
             <p style={{ maxWidth: 700 }}>
-              From empowering students with AI-powered learning tools to helping car enthusiasts manage 
-              their collections, our portfolio keeps expanding into new frontiers.
+              From AI-powered learning tools to clinical AI and agent-native developer tooling,
+              our portfolio keeps expanding into new frontiers.
             </p>
           </ScrollReveal>
         </div>
@@ -111,8 +103,7 @@ export default function ProjectsPage() {
                       {project.badge}
                     </motion.span>
                     <motion.span
-                      className="badge"
-                      style={{ background: "rgba(34, 197, 94, 0.12)", color: "#4ade80" }}
+                      className={`badge ${statusBadgeClass[project.status] || ""}`}
                       whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
                     >
                       {project.status}

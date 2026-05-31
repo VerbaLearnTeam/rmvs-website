@@ -42,9 +42,9 @@ Open [http://localhost:3000](http://localhost:3000).
 ## Projects Featured
 
 - **VerbaLearn** - AI-powered learning suite (formerly ePrescience)
-- **Spec'd** - Car ownership/maintenance iOS app
 - **Auron Intelligence** - Medical AI for arterial CT analysis
-- **Neura** - Smart sleep mask (Case Western collab)
+- **Orchard** - Agent-native IDE for Apple platforms
+- **We Make Pages** - Website builds and digital presence management
 - **Sunkist Goofbox** - YouTube car channel
 - **Unplugged PGH** - Music festivals & events
 
