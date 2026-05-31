@@ -48,7 +48,7 @@ const skills = [
 const roles = [
   {
     title: "Founder & CEO",
-    company: "ePrescience",
+    company: "VerbaLearn",
     description: "Leading product vision and execution for an all-in-one learning suite, simplifying the modern study stack into a single, faster workflow."
   },
   {
@@ -121,7 +121,7 @@ export default function AboutPage() {
           <ScrollReveal>
             <h2>Background</h2>
             <p className="muted" style={{ marginBottom: 16 }}>
-              Rory Monaghan is the Founder and CEO of ePrescience, inspired by and born out of his 
+              Rory Monaghan is the Founder and CEO of VerbaLearn, inspired by and born out of his 
               frustrations with existing study tools while studying Neuroscience, Psychology, Chemistry, 
               and Mandarin Chinese at the University of Pittsburgh.
             </p>

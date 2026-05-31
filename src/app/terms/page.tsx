@@ -17,7 +17,7 @@ export default function TermsPage() {
             <h2>Agreement to Terms</h2>
             <p className="muted">
               By accessing or using the services provided by RMonaghan Venture Studios LLC (&quot;we,&quot; &quot;us,&quot; 
-              or &quot;our&quot;), including our website and mobile applications (ePrescience, Spec&apos;d), you agree 
+              or &quot;our&quot;), including our website and mobile applications (VerbaLearn, Spec&apos;d), you agree 
               to be bound by these Terms of Use. If you do not agree to these terms, please do not use our services.
             </p>
           </div>
@@ -58,7 +58,7 @@ export default function TermsPage() {
           <div className="panel" style={{ marginBottom: 24 }}>
             <h2>User Content</h2>
             <p className="muted" style={{ marginBottom: 12 }}>
-              When you submit content through our services (such as study materials in ePrescience or vehicle 
+              When you submit content through our services (such as study materials in VerbaLearn or vehicle 
               data in Spec&apos;d), you retain ownership of your content. However, you grant us a license to use, 
               store, and process that content to provide our services.
             </p>

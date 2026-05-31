@@ -9,7 +9,7 @@ import SectionHeader from "@/components/shared/SectionHeader";
 export const metadata: Metadata = {
   title: "Engineering Blog",
   description:
-    "Technical dispatches from ePrescience, Auron, Orchard, and the RMVS venture studio. Build logs, architecture decisions, tool reviews, and methodology deep-dives.",
+    "Technical dispatches from VerbaLearn, Auron, Orchard, and the RMVS venture studio. Build logs, architecture decisions, tool reviews, and methodology deep-dives.",
   openGraph: {
     title: "Engineering Blog | RMVS",
     description:
@@ -40,7 +40,7 @@ export default function BlogIndex() {
               <SectionHeader
                 label="ENGINEERING BLOG"
                 title="Technical Dispatches"
-                description="Build logs, architecture decisions, tool reviews, and methodology deep-dives from ePrescience, Auron, Orchard, and the RMVS venture studio."
+                description="Build logs, architecture decisions, tool reviews, and methodology deep-dives from VerbaLearn, Auron, Orchard, and the RMVS venture studio."
               />
             </div>
             <BlogSearch posts={searchablePosts} />

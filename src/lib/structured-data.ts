@@ -132,7 +132,7 @@ export function generateBlogSchema() {
     "@type": "Blog",
     name: "RMVS Engineering Blog",
     description:
-      "Technical dispatches from ePrescience, Auron, Orchard, and the RMVS venture studio.",
+      "Technical dispatches from VerbaLearn, Auron, Orchard, and the RMVS venture studio.",
     url: "https://www.rmvs.org/blog",
     publisher: {
       "@type": "Organization",

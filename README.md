@@ -41,7 +41,7 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Projects Featured
 
-- **ePrescience** - AI-powered learning suite (formerly VerbaLearn)
+- **VerbaLearn** - AI-powered learning suite (formerly ePrescience)
 - **Spec'd** - Car ownership/maintenance iOS app
 - **Auron Intelligence** - Medical AI for arterial CT analysis
 - **Neura** - Smart sleep mask (Case Western collab)

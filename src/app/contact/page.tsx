@@ -80,7 +80,7 @@ export default function ContactPage() {
               <GlassCard enableTilt={false} className="panel" style={{ marginTop: 20 }}>
                 <h3>Looking for Something Specific?</h3>
                 <ul className="feature-list">
-                  <li><strong>Investors:</strong> Reach out about ePrescience or Auron</li>
+                  <li><strong>Investors:</strong> Reach out about VerbaLearn or Auron</li>
                   <li><strong>Collaborations:</strong> Open to partnerships and projects</li>
                   <li><strong>Consulting:</strong> iOS, web, AI/ML development</li>
                   <li><strong>Events:</strong> Unplugged PGH performances or partnerships</li>

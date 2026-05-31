@@ -10,8 +10,8 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    title: "ePrescience",
-    slug: "eprescience",
+    title: "VerbaLearn",
+    slug: "verbalearn",
     description:
       "All-in-one learning suite for students. AI-powered study tools, flashcards, and spaced repetition.",
     badge: "iOS App",

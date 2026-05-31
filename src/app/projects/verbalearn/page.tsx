@@ -1,8 +1,8 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "ePrescience | RMonaghan Venture Studios",
-  description: "All-in-one learning suite for students. AI-powered study tools, flashcards, and spaced repetition."
+  title: "VerbaLearn | RMonaghan Venture Studios",
+  description: "All-in-one learning suite for students. AI-powered study tools, flashcards, and spaced repetition.",
 };
 
 const features = [
@@ -11,10 +11,10 @@ const features = [
   "Intelligent practice sessions",
   "Progress tracking and analytics",
   "Cross-platform sync",
-  "Offline study mode"
+  "Offline study mode",
 ];
 
-export default function EPresciencePage() {
+export default function VerbaLearnPage() {
   return (
     <main>
       <section className="section">
@@ -29,11 +29,11 @@ export default function EPresciencePage() {
                 Live on App Store
               </span>
             </div>
-            <h1>ePrescience</h1>
+            <h1>VerbaLearn</h1>
             <p className="muted" style={{ fontSize: "1.1rem" }}>
               All-in-one learning suite for students
             </p>
-            <a 
+            <a
               href="https://apps.apple.com/us/app/eprescience/id6748284897"
               target="_blank"
               rel="noopener noreferrer"
@@ -49,20 +49,20 @@ export default function EPresciencePage() {
       <section className="section">
         <div className="container split">
           <div>
-            <h2>About ePrescience</h2>
+            <h2>About VerbaLearn</h2>
             <p className="muted" style={{ marginBottom: 16 }}>
-              ePrescience (formerly VerbaLearn) is an all-in-one learning suite inspired by and born out of 
-              frustrations with existing study tools. The app simplifies the modern &quot;study stack&quot; into a 
+              VerbaLearn (formerly ePrescience) is an all-in-one learning suite inspired by and born out of
+              frustrations with existing study tools. The app simplifies the modern &quot;study stack&quot; into a
               single, faster workflow that gives students their time back.
             </p>
             <p className="muted" style={{ marginBottom: 16 }}>
-              Built by Rory Monaghan as a solo full-stack developer in 2025, then partnering with Nick & Lex 
-              to incorporate and build the company into a world-class software development powerhouse with 
-              dedicated teams for testing, marketing, cross-platform development, database management, and 
+              Built by Rory Monaghan as a solo full-stack developer in 2025, then partnering with Nick & Lex
+              to incorporate and build the company into a world-class software development powerhouse with
+              dedicated teams for testing, marketing, cross-platform development, database management, and
               legal compliance.
             </p>
             <p className="muted">
-              Our approach blends hands-on product engineering with a deep interest in how people actually 
+              Our approach blends hands-on product engineering with a deep interest in how people actually
               learn, remember, and perform under pressure.
             </p>
           </div>
@@ -84,21 +84,21 @@ export default function EPresciencePage() {
             <div className="card">
               <h3>Student-Centered Design</h3>
               <p className="muted">
-                We pledge to ensure students are involved in all our conversations and decision-making 
+                We pledge to ensure students are involved in all our conversations and decision-making
                 as we evolve as a company.
               </p>
             </div>
             <div className="card">
               <h3>Continuous Evolution</h3>
               <p className="muted">
-                The app is built to adapt to the evolving needs of our student users, with regular 
+                The app is built to adapt to the evolving needs of our student users, with regular
                 updates based on direct feedback.
               </p>
             </div>
             <div className="card">
               <h3>Time-Saving Focus</h3>
               <p className="muted">
-                Every feature is designed with one goal: give students their time back while helping 
+                Every feature is designed with one goal: give students their time back while helping
                 them learn more effectively.
               </p>
             </div>
@@ -108,13 +108,13 @@ export default function EPresciencePage() {
 
       <section className="section">
         <div className="container panel" style={{ textAlign: "center" }}>
-          <h2>Download ePrescience</h2>
+          <h2>Download VerbaLearn</h2>
           <p className="muted">
             Available now on the App Store for iPhone, iPad, and Mac.
           </p>
           <div className="nav-cta" style={{ justifyContent: "center", marginTop: 18 }}>
-            <a 
-              className="btn btn-primary" 
+            <a
+              className="btn btn-primary"
               href="https://apps.apple.com/us/app/eprescience/id6748284897"
               target="_blank"
               rel="noopener noreferrer"

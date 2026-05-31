@@ -52,7 +52,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   const projectPages: MetadataRoute.Sitemap = [
-    "eprescience",
+    "verbalearn",
     "specd",
     "auron",
     "orchard",

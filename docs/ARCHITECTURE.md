@@ -137,7 +137,7 @@ flowchart TB
 
     subgraph projects [projects/]
         ProjectsIndex[page.tsx - Grid]
-        Eprescience[eprescience/page.tsx]
+        VerbaLearn[verbalearn/page.tsx]
         Specd[specd/page.tsx]
         Auron[auron/page.tsx]
         Neura[neura/page.tsx]

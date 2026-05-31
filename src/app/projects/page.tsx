@@ -8,10 +8,10 @@ import { motion, useReducedMotion } from "framer-motion";
 
 const projects = [
   {
-    title: "ePrescience",
+    title: "VerbaLearn",
     tagline: "All-in-one learning suite",
-    description: "AI-powered study tools designed for students who want to learn faster and retain more. Features flashcards, spaced repetition, and intelligent practice sessions. Formerly known as VerbaLearn.",
-    href: "/projects/eprescience",
+    description: "AI-powered study tools designed for students who want to learn faster and retain more. Features flashcards, spaced repetition, and intelligent practice sessions. Formerly known as ePrescience.",
+    href: "/projects/verbalearn",
     badge: "iOS App",
     status: "Live on App Store",
     appStoreUrl: "https://apps.apple.com/us/app/eprescience/id6748284897"

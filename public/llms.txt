@@ -9,8 +9,8 @@
 - Focus: AI-integrated iOS apps, developer tooling, clinical AI, end-to-end product development
 
 ## Products & Projects
-- ePrescience: AI-powered learning suite for students (Live on App Store)
-  - URL: https://www.rmvs.org/projects/eprescience
+- VerbaLearn: AI-powered learning suite for students (Live on App Store)
+  - URL: https://www.rmvs.org/projects/verbalearn
   - Technologies: Swift, CoreML, Firebase, RevenueCat
 - Spec'd: Mobile companion for car enthusiasts (Live on App Store)
   - URL: https://www.rmvs.org/projects/specd

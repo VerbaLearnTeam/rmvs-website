@@ -5,7 +5,7 @@ const html = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ePrescience \u00d7 Mateus Mazzaferro</title>
+<title>VerbaLearn \u00d7 Mateus Mazzaferro</title>
 <link rel="icon" href="/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-icon.png">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -471,7 +471,7 @@ footer a{color:var(--purple-light);text-decoration:none}
 <header class="hero" id="hero">
 <img src="/images/paaru-backflip.png" alt="Paaru mascot" style="width:120px;height:auto;margin-bottom:1.5rem;position:relative;z-index:1;animation:fadeUp .8s ease both" />
 <div class="hero-badge"><span class="dot"></span> A personal note for Mateus</div>
-<h1>ePrescience <span class="grad">\u00d7 Mateus</span></h1>
+<h1>VerbaLearn <span class="grad">\u00d7 Mateus</span></h1>
 <p class="subtitle">Where executive function research meets the learning OS built to solve task initiation \u2014 by students, for everyone.</p>
 <div class="scroll-hint" onclick="document.getElementById('intro').scrollIntoView({behavior:'smooth'})">
 <span class="arrow"></span>
@@ -482,7 +482,7 @@ footer a{color:var(--purple-light);text-decoration:none}
 <span class="section-label">// hello</span>
 <h2>Good evening, <span class="accent">Mateus</span></h2>
 <p style="margin-top:1rem;color:var(--text-muted)">
-This is <strong style="color:var(--text)">Rory Monaghan</strong> \u2014 my good friend Luca Alvim's mom Isabella connected us. I'm a neuroscience/psychology student at Pitt and the founder of ePrescience. After reading about your work, I realized there's a deep overlap between what you're researching and what I've spent the last year of my life building. I put this page together so you could explore it at your own pace.
+This is <strong style="color:var(--text)">Rory Monaghan</strong> \u2014 my good friend Luca Alvim's mom Isabella connected us. I'm a neuroscience/psychology student at Pitt and the founder of VerbaLearn. After reading about your work, I realized there's a deep overlap between what you're researching and what I've spent the last year of my life building. I put this page together so you could explore it at your own pace.
 </p>
 </section>
 
@@ -515,7 +515,7 @@ This is <strong style="color:var(--text)">Rory Monaghan</strong> \u2014 my good 
 
 <section id="platform" class="reveal">
 <span class="section-label">// the platform</span>
-<h2>What ePrescience <span class="accent">does</span></h2>
+<h2>What VerbaLearn <span class="accent">does</span></h2>
 
 <p style="color:var(--text-muted);margin-bottom:1.5rem">Wherever a bi-directional format conversion is possible, the user curates their own learning experience to whatever is optimal for that moment. An audiobook for walking to class. Handwritten notes converted to a quiz. A professor's intimidating problem set broken down into accessible flashcards that build base-level confidence before tackling the real thing.</p>
 
@@ -545,7 +545,7 @@ This is <strong style="color:var(--text)">Rory Monaghan</strong> \u2014 my good 
 </div>
 <div class="format-content" id="formatContent">
 <h4>Professor's Lecture Slides \u2192 Everything</h4>
-<p>Import a .pptx, PDF, or scan. ePrescience extracts the content and makes it available as any other format \u2014 one tap. No copy-pasting across five apps.</p>
+<p>Import a .pptx, PDF, or scan. VerbaLearn extracts the content and makes it available as any other format \u2014 one tap. No copy-pasting across five apps.</p>
 <div class="conversion-arrow">
 <span class="line"></span>
 <span class="icon">\u27f3</span>
@@ -605,7 +605,7 @@ This is <strong style="color:var(--text)">Rory Monaghan</strong> \u2014 my good 
 <div class="r-card reveal">
 <div class="tag">Our Platform</div>
 <h4>Task Initiation as Design</h4>
-<p>ePrescience operationalizes the same constructs: reducing cognitive load at the point of task initiation, supporting flexible format-switching, and building confidence before complexity.</p>
+<p>VerbaLearn operationalizes the same constructs: reducing cognitive load at the point of task initiation, supporting flexible format-switching, and building confidence before complexity.</p>
 </div>
 <div class="r-card reveal">
 <div class="tag">Your Focus</div>
@@ -626,14 +626,14 @@ This is <strong style="color:var(--text)">Rory Monaghan</strong> \u2014 my good 
 <div class="c-icon">\ud83d\udd2c</div>
 <div>
 <h4>Research Validation</h4>
-<p>Ground ePrescience's learning psychology claims in published developmental science. Help us ensure our design decisions are backed by the literature your lab produces.</p>
+<p>Ground VerbaLearn's learning psychology claims in published developmental science. Help us ensure our design decisions are backed by the literature your lab produces.</p>
 </div>
 </div>
 <div class="collab-opt">
 <div class="c-icon">\ud83d\udcca</div>
 <div>
 <h4>Research Platform</h4>
-<p>Use ePrescience as a tool to study how format flexibility affects learning outcomes and task initiation across populations \u2014 publishable work for you, validation for us.</p>
+<p>Use VerbaLearn as a tool to study how format flexibility affects learning outcomes and task initiation across populations \u2014 publishable work for you, validation for us.</p>
 </div>
 </div>
 <div class="collab-opt">
@@ -678,7 +678,7 @@ const content=document.getElementById('formatContent');
 const data={
 lecture:{
 title:"Professor's Lecture Slides \\u2192 Everything",
-desc:'Import a .pptx, PDF, or scan. ePrescience extracts the content and makes it available as any other format \\u2014 one tap.',
+desc:'Import a .pptx, PDF, or scan. VerbaLearn extracts the content and makes it available as any other format \\u2014 one tap.',
 items:['Slides \\u2192 Audiobook for your commute','Slides \\u2192 Flashcards with spaced repetition','Slides \\u2192 Interactive quiz for active recall','Slides \\u2192 Annotatable notes in your own hand']
 },
 audio:{
@@ -693,7 +693,7 @@ items:['Weak cards \\u2192 Targeted quiz with explanations','Card set \\u2192 Au
 },
 quiz:{
 title:'Quiz Results \\u2192 Targeted Review',
-desc:'Your quiz performance reveals gaps. ePrescience routes you to the exact material, in the format that works.',
+desc:'Your quiz performance reveals gaps. VerbaLearn routes you to the exact material, in the format that works.',
 items:['Missed questions \\u2192 Focused flashcard deck','Low-score topics \\u2192 Audiobook deep-dive','Quiz analytics \\u2192 Updated study plan','Results \\u2192 Handwriting practice on weak concepts']
 },
 notes:{

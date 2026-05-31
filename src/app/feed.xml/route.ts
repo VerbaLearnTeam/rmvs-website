@@ -41,7 +41,7 @@ export async function GET() {
   <channel>
     <title>RMVS Engineering Blog</title>
     <link>https://www.rmvs.org/blog</link>
-    <description>Technical dispatches from ePrescience, Auron, Orchard, and the RMVS venture studio.</description>
+    <description>Technical dispatches from VerbaLearn, Auron, Orchard, and the RMVS venture studio.</description>
     <language>en-us</language>
     <managingEditor>rory@rmvs.org (Rory Monaghan)</managingEditor>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
