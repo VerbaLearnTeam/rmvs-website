@@ -168,15 +168,6 @@ export default function ServicesPage() {
           <h2>What clients say</h2>
           <div className="cards" style={{ marginTop: 24 }}>
             <div className="card">
-              <p style={{ fontSize: "1.05rem", lineHeight: 1.6 }}>
-                “I&apos;ll take all your recommendations regarding hosting,
-                domain transfer, email, etc. Thank you!”
-              </p>
-              <p className="muted" style={{ marginTop: 14, fontSize: "0.9rem" }}>
-                Tracy C. — Fund Pilot, SBA lending consultancy
-              </p>
-            </div>
-            <div className="card">
               <h3 style={{ fontSize: "2rem", color: "var(--cyan)" }}>5 days</h3>
               <p className="muted">
                 Concept to live first draft on the Fund Pilot build — brand
