@@ -4,6 +4,7 @@ import { ThemeToggle } from "@/components/shared/ThemeToggle";
 import { TopBarScroll } from "./TopBarScroll";
 
 const navLinks = [
+  { href: "/services", label: "Services" },
   { href: "/about", label: "About" },
   { href: "/projects", label: "Projects" },
   { href: "/blog", label: "Blog" },
