@@ -88,7 +88,7 @@ export default function RootLayout({
         />
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('rmvs-theme');if(t==='light')document.documentElement.setAttribute('data-theme','light')}catch(e){}})()`,
+            __html: `(function(){try{var t=localStorage.getItem('rmvs-theme');var d=t?t==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;if(!d)document.documentElement.setAttribute('data-theme','light')}catch(e){document.documentElement.setAttribute('data-theme','light')}})()`,
           }}
         />
         <link rel="alternate" type="application/rss+xml" title="RMVS Engineering Blog" href="/feed.xml" />

@@ -1,39 +1,58 @@
 import Image from "next/image";
 import Link from "next/link";
+import ScrollReveal from "@/components/shared/ScrollReveal";
+import {
+  CalEmbed,
+  CompareSlider,
+  Globe,
+  LeadBrief,
+  ScrollHero,
+} from "./ServicesInteractive";
+import "./services.css";
 
 export const metadata = {
   title: "Services | RMonaghan Venture Studios",
   description:
-    "RMVS builds conversion-focused websites and lead engines for service-business owners — then runs the marketing that fills them. Fixed-price builds, monthly growth plans, and a booking link to start today.",
+    "RMVS builds the website that books your calls, then runs the marketing that fills it. Fixed-price builds on AWS infrastructure, monthly growth plans, and one accountable person — start with a free consult.",
 };
 
 const CAL_LINK = "https://cal.com/rory-monaghan-kip6qs/30min";
 
+const STACK = [
+  { name: "AWS", role: "hosting" },
+  { name: "CloudFront", role: "global CDN" },
+  { name: "Route 53", role: "DNS" },
+  { name: "Stripe", role: "payments" },
+  { name: "Google Workspace", role: "email" },
+  { name: "Cal.com", role: "booking" },
+  { name: "Plausible", role: "analytics" },
+  { name: "Resend", role: "transactional email" },
+];
+
 const buildTiers = [
   {
     name: "Landing Strip",
+    use: "one page that books calls",
     price: "$750",
     priceNote: "one-time",
-    blurb:
-      "A one-page conversion site: your offer, proof, and a booking button — live fast, measured from day one.",
     features: [
-      "Single-page conversion site",
-      "Booking embed + lead form",
-      "Analytics installed & verified",
+      "Single conversion page, built to sell",
+      "Booking embed wired to your calendar",
+      "Domain, SSL, and analytics handled",
       "Mobile-first, sub-second load",
     ],
     cta: { label: "Start a Landing Strip", href: "https://buy.stripe.com/cNibJ2e7K71zeMQ7H99bO04" },
   },
   {
     name: "Launch Site",
+    use: "the full conversion engine",
     price: "from $1,500",
     priceNote: "50% deposit to start · 5-day SLA",
-    blurb:
-      "The full engine: a 4–6 page conversion site with qualification-gated intake forms, booking, and your domain + email handled end-to-end.",
     features: [
-      "4–6 page conversion site",
-      "Lead forms with qualification logic",
-      "DNS + professional email, done-for-you",
+      "4–6 page conversion site with lead forms",
+      "Qualification logic on your intake form",
+      "Domain, email, and DNS migrated safely",
+      "Booking, analytics, backups — all wired",
       "Launch checklist with evidence — nothing half-shipped",
     ],
     cta: { label: "Reserve with deposit", href: "https://buy.stripe.com/5kQ8wQ3t6bhPbAEgdF9bO05" },
@@ -44,8 +63,9 @@ const buildTiers = [
 const monthlyPlans = [
   {
     name: "Starter",
-    price: "$50/mo",
-    blurb: "Keep it live, keep it running.",
+    use: "keep it live, keep it fast",
+    price: "$50",
+    priceNote: "per month",
     features: [
       "Hosting & maintenance",
       "Custom domain + SSL",
@@ -57,8 +77,9 @@ const monthlyPlans = [
   },
   {
     name: "Growth",
-    price: "$175/mo",
-    blurb: "Get found, get reviewed, get booked.",
+    use: "get found, get reviewed, get booked",
+    price: "$175",
+    priceNote: "per month",
     features: [
       "Everything in Starter",
       "SEO setup + monthly reporting",
@@ -71,8 +92,9 @@ const monthlyPlans = [
   },
   {
     name: "Premium",
-    price: "$400/mo",
-    blurb: "We run your entire digital presence.",
+    use: "we run your whole digital presence",
+    price: "$400",
+    priceNote: "per month",
     features: [
       "Everything in Growth",
       "Social media management",
@@ -84,207 +106,373 @@ const monthlyPlans = [
   },
 ];
 
-const flagshipPoints = [
-  "Five-page conversion site with a qualification-gated intake form — bad-fit leads filter themselves out before they reach the calendar",
-  "Booking, payments, and scheduling wired in (Cal.com + Stripe)",
-  "Domain, professional email, and DNS migration handled with zero downtime",
-  "Analytics and conversion tracking on every step of the funnel",
+const FAQS = [
+  {
+    q: "What does “everything handled” actually mean?",
+    a: "Domain, DNS, hosting, SSL, business email, booking, forms, analytics, backups, and the migrations between them. If it has settings, we own the settings. You get logins to everything — you just never have to use them.",
+  },
+  {
+    q: "Do I own the site, or do you?",
+    a: "You do. Your domain, your files, your ad accounts, your data. If you ever leave, everything transfers cleanly — we'd rather earn the renewal than trap you into it.",
+  },
+  {
+    q: "What if I already have a website?",
+    a: "Even better — send it with the brief. We'll redline your current homepage so you can see exactly what we'd change before deciding anything.",
+  },
+  {
+    q: "How fast is “fast”?",
+    a: "A Landing Strip goes live within a week. A full Launch Site carries a 5-business-day SLA from deposit, with a launch checklist and receipts for every wired-up piece — DNS, email, analytics, booking, payments.",
+  },
+  {
+    q: "Who am I actually working with?",
+    a: "Rory Monaghan — founder of RMVS in Pittsburgh — plus the systems behind him. One point of contact, same-day replies during business hours. No account managers, no ticket queues.",
+  },
 ];
 
 export default function ServicesPage() {
   return (
-    <main>
-      {/* Hero */}
-      <section className="section">
-        <div className="container">
-          <span className="badge">Agency Services</span>
-          <h1 style={{ maxWidth: "18ch" }}>
-            Websites that turn traffic into booked calls.
-          </h1>
-          <p className="muted" style={{ fontSize: "1.15rem", maxWidth: "58ch", marginTop: 16 }}>
-            RMVS builds conversion-focused websites and lead engines for
-            service-business owners — then runs the marketing that fills them.
-            Not brochures. Landing strips that take a visitor from a social post
-            or a search to a booked call on your calendar.
-          </p>
-          <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 28 }}>
-            <a href="#book" className="btn">
-              Book a free consult
-            </a>
-            <a href="#packages" className="btn btn-outline">
-              See packages
-            </a>
+    <main className="svc">
+      {/* ── Sheet 01: scroll-expansion hero ─────────────────── */}
+      <ScrollHero />
+
+      {/* ── Rails: the stack marquee ────────────────────────── */}
+      <section className="svc-rails" aria-label="Infrastructure RMVS sites run on">
+        <div className="svc-rails-label">your site runs on the same rails as the big guys</div>
+        <div className="svc-marquee">
+          <div className="svc-marquee-track">
+            {[...STACK, ...STACK].map((s, i) => (
+              <span className="svc-railmark" key={`${s.name}-${i}`} aria-hidden={i >= STACK.length}>
+                {s.name} <small>{s.role}</small>
+              </span>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Flagship work */}
-      <section className="section" id="work">
+      {/* ── Sheet 02: the redline ───────────────────────────── */}
+      <section className="svc-sheet" id="redline">
         <div className="container">
-          <h2>Recent build: Fund Pilot</h2>
-          <p className="muted" style={{ maxWidth: "62ch", marginBottom: 24 }}>
-            An SBA-lending consultancy needed social and ad traffic turned into
-            qualified, paying consultations. We designed the brand system from
-            their logo up, built the site, and engineered the funnel.
-          </p>
-          <div className="split" style={{ alignItems: "center" }}>
-            <div
-              style={{
-                borderRadius: "var(--radius-lg)",
-                overflow: "hidden",
-                border: "1px solid var(--glass-border)",
-                boxShadow: "var(--shadow-md)",
-              }}
-            >
-              <Image
-                src="/images/projects/fundpilot-home.png"
-                alt="Fund Pilot — SBA lending site built by RMVS"
-                width={1440}
-                height={1000}
-                style={{ width: "100%", height: "auto", display: "block" }}
-              />
+          <ScrollReveal>
+            <div className="svc-sheet-tag">
+              <span className="svc-no">Sheet 02</span> the redline
             </div>
-            <div className="panel">
-              <h3>What shipped</h3>
-              <ul className="feature-list">
-                {flagshipPoints.map((p) => (
-                  <li key={p}>{p}</li>
-                ))}
-              </ul>
-              <p className="muted" style={{ marginTop: 16, fontSize: "0.9rem" }}>
-                Want the deeper portfolio?{" "}
-                <Link href="/projects" style={{ color: "var(--cyan)" }}>
-                  See all projects →
-                </Link>
-              </p>
-            </div>
-          </div>
+            <h2 className="svc-h2">Drag the line. That&apos;s the whole pitch.</h2>
+            <p className="svc-lede">
+              On the left, the site most service businesses are stuck with. On
+              the right, the one we ship in five days. Same business, same
+              information — different outcome.
+            </p>
+          </ScrollReveal>
+          <ScrollReveal delay={120}>
+            <CompareSlider />
+          </ScrollReveal>
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="section" id="testimonials">
+      {/* ── Sheet 03: the build order ───────────────────────── */}
+      <section className="svc-sheet svc-gridfield" id="process">
         <div className="container">
-          <h2>What clients say</h2>
-          <div className="cards" style={{ marginTop: 24 }}>
-            <div className="card">
-              <h3 style={{ fontSize: "2rem", color: "var(--cyan)" }}>5 days</h3>
-              <p className="muted">
-                Concept to live first draft on the Fund Pilot build — brand
-                system, five pages, qualification-gated intake, booking, and
-                payments included.
-              </p>
+          <ScrollReveal>
+            <div className="svc-sheet-tag">
+              <span className="svc-no">Sheet 03</span> the build order
             </div>
-            <div className="card">
-              <h3 style={{ fontSize: "2rem", color: "var(--cyan)" }}>1 referral</h3>
-              <p className="muted">
-                Every RMVS client so far has come through word of mouth. We
-                build so you&apos;ll want to tell someone — and we&apos;ll ask you to.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Packages */}
-      <section className="section" id="packages">
-        <div className="container">
-          <h2>Builds</h2>
-          <p className="muted" style={{ marginBottom: 24 }}>
-            Fixed price, fixed scope, evidence-backed delivery. Deposit starts
-            the clock.
-          </p>
-          <div className="cards">
-            {buildTiers.map((t) => (
-              <div
-                key={t.name}
-                className="card"
-                style={t.featured ? { borderColor: "var(--cyan-border)", boxShadow: "var(--shadow-glow)" } : undefined}
-              >
-                {t.featured && <span className="badge">Most popular</span>}
-                <h3>{t.name}</h3>
-                <p style={{ fontSize: "1.6rem", fontWeight: 700, margin: "8px 0 2px" }}>{t.price}</p>
-                <p className="muted" style={{ fontSize: "0.85rem" }}>{t.priceNote}</p>
-                <p className="muted" style={{ margin: "14px 0" }}>{t.blurb}</p>
-                <ul className="feature-list">
-                  {t.features.map((f) => (
-                    <li key={f}>{f}</li>
-                  ))}
-                </ul>
-                <a href={t.cta.href} className="btn" style={{ marginTop: 18, display: "inline-block" }}>
-                  {t.cta.label}
-                </a>
+            <h2 className="svc-h2">Three steps. You never touch a DNS record.</h2>
+          </ScrollReveal>
+          <div className="svc-steps">
+            <ScrollReveal>
+              <div className="svc-step svc-step-hot">
+                <span className="svc-step-no">STEP 01 — FREE</span>
+                <h3>The consult</h3>
+                <p>
+                  Thirty minutes on your business and your funnel. You leave
+                  knowing exactly what we&apos;d build, what it costs, and when
+                  it ships — whether or not you hire us.
+                </p>
+                <span className="svc-step-time">30 minutes · free</span>
               </div>
+            </ScrollReveal>
+            <ScrollReveal delay={100}>
+              <div className="svc-step">
+                <span className="svc-step-no">STEP 02</span>
+                <h3>The build</h3>
+                <p>
+                  Full site, booking, forms, domain, business email, analytics,
+                  SSL — every technical piece wired and tested. You review it,
+                  we launch it.
+                </p>
+                <span className="svc-step-time">5 business days</span>
+              </div>
+            </ScrollReveal>
+            <ScrollReveal delay={200}>
+              <div className="svc-step">
+                <span className="svc-step-no">STEP 03</span>
+                <h3>The engine</h3>
+                <p>
+                  Then we keep it working for you: content posted, ads managed
+                  with hard budget caps, and a plain-English report every month.
+                </p>
+                <span className="svc-step-time">ongoing · cancel anytime</span>
+              </div>
+            </ScrollReveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Sheet 04: delivery network (dark plate) ─────────── */}
+      <section className="svc-sheet svc-plate-section" id="network">
+        <div className="container">
+          <div className="svc-sheet-tag">
+            <span className="svc-no">Sheet 04</span> delivery network
+          </div>
+          <div className="svc-globe-wrap">
+            <Globe />
+            <div>
+              <h2 className="svc-h2">
+                Small business.
+                <br />
+                Big-league infrastructure.
+              </h2>
+              <p className="svc-lede">
+                Your site is served from Amazon&apos;s CloudFront edge network —
+                the same delivery rails behind the largest sites on the internet
+                — so it opens instantly whether your customer is across the
+                street or across the country.
+              </p>
+              <div className="svc-net-list">
+                <div className="svc-net-item">
+                  <span className="svc-k">EDGE</span>
+                  <p>
+                    Copies of your site cached at hundreds of locations
+                    worldwide. Milliseconds away from everyone.
+                  </p>
+                </div>
+                <div className="svc-net-item">
+                  <span className="svc-k">SECURE</span>
+                  <p>
+                    SSL on by default, backups, and monitoring that pages us —
+                    not you — if anything blinks.
+                  </p>
+                </div>
+                <div className="svc-net-item">
+                  <span className="svc-k">YOURS</span>
+                  <p>
+                    Your domain, your files, your accounts. If we ever part
+                    ways, everything walks with you.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Sheet 05: the rate card ─────────────────────────── */}
+      <section className="svc-sheet" id="pricing">
+        <div className="container">
+          <ScrollReveal>
+            <div className="svc-sheet-tag">
+              <span className="svc-no">Sheet 05</span> the rate card
+            </div>
+            <h2 className="svc-h2">Flat numbers. No mystery invoices.</h2>
+            <p className="svc-lede">
+              Fixed price, fixed scope, evidence-backed delivery. Deposit starts
+              the clock; every build starts with a free consult if you&apos;d
+              rather talk first.
+            </p>
+          </ScrollReveal>
+
+          <div className="svc-tiers">
+            {buildTiers.map((t, i) => (
+              <ScrollReveal key={t.name} delay={i * 100}>
+                <div className={`svc-tier${t.featured ? " svc-tier-feat" : ""}`} style={{ height: "100%" }}>
+                  {t.featured && <span className="svc-tier-flag">Most builds</span>}
+                  <h3>{t.name}</h3>
+                  <p className="svc-tier-use">{t.use}</p>
+                  <p className="svc-price">
+                    {t.price} <small>{t.priceNote}</small>
+                  </p>
+                  <ul>
+                    {t.features.map((f) => (
+                      <li key={f}>{f}</li>
+                    ))}
+                  </ul>
+                  <a href={t.cta.href} className={`btn ${t.featured ? "btn-primary" : "btn-outline"}`}>
+                    {t.cta.label}
+                  </a>
+                </div>
+              </ScrollReveal>
             ))}
           </div>
 
-          <h2 style={{ marginTop: 56 }}>Monthly growth plans</h2>
-          <p className="muted" style={{ marginBottom: 24 }}>
-            Attach to any build — or bring the site you already have.
-          </p>
-          <div className="cards">
-            {monthlyPlans.map((t) => (
-              <div
-                key={t.name}
-                className="card"
-                style={t.featured ? { borderColor: "var(--cyan-border)", boxShadow: "var(--shadow-glow)" } : undefined}
-              >
-                {t.featured && <span className="badge">Best value</span>}
-                <h3>{t.name}</h3>
-                <p style={{ fontSize: "1.6rem", fontWeight: 700, margin: "8px 0 2px" }}>{t.price}</p>
-                <p className="muted" style={{ margin: "10px 0" }}>{t.blurb}</p>
-                <ul className="feature-list">
-                  {t.features.map((f) => (
-                    <li key={f}>{f}</li>
-                  ))}
-                </ul>
-                <a href={t.href} className="btn" style={{ marginTop: 18, display: "inline-block" }}>
-                  Subscribe
-                </a>
-              </div>
+          <ScrollReveal>
+            <h2 className="svc-h2" style={{ marginTop: 72 }}>
+              Monthly growth plans
+            </h2>
+            <p className="svc-lede">
+              Attach to any build — or bring the site you already have.
+            </p>
+          </ScrollReveal>
+          <div className="svc-tiers">
+            {monthlyPlans.map((t, i) => (
+              <ScrollReveal key={t.name} delay={i * 100}>
+                <div className={`svc-tier${t.featured ? " svc-tier-feat" : ""}`} style={{ height: "100%" }}>
+                  {t.featured && <span className="svc-tier-flag">Best value</span>}
+                  <h3>{t.name}</h3>
+                  <p className="svc-tier-use">{t.use}</p>
+                  <p className="svc-price">
+                    {t.price} <small>{t.priceNote}</small>
+                  </p>
+                  <ul>
+                    {t.features.map((f) => (
+                      <li key={f}>{f}</li>
+                    ))}
+                  </ul>
+                  <a href={t.href} className={`btn ${t.featured ? "btn-primary" : "btn-outline"}`}>
+                    Subscribe
+                  </a>
+                </div>
+              </ScrollReveal>
             ))}
           </div>
-          <p className="muted" style={{ marginTop: 20, fontSize: "0.9rem" }}>
-            Need the whole engine — site, care, content, and managed ads?{" "}
+          <p className="svc-rate-note svc-mono-note">
+            need the whole engine — site, care, content, and managed ads? ·{" "}
             <a href="#book" style={{ color: "var(--cyan)" }}>
-              Book a consult
+              book a consult
             </a>{" "}
-            and we&apos;ll scope a Growth Stack around your business.
+            and we&apos;ll scope it around your business
           </p>
         </div>
       </section>
 
-      {/* Booking */}
-      <section className="section" id="book">
+      {/* ── Sheet 06: field report ──────────────────────────── */}
+      <section className="svc-sheet svc-gridfield" id="work">
         <div className="container">
-          <h2>Book a free 30-minute consult</h2>
-          <p className="muted" style={{ maxWidth: "58ch", marginBottom: 24 }}>
-            Bring your current site (or the idea for one). You&apos;ll leave the
-            call knowing exactly what we&apos;d build, what it costs, and when it
-            ships — whether or not you hire us.
-          </p>
-          <div
-            style={{
-              borderRadius: "var(--radius-lg)",
-              overflow: "hidden",
-              border: "1px solid var(--glass-border)",
-              background: "var(--bg-card)",
-            }}
-          >
-            <iframe
-              src={`${CAL_LINK}?embed=true&theme=dark`}
-              title="Schedule a consultation with RMVS"
-              style={{ width: "100%", height: 640, border: 0, display: "block" }}
-              loading="lazy"
-            />
+          <ScrollReveal>
+            <div className="svc-sheet-tag">
+              <span className="svc-no">Sheet 06</span> field report
+            </div>
+          </ScrollReveal>
+          <div className="svc-proof">
+            <div>
+              <ScrollReveal>
+                <h2 className="svc-h2">
+                  Fund Pilot: from zero web presence to booking machine.
+                </h2>
+                <p className="svc-lede">
+                  A nationwide SBA-lending consultancy needed social and ad
+                  traffic turned into qualified, paying consultations — not a
+                  brochure. They got a five-page conversion site with a
+                  qualification-gated intake form, their email and domain
+                  migrated without a minute of downtime, and a scheduler doing
+                  the follow-up automatically.
+                </p>
+              </ScrollReveal>
+              <div className="svc-case-stats">
+                <ScrollReveal>
+                  <div className="svc-stat">
+                    <b>5 days</b>
+                    <span>brief → live site</span>
+                  </div>
+                </ScrollReveal>
+                <ScrollReveal delay={80}>
+                  <div className="svc-stat">
+                    <b>5 pages</b>
+                    <span>+ qualifying intake</span>
+                  </div>
+                </ScrollReveal>
+                <ScrollReveal delay={160}>
+                  <div className="svc-stat">
+                    <b>0 min</b>
+                    <span>email downtime in migration</span>
+                  </div>
+                </ScrollReveal>
+              </div>
+              <ScrollReveal delay={200}>
+                <p className="svc-mono-note" style={{ marginTop: 24 }}>
+                  want the deeper portfolio?{" "}
+                  <Link href="/projects" style={{ color: "var(--cyan)" }}>
+                    see all projects →
+                  </Link>
+                </p>
+              </ScrollReveal>
+            </div>
+            <ScrollReveal delay={120}>
+              <div className="svc-case-shot">
+                <Image
+                  src="/images/projects/fundpilot-home.png"
+                  alt="Fund Pilot — SBA lending site built by RMVS"
+                  width={1440}
+                  height={1000}
+                  style={{ width: "100%", height: "auto", display: "block" }}
+                />
+              </div>
+            </ScrollReveal>
           </div>
-          <p className="muted" style={{ marginTop: 14, fontSize: "0.9rem" }}>
-            Calendar not loading?{" "}
-            <a href={CAL_LINK} target="_blank" rel="noopener" style={{ color: "var(--cyan)" }}>
-              Open the booking page directly →
-            </a>{" "}
-            or <Link href="/contact" style={{ color: "var(--cyan)" }}>send a message</Link>.
-          </p>
+        </div>
+      </section>
+
+      {/* ── Sheet 07: straight answers ──────────────────────── */}
+      <section className="svc-sheet" id="faq">
+        <div className="container">
+          <ScrollReveal>
+            <div className="svc-sheet-tag">
+              <span className="svc-no">Sheet 07</span> straight answers
+            </div>
+            <h2 className="svc-h2" style={{ margin: "0 auto 8px", textAlign: "center", maxWidth: "none" }}>
+              Things owners ask us.
+            </h2>
+          </ScrollReveal>
+          <ScrollReveal delay={100}>
+            <div className="svc-faq">
+              {FAQS.map((f) => (
+                <details key={f.q}>
+                  <summary>{f.q}</summary>
+                  <div className="svc-a">{f.a}</div>
+                </details>
+              ))}
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ── Sheet 08: start here ────────────────────────────── */}
+      <section className="svc-sheet svc-gridfield" id="book">
+        <div className="container">
+          <ScrollReveal>
+            <div className="svc-sheet-tag">
+              <span className="svc-no">Sheet 08</span> start here
+            </div>
+          </ScrollReveal>
+          <div className="svc-cta-grid">
+            <ScrollReveal>
+              <div>
+                <h2 className="svc-h2">Two minutes of your time. A plan by tomorrow.</h2>
+                <p className="svc-lede">
+                  Send the brief and you&apos;ll get a straight answer on what
+                  we&apos;d build, what it costs, and when it ships — no
+                  payment, no pressure, no obligation. Prefer to talk first?
+                  Book straight onto the calendar below. Same person either way.
+                </p>
+              </div>
+            </ScrollReveal>
+            <ScrollReveal delay={120}>
+              <LeadBrief />
+            </ScrollReveal>
+          </div>
+
+          <ScrollReveal delay={150}>
+            <CalEmbed calLink={CAL_LINK} />
+            <p className="svc-mono-note" style={{ marginTop: 14 }}>
+              calendar not loading?{" "}
+              <a href={CAL_LINK} target="_blank" rel="noopener" style={{ color: "var(--cyan)" }}>
+                open the booking page directly →
+              </a>{" "}
+              or{" "}
+              <Link href="/contact" style={{ color: "var(--cyan)" }}>
+                send a message
+              </Link>
+            </p>
+          </ScrollReveal>
         </div>
       </section>
     </main>

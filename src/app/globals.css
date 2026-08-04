@@ -63,7 +63,8 @@
 
 html {
   background-color: #050709;
-  overflow-x: hidden;
+  /* clip (not hidden) — hidden creates a scroll container that breaks position: sticky */
+  overflow-x: clip;
   overscroll-behavior: none;
   scroll-behavior: smooth;
 }
@@ -86,7 +87,7 @@ body {
   color: var(--white);
   line-height: 1.7;
   font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  overflow-x: hidden;
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;

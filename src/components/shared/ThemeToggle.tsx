@@ -6,17 +6,26 @@ export function ThemeToggle() {
   const [theme, setTheme] = useState<"dark" | "light">("dark");
 
   useEffect(() => {
-    const stored = localStorage.getItem("rmvs-theme");
-    if (stored === "light") {
-      setTheme("light");
-      document.documentElement.setAttribute("data-theme", "light");
-    } else if (!stored) {
-      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      if (!prefersDark) {
-        setTheme("light");
+    const apply = (next: "dark" | "light") => {
+      setTheme(next);
+      if (next === "light") {
         document.documentElement.setAttribute("data-theme", "light");
+      } else {
+        document.documentElement.removeAttribute("data-theme");
       }
-    }
+    };
+
+    const stored = localStorage.getItem("rmvs-theme");
+    const media = window.matchMedia("(prefers-color-scheme: dark)");
+    // Stored choice wins; otherwise follow the OS, defaulting to light.
+    apply(stored === "dark" || stored === "light" ? stored : media.matches ? "dark" : "light");
+
+    // Track OS changes live until the user makes an explicit choice.
+    const onChange = (e: MediaQueryListEvent) => {
+      if (!localStorage.getItem("rmvs-theme")) apply(e.matches ? "dark" : "light");
+    };
+    media.addEventListener("change", onChange);
+    return () => media.removeEventListener("change", onChange);
   }, []);
 
   const toggle = () => {

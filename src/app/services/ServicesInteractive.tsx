@@ -1,0 +1,583 @@
+"use client";
+
+import { FormEvent, ReactNode, useEffect, useRef, useState, useSyncExternalStore } from "react";
+
+/* ============================================================
+   Shared mini browser render — used by the hero, the compare
+   slider, and the case-study panel.
+   ============================================================ */
+
+export function MiniSite({
+  url,
+  kicker,
+  heading,
+  body,
+  primary,
+  secondary,
+  center = false,
+}: {
+  url: string;
+  kicker: string;
+  heading: ReactNode;
+  body: string;
+  primary: string;
+  secondary?: string;
+  center?: boolean;
+}) {
+  return (
+    <div className={`svc-mini${center ? " svc-mini-center" : ""}`} aria-hidden="true">
+      <div className="svc-mini-bar">
+        <span className="svc-mini-dot" />
+        <span className="svc-mini-dot" />
+        <span className="svc-mini-dot" />
+        <span className="svc-mini-url">{url}</span>
+      </div>
+      <div className="svc-mini-body">
+        <span className="svc-mini-kicker">{kicker}</span>
+        <h3>{heading}</h3>
+        <p>{body}</p>
+        <div className="svc-mini-cta-row">
+          <button className="svc-mini-btn" type="button" tabIndex={-1}>
+            {primary}
+          </button>
+          {secondary && (
+            <button className="svc-mini-btn svc-o" type="button" tabIndex={-1}>
+              {secondary}
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================
+   Scroll-expansion hero.
+   The title sits ABOVE the panel (never overlapped — fixes the
+   contrast glitch in earlier drafts). As you scroll, the two
+   halves of the title spread apart while the panel grows to
+   near-fullscreen, then the CTA row fades in.
+   ============================================================ */
+
+export function ScrollHero() {
+  const heroRef = useRef<HTMLDivElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const leftRef = useRef<HTMLSpanElement>(null);
+  const rightRef = useRef<HTMLSpanElement>(null);
+  const subRef = useRef<HTMLDivElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
+  const annoARef = useRef<HTMLSpanElement>(null);
+  const annoBRef = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    const hero = heroRef.current;
+    const panel = panelRef.current;
+    if (!hero || !panel) return;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      ctaRef.current?.classList.add("svc-in");
+      return;
+    }
+
+    let ticking = false;
+
+    const tick = () => {
+      ticking = false;
+      const rect = hero.getBoundingClientRect();
+      const total = hero.offsetHeight - window.innerHeight;
+      if (total <= 0) return;
+      const p = Math.min(1, Math.max(0, -rect.top / total));
+      const e = 1 - Math.pow(1 - p, 3); // ease-out cubic
+
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+
+      // panel grows from a card into a near-fullscreen render
+      const wMin = Math.min(420, vw * 0.86);
+      const wMax = Math.min(1080, vw * 0.94);
+      const hMin = Math.max(260, vh * 0.4);
+      const hMax = vh * 0.68;
+      panel.style.width = `${wMin + (wMax - wMin) * e}px`;
+      panel.style.height = `${hMin + (hMax - hMin) * e}px`;
+
+      // title halves drift apart, staying fully legible
+      const spread = Math.min(vw * 0.06, 72) * e;
+      if (leftRef.current) leftRef.current.style.transform = `translateX(${-spread}px)`;
+      if (rightRef.current) rightRef.current.style.transform = `translateX(${spread}px)`;
+
+      // supporting copy fades out early; CTA fades in at the end
+      if (subRef.current) {
+        const fade = Math.max(0, 1 - p * 2.6);
+        subRef.current.style.opacity = String(fade);
+        subRef.current.style.pointerEvents = fade > 0.1 ? "auto" : "none";
+      }
+      ctaRef.current?.classList.toggle("svc-in", p > 0.82);
+
+      const annoOn = p > 0.25 && p < 0.8 ? "1" : "0";
+      if (annoARef.current) annoARef.current.style.opacity = annoOn;
+      if (annoBRef.current) annoBRef.current.style.opacity = annoOn;
+    };
+
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(tick);
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    tick();
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
+  return (
+    <header className="svc-hero" ref={heroRef}>
+      <div className="svc-hero-sticky svc-gridfield">
+        <h1 className="svc-hero-title" aria-label="The site that books your calls.">
+          <span className="svc-t-half" ref={leftRef}>
+            The site that
+          </span>
+          <span className="svc-t-half" ref={rightRef}>
+            books your calls.
+          </span>
+        </h1>
+
+        <div className="svc-hero-panel" ref={panelRef}>
+          <MiniSite
+            url="yourbusiness.com"
+            kicker="Your business — done right"
+            heading={
+              <>
+                Clients find you.
+                <br />
+                Then they book you.
+              </>
+            }
+            body="One clean site that says what you do, proves you're good at it, and puts a booking button where nobody can miss it."
+            primary="Book a call"
+            secondary="See services"
+          />
+        </div>
+
+        <span className="svc-anno svc-anno-a" ref={annoARef}>
+          panel A — your new homepage,
+          <br />
+          rendered live, not a screenshot
+        </span>
+        <span className="svc-anno svc-anno-b" ref={annoBRef}>
+          expands to full width
+          <br />
+          as the drawing unrolls
+        </span>
+
+        <div className="svc-hero-sub" ref={subRef}>
+          <p>
+            RMVS builds the website, wires every technical thing behind it, and
+            runs the marketing that fills it. You talk to a person — not a
+            ticket queue.
+          </p>
+          <div className="svc-scroll-cue">scroll to unroll</div>
+        </div>
+
+        <div className="svc-hero-cta" ref={ctaRef}>
+          <a href="#book" className="btn svc-btn-hot">
+            Book a free consult
+          </a>
+          <a href="#pricing" className="btn btn-outline">
+            See the rate card
+          </a>
+        </div>
+      </div>
+    </header>
+  );
+}
+
+/* ============================================================
+   Redline compare slider — drag (pointer) or arrow keys (the
+   invisible range input) to sweep between "their old site" and
+   "the RMVS build".
+   ============================================================ */
+
+export function CompareSlider() {
+  const boxRef = useRef<HTMLDivElement>(null);
+  const [cut, setCut] = useState(50);
+
+  const setFromClientX = (clientX: number) => {
+    const box = boxRef.current;
+    if (!box) return;
+    const r = box.getBoundingClientRect();
+    setCut(Math.min(100, Math.max(0, ((clientX - r.left) / r.width) * 100)));
+  };
+
+  return (
+    <div
+      className="svc-compare"
+      ref={boxRef}
+      style={{ ["--cut" as string]: `${cut}%` }}
+      onPointerMove={(e) => {
+        if (e.buttons === 1 || e.pointerType === "touch") setFromClientX(e.clientX);
+      }}
+      onPointerDown={(e) => setFromClientX(e.clientX)}
+    >
+      <div className="svc-cmp-layer">
+        <div className="svc-grim" aria-hidden="true">
+          <div className="svc-grim-top">WELCOME TO OUR HOME PAGE!!</div>
+          <div className="svc-grim-body">
+            <div>
+              <h4>About Our Company Services</h4>
+              <p>
+                We have been proudly serving the area since 2009 with quality
+                service and satisfaction guaranteed. Please feel free to browse
+                our website for more information about all of the services that
+                we offer to our valued customers.
+              </p>
+              <p>
+                For a quote please call during business hours or send us a fax.
+                We look forward to hearing from you soon!
+              </p>
+              <p className="svc-grim-blink">** UNDER CONSTRUCTION — CHECK BACK SOON **</p>
+            </div>
+            <div className="svc-grim-side">
+              <b>Quick Links</b>
+              Home
+              <br />
+              About Us
+              <br />
+              Services
+              <br />
+              Gallery (broken)
+              <br />
+              Guestbook
+            </div>
+          </div>
+        </div>
+        <span className="svc-cmp-tag svc-tag-before">before — their old site</span>
+      </div>
+
+      <div className="svc-cmp-layer svc-cmp-after">
+        <MiniSite
+          center
+          url="yourbusiness.com"
+          kicker="Licensed + insured · same-day quotes"
+          heading={
+            <>
+              Booked out is the goal.
+              <br />
+              Here&apos;s the button.
+            </>
+          }
+          body="Clear services, real proof, and a scheduler wired to your calendar. Loads fast on the phone your customer is actually holding."
+          primary="Book a call"
+          secondary="Get a quote"
+        />
+        <span className="svc-cmp-tag svc-tag-after">after — the RMVS build</span>
+      </div>
+
+      <div className="svc-cmp-handle" aria-hidden="true">
+        <span className="svc-cmp-grip">&lt;&gt;</span>
+      </div>
+      <input
+        className="svc-cmp-range"
+        type="range"
+        min={0}
+        max={100}
+        step={1}
+        value={Math.round(cut)}
+        onChange={(e) => setCut(Number(e.target.value))}
+        aria-label="Reveal slider comparing the old site and the RMVS build"
+      />
+    </div>
+  );
+}
+
+/* ============================================================
+   Dotted globe — CloudFront edge network. Canvas-only, no deps.
+   Pauses offscreen; renders a single static frame under
+   prefers-reduced-motion.
+   ============================================================ */
+
+const EDGES: Array<[number, number]> = [
+  [40.44, -79.99], // Pittsburgh
+  [40.7, -74], // New York
+  [34, -118.2], // Los Angeles
+  [41.9, -87.6], // Chicago
+  [32.8, -96.8], // Dallas
+  [47.6, -122.3], // Seattle
+  [51.5, -0.12], // London
+  [50.1, 8.68], // Frankfurt
+  [35.7, 139.7], // Tokyo
+  [1.35, 103.8], // Singapore
+  [-33.9, 151.2], // Sydney
+  [-23.5, -46.6], // São Paulo
+  [19.1, 72.9], // Mumbai
+  [43.7, -79.4], // Toronto
+];
+
+export function Globe() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const cv = canvasRef.current;
+    if (!cv) return;
+    const ctx = cv.getContext("2d");
+    if (!ctx) return;
+
+    const S = 900;
+    cv.width = S;
+    cv.height = S;
+    const C = S / 2;
+    const R = S * 0.4;
+
+    // fibonacci-sphere point cloud
+    const N = 1300;
+    const GA = Math.PI * (3 - Math.sqrt(5));
+    const pts: Array<[number, number, number]> = [];
+    for (let i = 0; i < N; i++) {
+      const y = 1 - (i / (N - 1)) * 2;
+      const rad = Math.sqrt(1 - y * y);
+      const th = GA * i;
+      pts.push([Math.cos(th) * rad, y, Math.sin(th) * rad]);
+    }
+
+    const ll = (lat: number, lng: number): [number, number, number] => {
+      const la = (lat * Math.PI) / 180;
+      const lo = (lng * Math.PI) / 180;
+      return [Math.cos(la) * Math.cos(lo), Math.sin(la), Math.cos(la) * Math.sin(lo)];
+    };
+    const markers = EDGES.map(([la, lo]) => ll(la, lo));
+
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let rot = 0.6;
+    let frame = 0;
+    let running = true;
+    let raf = 0;
+
+    const draw = () => {
+      ctx.clearRect(0, 0, S, S);
+      ctx.beginPath();
+      ctx.arc(C, C, R + 14, 0, Math.PI * 2);
+      ctx.strokeStyle = "rgba(34, 211, 238, 0.18)";
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      const cr = Math.cos(rot);
+      const sr = Math.sin(rot);
+
+      for (let i = 0; i < N; i++) {
+        const p = pts[i];
+        const x = p[0] * cr + p[2] * sr;
+        const z = -p[0] * sr + p[2] * cr;
+        if (z < 0) continue;
+        ctx.fillStyle = `rgba(159, 201, 222, ${(0.14 + z * 0.5).toFixed(3)})`;
+        ctx.fillRect(C + x * R, C - p[1] * R, 1.8, 1.8);
+      }
+
+      for (let j = 0; j < markers.length; j++) {
+        const q = markers[j];
+        const qx = q[0] * cr + q[2] * sr;
+        const qz = -q[0] * sr + q[2] * cr;
+        if (qz < 0.02) continue;
+        const ex = C + qx * R;
+        const ey = C - q[1] * R;
+        const pulse = (frame * 0.02 + j * 0.5) % 1;
+        ctx.beginPath();
+        ctx.arc(ex, ey, 3 + qz * 1.5, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(249, 115, 22, ${(0.55 + qz * 0.45).toFixed(3)})`;
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(ex, ey, 4 + pulse * 16, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(249, 115, 22, ${((1 - pulse) * 0.4 * qz).toFixed(3)})`;
+        ctx.lineWidth = 1.2;
+        ctx.stroke();
+      }
+
+      rot += 0.0035;
+      frame++;
+      if (running && !reduced) raf = requestAnimationFrame(draw);
+    };
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        const was = running;
+        running = entry.isIntersecting;
+        if (running && !was && !reduced) raf = requestAnimationFrame(draw);
+        if (!running) cancelAnimationFrame(raf);
+      },
+      { threshold: 0.05 }
+    );
+    io.observe(cv);
+    draw();
+
+    return () => {
+      running = false;
+      cancelAnimationFrame(raf);
+      io.disconnect();
+    };
+  }, []);
+
+  return (
+    <canvas
+      className="svc-globe-canvas"
+      ref={canvasRef}
+      role="img"
+      aria-label="Rotating globe with pulsing markers at CloudFront edge locations serving RMVS-built sites worldwide"
+    />
+  );
+}
+
+/* ============================================================
+   Two-minute brief — posts to the existing /api/contact route
+   (email + SMS notification), with a honeypot for spam.
+   ============================================================ */
+
+export function LeadBrief() {
+  const [status, setStatus] = useState<"idle" | "sending" | "ok" | "error">("idle");
+  const [error, setError] = useState("");
+
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const data = new FormData(form);
+
+    if (data.get("company_fax")) return; // honeypot
+
+    const name = String(data.get("name") || "").trim();
+    const business = String(data.get("business") || "").trim();
+    const email = String(data.get("email") || "").trim();
+    const vertical = String(data.get("vertical") || "").trim();
+    const site = String(data.get("current_site") || "").trim();
+
+    setStatus("sending");
+    setError("");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          email,
+          subject: `Services lead — ${business || name}`,
+          message: [
+            `New two-minute brief from the services page.`,
+            `Business: ${business || "(not provided)"}`,
+            `Industry: ${vertical || "(not provided)"}`,
+            `Current site: ${site || "(none — new build)"}`,
+          ].join("\n"),
+        }),
+      });
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setStatus("error");
+        setError(json?.message || "Something went wrong — try again or book a call below.");
+        return;
+      }
+      setStatus("ok");
+      form.reset();
+    } catch {
+      setStatus("error");
+      setError("Network hiccup — try again or book a call below.");
+    }
+  };
+
+  return (
+    <form className="svc-leadform" onSubmit={onSubmit} noValidate={false}>
+      <h3>The two-minute brief</h3>
+      <p className="svc-mono-note" style={{ marginBottom: 20 }}>
+        replies same business day
+      </p>
+
+      {status === "ok" && (
+        <div className="svc-form-ok" role="status">
+          Got it — your brief is in. You&apos;ll hear back today with next steps
+          and a timeline.
+        </div>
+      )}
+      {status === "error" && (
+        <div className="svc-form-err" role="alert">
+          {error}
+        </div>
+      )}
+
+      <div className="svc-field">
+        <label htmlFor="svc-name">Your name</label>
+        <input id="svc-name" name="name" type="text" className="input" autoComplete="name" required minLength={2} placeholder="Jordan Smith" />
+      </div>
+      <div className="svc-field">
+        <label htmlFor="svc-biz">Business name</label>
+        <input id="svc-biz" name="business" type="text" className="input" autoComplete="organization" required placeholder="Smith & Co. Plumbing" />
+      </div>
+      <div className="svc-field">
+        <label htmlFor="svc-email">Email</label>
+        <input id="svc-email" name="email" type="email" className="input" autoComplete="email" required placeholder="you@yourbusiness.com" />
+      </div>
+      <div className="svc-field">
+        <label htmlFor="svc-type">What do you do?</label>
+        <select id="svc-type" name="vertical" className="select" required defaultValue="">
+          <option value="" disabled>
+            Pick the closest
+          </option>
+          <option>Finance / lending / consulting</option>
+          <option>Legal / accounting / insurance</option>
+          <option>Health / dental / wellness</option>
+          <option>Trades / home services</option>
+          <option>Auto / detailing / shop</option>
+          <option>Food / retail / other</option>
+        </select>
+      </div>
+      <div className="svc-field">
+        <label htmlFor="svc-site">Current website (optional — we&apos;ll redline it)</label>
+        <input id="svc-site" name="current_site" type="url" className="input" placeholder="https://" />
+      </div>
+
+      <div className="svc-hp" aria-hidden="true">
+        <label>
+          Leave this empty
+          <input type="text" name="company_fax" tabIndex={-1} autoComplete="off" />
+        </label>
+      </div>
+
+      <button className="btn svc-btn-hot" type="submit" style={{ width: "100%" }} disabled={status === "sending"}>
+        {status === "sending" ? "Sending…" : "Send the brief"}
+      </button>
+    </form>
+  );
+}
+
+/* ============================================================
+   Cal.com embed that follows the site theme (and updates live
+   when the toggle flips).
+   ============================================================ */
+
+const subscribeToTheme = (onChange: () => void) => {
+  const mo = new MutationObserver(onChange);
+  mo.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  return () => mo.disconnect();
+};
+
+const readTheme = (): "dark" | "light" =>
+  document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark";
+
+// null on the server so we render a placeholder until the theme is known
+const readServerTheme = (): "dark" | "light" | null => null;
+
+export function CalEmbed({ calLink }: { calLink: string }) {
+  const theme = useSyncExternalStore(subscribeToTheme, readTheme, readServerTheme);
+
+  if (!theme) return <div className="svc-cal-frame" style={{ height: 640 }} />;
+
+  return (
+    <div className="svc-cal-frame">
+      <iframe
+        key={theme}
+        src={`${calLink}?embed=true&theme=${theme}`}
+        title="Schedule a consultation with RMVS"
+        style={{ width: "100%", height: 640, border: 0, display: "block" }}
+        loading="lazy"
+      />
+    </div>
+  );
+}
