@@ -4,10 +4,15 @@
    ============================================================ */
 
 .svc {
-  /* redline accent — reads well on both themes */
-  --svc-hot: #f97316;
-  --svc-hot-strong: #ea580c;
-  --svc-hot-soft: rgba(249, 115, 22, 0.14);
+  /* aurum accent — Auron-style gold. Surfaces stay bright gold with dark
+     ink in both themes; --svc-hot-text darkens in light mode for small text. */
+  --svc-hot: #e8c058;
+  --svc-hot-strong: #d4a842;
+  --svc-hot-text: #e8c058;
+  --svc-hot-soft: rgba(232, 192, 88, 0.16);
+  --svc-hot-border: rgba(232, 192, 88, 0.45);
+  --svc-hot-shadow: rgba(212, 168, 66, 0.45);
+  --svc-hot-ink: #241b04;
   /* fixed dark plate used inside mini-browser mocks + globe section */
   --svc-plate: #0b1626;
   --svc-plate-2: #101e33;
@@ -20,6 +25,10 @@
 
 [data-theme="light"] .svc {
   --svc-gridline: rgba(15, 23, 42, 0.055);
+  --svc-hot-text: #97741f;
+  --svc-hot-soft: rgba(184, 145, 47, 0.14);
+  --svc-hot-border: rgba(184, 145, 47, 0.5);
+  --svc-hot-shadow: rgba(184, 145, 47, 0.38);
 }
 
 /* drafting-paper grid */
@@ -431,14 +440,14 @@
   height: 44px;
   border-radius: 50%;
   background: var(--svc-hot);
-  color: #fff;
+  color: var(--svc-hot-ink);
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-mono), monospace;
   font-size: 0.9rem;
   letter-spacing: 0.05em;
-  box-shadow: 0 6px 20px -6px rgba(249, 115, 22, 0.65);
+  box-shadow: 0 6px 20px -6px var(--svc-hot-shadow);
 }
 
 .svc-cmp-range {
@@ -572,9 +581,9 @@
   color: var(--white);
 }
 
-.svc-step-hot { border-color: rgba(249, 115, 22, 0.45); }
+.svc-step-hot { border-color: var(--svc-hot-border); }
 .svc-step-hot:hover { border-color: var(--svc-hot); }
-.svc-step-hot .svc-step-no { color: var(--svc-hot); }
+.svc-step-hot .svc-step-no { color: var(--svc-hot-text); }
 
 @media (max-width: 900px) {
   .svc-steps { grid-template-columns: 1fr; }
@@ -590,8 +599,8 @@
 
 .svc-plate-section .svc-h2 { color: #ffffff; }
 .svc-plate-section .svc-lede { color: var(--svc-plate-dim); }
-.svc-plate-section .svc-sheet-tag { color: #22d3ee; }
-.svc-plate-section .svc-sheet-tag::before { background: #22d3ee; }
+.svc-plate-section .svc-sheet-tag { color: #e8c058; }
+.svc-plate-section .svc-sheet-tag::before { background: #e8c058; }
 .svc-plate-section .svc-sheet-tag .svc-no {
   color: var(--svc-plate-text);
   background: var(--svc-plate-2);
@@ -605,12 +614,37 @@
   align-items: center;
 }
 
-.svc-globe-canvas {
+/* gold point-cloud emblem (WebGL) */
+.svc-emblem {
+  position: relative;
   width: 100%;
-  max-width: 500px;
+  max-width: 560px;
   aspect-ratio: 1 / 1;
   margin: 0 auto;
+}
+
+.svc-emblem-host {
+  position: absolute;
+  inset: 0;
+}
+
+.svc-emblem-host canvas {
+  width: 100%;
+  height: 100%;
   display: block;
+}
+
+.svc-emblem-fallback {
+  position: absolute;
+  inset: 8%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 50% 42%,
+    rgba(212, 168, 66, 0.35),
+    rgba(26, 31, 84, 0.3) 55%,
+    transparent 74%
+  );
+  filter: blur(6px);
 }
 
 .svc-net-list { display: grid; gap: 14px; margin-top: 26px; }
@@ -626,7 +660,7 @@
 .svc-net-item .svc-k {
   font-family: var(--font-mono), monospace;
   font-size: 0.72rem;
-  color: #22d3ee;
+  color: #e8c058;
   min-width: 84px;
   letter-spacing: 0.08em;
   flex-shrink: 0;
@@ -677,7 +711,7 @@
   top: -12px;
   left: 24px;
   background: var(--svc-hot);
-  color: #fff;
+  color: var(--svc-hot-ink);
   font-family: var(--font-mono), monospace;
   font-size: 0.66rem;
   letter-spacing: 0.1em;
@@ -916,13 +950,13 @@
 /* hot button variant */
 .svc-btn-hot {
   background: linear-gradient(135deg, var(--svc-hot), var(--svc-hot-strong));
-  color: #fff;
-  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  color: var(--svc-hot-ink);
+  box-shadow: 0 4px 12px var(--svc-hot-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .svc-btn-hot:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(249, 115, 22, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  box-shadow: 0 6px 16px var(--svc-hot-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.25);
 }
 
 /* responsive tightening */

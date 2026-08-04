@@ -4,10 +4,10 @@ import ScrollReveal from "@/components/shared/ScrollReveal";
 import {
   CalEmbed,
   CompareSlider,
-  Globe,
   LeadBrief,
   ScrollHero,
 } from "./ServicesInteractive";
+import GoldEmblem from "./GoldEmblem";
 import "./services.css";
 
 export const metadata = {
@@ -225,7 +225,7 @@ export default function ServicesPage() {
             <span className="svc-no">Sheet 04</span> delivery network
           </div>
           <div className="svc-globe-wrap">
-            <Globe />
+            <GoldEmblem />
             <div>
               <h2 className="svc-h2">
                 Small business.
