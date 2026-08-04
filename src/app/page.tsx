@@ -33,9 +33,12 @@ export default function HomePage() {
 
             <p>
               RMonaghan Venture Studios is a digital innovation lab specializing
-              in AI-integrated iOS apps, developer tooling, clinical AI, and
-              end-to-end product development. From concept to App Store — fueled
-              by creativity and dedication.
+              in web design, social media management, digital marketing, cross
+              platform compatible AI-native software across iOS, Android, and
+              rich internet applications. As a full stack developer, our founder
+              and his team are ready to deliver cutting edge solutions for you
+              and your business, fueled by a passion for connecting with people
+              and dedication to our craft.
             </p>
 
             <div className="nav-cta" style={{ marginBottom: 24 }}>
@@ -73,10 +76,10 @@ export default function HomePage() {
               className="muted"
               style={{ fontSize: "0.92rem", marginBottom: 12 }}
             >
-              Rory Monaghan is a neuroscience student at the University of
-              Pittsburgh, full-stack developer, and entrepreneur building
-              AI-integrated products across healthcare, education, and
-              automotive.
+              Rory Monaghan studied a diverse array of subjects at the
+              University of Pittsburgh, where he found his calling as a
+              full-stack developer and entrepreneur building AI-integrated
+              products across healthcare, education, and automotive.
             </p>
             <span className="btn btn-ghost" style={{ display: "inline-flex" }}>
               Learn More →

@@ -8,6 +8,7 @@ import {
   ScrollHero,
 } from "./ServicesInteractive";
 import GoldEmblem from "./GoldEmblem";
+import SystemsDiagram from "./SystemsDiagram";
 import "./services.css";
 
 export const metadata = {
@@ -27,22 +28,6 @@ const STACK = [
   { name: "Cal.com", role: "booking" },
   { name: "Plausible", role: "analytics" },
   { name: "Resend", role: "transactional email" },
-];
-
-const EXISTING_SYSTEMS = [
-  { name: "Domain registrar", detail: "GoDaddy · Squarespace · Bluehost" },
-  { name: "Email", detail: "Gmail · Outlook · iCloud custom domain" },
-  { name: "Current website", detail: "Wix · WordPress · nothing at all" },
-  { name: "Booking & CRM", detail: "Calendly · spreadsheets · a notebook" },
-  { name: "Payments", detail: "Square · PayPal · paper invoices" },
-];
-
-const RMVS_STACK = [
-  { name: "AWS CloudFront", detail: "global CDN hosting" },
-  { name: "Route 53", detail: "DNS you never think about" },
-  { name: "Google Workspace", detail: "professional email" },
-  { name: "Cal.com", detail: "booking on your calendar" },
-  { name: "Stripe", detail: "payments & invoicing" },
 ];
 
 const buildTiers = [
@@ -248,33 +233,7 @@ export default function ServicesPage() {
             Your choice, mapped in the free consult.
           </p>
 
-          <div className="svc-diag" aria-label="Diagram: RMVS connects your existing systems to the recommended stack">
-            <div className="svc-diag-col svc-diag-left">
-              <span className="svc-diag-col-label">What you have now</span>
-              {EXISTING_SYSTEMS.map((s) => (
-                <div className="svc-chip" key={s.name}>
-                  <b>{s.name}</b>
-                  <small>{s.detail}</small>
-                </div>
-              ))}
-            </div>
-
-            <div className="svc-diag-mid">
-              <span className="svc-diag-hub-note">audit</span>
-              <div className="svc-diag-hub">RMVS</div>
-              <span className="svc-diag-hub-note">wire · migrate · build</span>
-            </div>
-
-            <div className="svc-diag-col svc-diag-right">
-              <span className="svc-diag-col-label">The recommended stack</span>
-              {RMVS_STACK.map((s) => (
-                <div className="svc-chip" key={s.name}>
-                  <b>{s.name}</b>
-                  <small>{s.detail}</small>
-                </div>
-              ))}
-            </div>
-          </div>
+          <SystemsDiagram />
 
           <div className="svc-diag-paths">
             <div className="svc-diag-path svc-path-a">

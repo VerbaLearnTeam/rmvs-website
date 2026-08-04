@@ -24,7 +24,7 @@ export default function Footer() {
               <span>RMVS</span>
             </div>
             <p style={{ color: "var(--white-dim)", fontSize: "0.88rem", lineHeight: 1.6, maxWidth: 280 }}>
-              Digital innovation lab building AI-integrated products across healthcare, education, and developer tooling.
+              Digital innovation lab specializing in web design, digital marketing, and cross-platform AI-native software.
             </p>
           </div>
 

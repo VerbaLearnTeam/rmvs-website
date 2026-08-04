@@ -8,8 +8,8 @@ import HeroBackground from "@/components/HeroBackground";
 const contactMethods = [
   {
     title: "Email",
-    content: "rory.monaghan@eprescience.com",
-    href: "mailto:rory.monaghan@eprescience.com",
+    content: "RMonaghanVentureStudios@rmvs.org",
+    href: "mailto:RMonaghanVentureStudios@rmvs.org",
   },
   {
     title: "LinkedIn",
@@ -20,11 +20,6 @@ const contactMethods = [
     title: "YouTube",
     content: "@SunkistGoofbox",
     href: "https://www.youtube.com/channel/UCXabldsOQzq4tvq5airbQMQ",
-  },
-  {
-    title: "Auron Intelligence",
-    content: "Rory.Monaghan@auronintelligence.com",
-    href: "mailto:Rory.Monaghan@auronintelligence.com",
   },
 ];
 

@@ -245,9 +245,9 @@
 }
 
 /* watercolor wash — scroll-driven via --hp (0 → 1) set from ScrollHero.
-   Visible from the start (Stripe-style color at load), blooming as you
-   scroll. Only the container animates (opacity + scale — compositor-only);
-   the filtered blobs stay static so turbulence rasterizes once. */
+   Invisible at load; blooms in as the user scrolls. Only the container
+   animates (opacity + scale — compositor-only); the filtered blobs stay
+   static so turbulence rasterizes once. */
 .svc-wash-defs {
   position: absolute;
 }
@@ -258,8 +258,8 @@
   overflow: hidden;
   pointer-events: none;
   z-index: 0;
-  opacity: calc(0.5 + var(--hp, 0) * 0.5);
-  transform: scale(calc(0.88 + var(--hp, 0) * 0.18));
+  opacity: var(--hp, 0);
+  transform: scale(calc(0.82 + var(--hp, 0) * 0.22));
   will-change: transform, opacity;
 }
 
@@ -382,35 +382,22 @@
     0 30px 80px -20px rgba(10, 37, 64, 0.45),
     0 0 calc(var(--hp, 0) * 90px) rgba(99, 91, 255, calc(var(--hp, 0) * 0.25));
   will-change: width, height;
-  container-type: size;
 }
 
-/* inside the hero, the render's type scales with the panel itself so the
-   expanded view reads like a real homepage instead of stranded small text */
-.svc-hero-panel .svc-mini-body {
-  padding: clamp(18px, 6cqw, 72px);
-  gap: clamp(10px, 2.2cqh, 22px);
+/* the hero panel hosts the real rmvs.org homepage in an iframe;
+   scrolling inside unlocks once the panel is (nearly) fullscreen */
+.svc-hero-frame {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  border: 0;
+  display: block;
+  background: var(--svc-bg);
+  pointer-events: none;
 }
 
-.svc-hero-panel .svc-mini-kicker {
-  font-size: clamp(0.62rem, 1.4cqw, 1rem);
-}
-
-.svc-hero-panel .svc-mini-body h3 {
-  font-size: clamp(1.2rem, 4.4cqw, 3.1rem);
-}
-
-.svc-hero-panel .svc-mini-body p {
-  font-size: clamp(0.78rem, 1.8cqw, 1.15rem);
-  max-width: 52ch;
-}
-
-.svc-hero-panel .svc-mini-btn {
-  font-size: clamp(0.7rem, 1.5cqw, 1rem);
-}
-
-.svc-hero-panel .svc-mini-url {
-  font-size: clamp(0.6rem, 1.1cqw, 0.8rem);
+.svc-hero-panel.svc-live .svc-hero-frame {
+  pointer-events: auto;
 }
 
 .svc-hero-sub {
@@ -963,18 +950,60 @@
   .svc-globe-wrap { grid-template-columns: 1fr; }
 }
 
-/* ---------- systems diagram (Stripe "connect to existing systems") ---------- */
+/* ---------- systems diagram (n8n-style measured connectors) ---------- */
 .svc-diag {
+  position: relative;
   margin-top: 52px;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-  column-gap: clamp(20px, 4.5vw, 60px);
+  column-gap: clamp(48px, 8vw, 130px);
   align-items: center;
 }
 
+/* SVG connector overlay — beziers, ports, and flow pulses */
+.svc-diag-svg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.svc-edge {
+  fill: none;
+  stroke: rgba(122, 158, 205, 0.35);
+  stroke-width: 1.5;
+}
+
+/* dashed overlay that drifts along the edge (n8n flow feel) */
+.svc-edge-flow {
+  fill: none;
+  stroke-width: 1.5;
+  stroke-dasharray: 7 9;
+  animation: svc-edge-drift 1.6s linear infinite;
+}
+
+.svc-edge-in { stroke: rgba(0, 212, 255, 0.55); }
+.svc-edge-out { stroke: rgba(143, 136, 255, 0.6); }
+
+@keyframes svc-edge-drift {
+  to { stroke-dashoffset: -16; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .svc-edge-flow { animation: none; }
+}
+
+.svc-port {
+  fill: var(--svc-plate);
+  stroke-width: 1.6;
+}
+
 .svc-diag-col {
+  position: relative;
+  z-index: 1;
   display: grid;
-  gap: 12px;
+  gap: 14px;
   align-content: center;
 }
 
@@ -989,12 +1018,30 @@
 
 .svc-chip {
   position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
   background: var(--svc-plate-2);
   border: 1px solid #274b74;
   border-radius: 10px;
   padding: 11px 14px;
   line-height: 1.35;
+  box-shadow: 0 4px 14px -8px rgba(0, 0, 0, 0.5);
 }
+
+.svc-chip-icon {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 0.85rem;
+  color: #0a2540;
+}
+
+.svc-chip-text { min-width: 0; }
 
 .svc-chip b {
   display: block;
@@ -1009,36 +1056,15 @@
   color: #8fa9c4;
 }
 
-/* dashed connector stubs toward the hub */
-.svc-diag-left .svc-chip::after,
-.svc-diag-right .svc-chip::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  width: clamp(20px, 4.5vw, 60px);
-  border-top: 1.5px dashed #3a6497;
-}
-
-.svc-diag-left .svc-chip::after { left: 100%; }
-.svc-diag-right .svc-chip::before { right: 100%; }
-
 /* hub column */
 .svc-diag-mid {
   position: relative;
+  z-index: 1;
   display: grid;
   gap: 14px;
   justify-items: center;
   align-self: stretch;
   align-content: center;
-}
-
-.svc-diag-mid::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  border-left: 1.5px dashed #3a6497;
 }
 
 .svc-diag-hub {
@@ -1117,11 +1143,7 @@
     grid-template-columns: 1fr;
     row-gap: 28px;
   }
-  .svc-diag-left .svc-chip::after,
-  .svc-diag-right .svc-chip::before,
-  .svc-diag-mid::before {
-    display: none;
-  }
+  .svc-diag-svg { display: none; }
   .svc-diag-paths { grid-template-columns: 1fr; }
 }
 

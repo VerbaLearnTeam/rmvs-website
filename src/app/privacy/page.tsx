@@ -110,8 +110,8 @@ export default function PrivacyPage() {
               If you have questions about this Privacy Policy, please contact us at:
             </p>
             <p style={{ marginTop: 12 }}>
-              <a href="mailto:rory.monaghan@eprescience.com" style={{ color: "var(--accent)" }}>
-                rory.monaghan@eprescience.com
+              <a href="mailto:RMonaghanVentureStudios@rmvs.org" style={{ color: "var(--accent)" }}>
+                RMonaghanVentureStudios@rmvs.org
               </a>
             </p>
           </div>

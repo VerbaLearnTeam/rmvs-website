@@ -90,8 +90,8 @@ export default function AuronPage() {
             For investors, clinicians, healthcare organizations, and collaborators.
           </p>
           <div className="nav-cta" style={{ justifyContent: "center", marginTop: 18 }}>
-            <a className="btn btn-primary" href="mailto:Rory.Monaghan@auronintelligence.com">
-              Contact: Rory.Monaghan@auronintelligence.com
+            <a className="btn btn-primary" href="mailto:RMonaghanVentureStudios@rmvs.org">
+              Contact: RMonaghanVentureStudios@rmvs.org
             </a>
             <a 
               className="btn btn-outline" 

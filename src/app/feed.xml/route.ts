@@ -43,13 +43,13 @@ export async function GET() {
     <link>https://www.rmvs.org/blog</link>
     <description>Technical dispatches from VerbaLearn, Auron, Orchard, and the RMVS venture studio.</description>
     <language>en-us</language>
-    <managingEditor>rory@rmvs.org (Rory Monaghan)</managingEditor>
+    <managingEditor>RMonaghanVentureStudios@rmvs.org (Rory Monaghan)</managingEditor>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
     <atom:link href="https://www.rmvs.org/feed.xml" rel="self" type="application/rss+xml"/>
     <itunes:author>Rory Monaghan</itunes:author>
     <itunes:owner>
       <itunes:name>Rory Monaghan</itunes:name>
-      <itunes:email>rory@rmvs.org</itunes:email>
+      <itunes:email>RMonaghanVentureStudios@rmvs.org</itunes:email>
     </itunes:owner>
     <itunes:category text="Technology"/>
     <itunes:image href="https://www.rmvs.org/logo.png"/>

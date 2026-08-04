@@ -79,6 +79,7 @@ export function ScrollHero() {
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       ctaRef.current?.classList.add("svc-in");
+      panel.classList.add("svc-live");
       sticky.style.setProperty("--hp", "1");
       return;
     }
@@ -125,6 +126,8 @@ export function ScrollHero() {
         subRef.current.style.pointerEvents = fade > 0.1 ? "auto" : "none";
       }
       ctaRef.current?.classList.toggle("svc-in", p > 0.82);
+      // once the render is (nearly) fullscreen, let visitors scroll it
+      panel.classList.toggle("svc-live", p > 0.82);
 
       // annotations only while the panel is still small enough not to collide
       const annoOn = p > 0.18 && p < 0.5 ? "1" : "0";
@@ -177,26 +180,27 @@ export function ScrollHero() {
         </h1>
 
         <div className="svc-hero-panel" ref={panelRef}>
-          <MiniSite
-            url="yourbusiness.com"
-            kicker="Your business — done right"
-            heading={
-              <>
-                Clients find you.
-                <br />
-                Then they book you.
-              </>
-            }
-            body="One clean site that says what you do, proves you're good at it, and puts a booking button where nobody can miss it."
-            primary="Book a call"
-            secondary="See services"
-          />
+          <div className="svc-mini">
+            <div className="svc-mini-bar">
+              <span className="svc-mini-dot" />
+              <span className="svc-mini-dot" />
+              <span className="svc-mini-dot" />
+              <span className="svc-mini-url">rmvs.org</span>
+            </div>
+            <iframe
+              className="svc-hero-frame"
+              src="/"
+              title="rmvs.org — our live homepage, rendered inside the page"
+              loading="eager"
+              tabIndex={-1}
+            />
+          </div>
         </div>
 
         <span className="svc-anno svc-anno-a" ref={annoARef}>
-          panel A — your new homepage,
+          this is our real homepage,
           <br />
-          rendered live, not a screenshot
+          rendered live — not a screenshot
         </span>
         <span className="svc-anno svc-anno-b" ref={annoBRef}>
           expands to full width

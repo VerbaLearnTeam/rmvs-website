@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     template: "%s | RMVS",
   },
   description:
-    "RMonaghan Venture Studios is a digital innovation lab specializing in AI-integrated iOS apps, developer tooling, clinical AI, and end-to-end product development. Based in Pittsburgh, PA.",
+    "RMonaghan Venture Studios is a digital innovation lab specializing in web design, social media management, digital marketing, and cross-platform AI-native software across iOS, Android, and the web. Based in Pittsburgh, PA.",
   keywords: [
     "RMVS",
     "RMonaghan Venture Studios",
