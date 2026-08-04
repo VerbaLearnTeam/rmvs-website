@@ -150,8 +150,8 @@ export function ScrollHero() {
 
   return (
     <header className="svc-hero" ref={heroRef}>
-      <div className="svc-hero-sticky svc-gridfield" ref={stickyRef}>
-        {/* watercolor wash — blooms outward as the drawing unrolls */}
+      <div className="svc-hero-sticky" ref={stickyRef}>
+        {/* watercolor wash — visible at load, blooms as you scroll */}
         <svg className="svc-wash-defs" width="0" height="0" aria-hidden="true" focusable="false">
           <filter id="svc-watercolor" x="-30%" y="-30%" width="160%" height="160%">
             <feTurbulence type="fractalNoise" baseFrequency="0.011 0.017" numOctaves="3" seed="7" result="noise" />
@@ -164,14 +164,15 @@ export function ScrollHero() {
           <span className="svc-wash-blob svc-wash-2" />
           <span className="svc-wash-blob svc-wash-3" />
           <span className="svc-wash-blob svc-wash-4" />
+          <span className="svc-wash-blob svc-wash-5" />
         </div>
 
-        <h1 className="svc-hero-title" aria-label="The site that books your calls." ref={titleRef}>
+        <h1 className="svc-hero-title" aria-label="Your Right Hand Man for the Digital Realm" ref={titleRef}>
           <span className="svc-t-half" ref={leftRef}>
-            The site that
+            Your Right Hand Man
           </span>
-          <span className="svc-t-half" ref={rightRef}>
-            books your calls.
+          <span className="svc-t-half svc-t-grad" ref={rightRef}>
+            for the Digital Realm
           </span>
         </h1>
 
@@ -200,7 +201,7 @@ export function ScrollHero() {
         <span className="svc-anno svc-anno-b" ref={annoBRef}>
           expands to full width
           <br />
-          as the drawing unrolls
+          as you scroll
         </span>
 
         <div className="svc-hero-sub" ref={subRef}>
@@ -209,14 +210,22 @@ export function ScrollHero() {
             runs the marketing that fills it. You talk to a person — not a
             ticket queue.
           </p>
-          <div className="svc-scroll-cue">scroll to unroll</div>
+          <div className="svc-hero-cta-top">
+            <a href="#book" className="svc-btn svc-btn-primary">
+              Get started <span className="svc-arrow">›</span>
+            </a>
+            <a href="#pricing" className="svc-btn svc-btn-ghost">
+              See the rate card
+            </a>
+          </div>
+          <div className="svc-scroll-cue">scroll to expand</div>
         </div>
 
         <div className="svc-hero-cta" ref={ctaRef}>
-          <a href="#book" className="btn svc-btn-hot">
-            Book a free consult
+          <a href="#book" className="svc-btn svc-btn-primary">
+            Book a free consult <span className="svc-arrow">›</span>
           </a>
-          <a href="#pricing" className="btn btn-outline">
+          <a href="#pricing" className="svc-btn svc-btn-ghost">
             See the rate card
           </a>
         </div>
@@ -434,7 +443,7 @@ export function LeadBrief() {
         </label>
       </div>
 
-      <button className="btn svc-btn-hot" type="submit" style={{ width: "100%" }} disabled={status === "sending"}>
+      <button className="svc-btn svc-btn-primary" type="submit" style={{ width: "100%" }} disabled={status === "sending"}>
         {status === "sending" ? "Sending…" : "Send the brief"}
       </button>
     </form>

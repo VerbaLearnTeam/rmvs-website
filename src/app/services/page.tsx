@@ -29,6 +29,22 @@ const STACK = [
   { name: "Resend", role: "transactional email" },
 ];
 
+const EXISTING_SYSTEMS = [
+  { name: "Domain registrar", detail: "GoDaddy · Squarespace · Bluehost" },
+  { name: "Email", detail: "Gmail · Outlook · iCloud custom domain" },
+  { name: "Current website", detail: "Wix · WordPress · nothing at all" },
+  { name: "Booking & CRM", detail: "Calendly · spreadsheets · a notebook" },
+  { name: "Payments", detail: "Square · PayPal · paper invoices" },
+];
+
+const RMVS_STACK = [
+  { name: "AWS CloudFront", detail: "global CDN hosting" },
+  { name: "Route 53", detail: "DNS you never think about" },
+  { name: "Google Workspace", detail: "professional email" },
+  { name: "Cal.com", detail: "booking on your calendar" },
+  { name: "Stripe", detail: "payments & invoicing" },
+];
+
 const buildTiers = [
   {
     name: "Landing Strip",
@@ -170,7 +186,7 @@ export default function ServicesPage() {
       </section>
 
       {/* ── Sheet 03: the build order ───────────────────────── */}
-      <section className="svc-sheet svc-gridfield" id="process">
+      <section className="svc-sheet svc-sheet-soft" id="process">
         <div className="container">
           <ScrollReveal>
             <div className="svc-sheet-tag">
@@ -218,11 +234,161 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* ── Sheet 04: delivery network (dark plate) ─────────── */}
+      {/* ── Sheet 04: systems diagram (navy plate) ──────────── */}
+      <section className="svc-sheet svc-plate-section svc-plate-dots" id="systems">
+        <div className="container">
+          <div className="svc-sheet-tag">
+            <span className="svc-no">Sheet 04</span> your systems, your call
+          </div>
+          <h2 className="svc-h2">Keep it. Migrate it. Or start clean.</h2>
+          <p className="svc-lede">
+            Whatever you&apos;re running today — registrar, email, booking,
+            payments — we either wire around it, migrate it to the recommended
+            stack with zero downtime, or stand everything up from scratch.
+            Your choice, mapped in the free consult.
+          </p>
+
+          <div className="svc-diag" aria-label="Diagram: RMVS connects your existing systems to the recommended stack">
+            <div className="svc-diag-col svc-diag-left">
+              <span className="svc-diag-col-label">What you have now</span>
+              {EXISTING_SYSTEMS.map((s) => (
+                <div className="svc-chip" key={s.name}>
+                  <b>{s.name}</b>
+                  <small>{s.detail}</small>
+                </div>
+              ))}
+            </div>
+
+            <div className="svc-diag-mid">
+              <span className="svc-diag-hub-note">audit</span>
+              <div className="svc-diag-hub">RMVS</div>
+              <span className="svc-diag-hub-note">wire · migrate · build</span>
+            </div>
+
+            <div className="svc-diag-col svc-diag-right">
+              <span className="svc-diag-col-label">The recommended stack</span>
+              {RMVS_STACK.map((s) => (
+                <div className="svc-chip" key={s.name}>
+                  <b>{s.name}</b>
+                  <small>{s.detail}</small>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="svc-diag-paths">
+            <div className="svc-diag-path svc-path-a">
+              <span className="svc-k">PATH A — KEEP WHAT WORKS</span>
+              <h3>We wire around it.</h3>
+              <p>
+                Happy with your registrar and email? They stay. We plug the new
+                site into your existing systems and touch nothing else.
+              </p>
+            </div>
+            <div className="svc-diag-path svc-path-b">
+              <span className="svc-k">PATH B — MIGRATE SAFELY</span>
+              <h3>Zero-downtime moves.</h3>
+              <p>
+                Domain, email, and DNS moved to the recommended stack — exports
+                and screenshots taken before we touch anything, inbox never
+                blinks.
+              </p>
+            </div>
+            <div className="svc-diag-path svc-path-c">
+              <span className="svc-k">PATH C — START FRESH</span>
+              <h3>Everything from scratch.</h3>
+              <p>
+                No domain, no email, no site? We stand up the whole stack in a
+                week — and hand you the logins to all of it.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Sheet 05: the rate card ─────────────────────────── */}
+      <section className="svc-sheet" id="pricing">
+        <div className="container">
+          <ScrollReveal>
+            <div className="svc-sheet-tag">
+              <span className="svc-no">Sheet 05</span> the rate card
+            </div>
+            <h2 className="svc-h2">Flat numbers. No mystery invoices.</h2>
+            <p className="svc-lede">
+              Fixed price, fixed scope, evidence-backed delivery. Deposit starts
+              the clock; every build starts with a free consult if you&apos;d
+              rather talk first.
+            </p>
+          </ScrollReveal>
+
+          <div className="svc-tiers">
+            {buildTiers.map((t, i) => (
+              <ScrollReveal key={t.name} delay={i * 100}>
+                <div className={`svc-tier${t.featured ? " svc-tier-feat" : ""}`} style={{ height: "100%" }}>
+                  {t.featured && <span className="svc-tier-flag">Most builds</span>}
+                  <h3>{t.name}</h3>
+                  <p className="svc-tier-use">{t.use}</p>
+                  <p className="svc-price">
+                    {t.price} <small>{t.priceNote}</small>
+                  </p>
+                  <ul>
+                    {t.features.map((f) => (
+                      <li key={f}>{f}</li>
+                    ))}
+                  </ul>
+                  <a href={t.cta.href} className={`svc-btn ${t.featured ? "svc-btn-primary" : "svc-btn-ghost"}`}>
+                    {t.cta.label}
+                  </a>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+
+          <ScrollReveal>
+            <h2 className="svc-h2" style={{ marginTop: 72 }}>
+              Monthly growth plans
+            </h2>
+            <p className="svc-lede">
+              Attach to any build — or bring the site you already have.
+            </p>
+          </ScrollReveal>
+          <div className="svc-tiers">
+            {monthlyPlans.map((t, i) => (
+              <ScrollReveal key={t.name} delay={i * 100}>
+                <div className={`svc-tier${t.featured ? " svc-tier-feat" : ""}`} style={{ height: "100%" }}>
+                  {t.featured && <span className="svc-tier-flag">Best value</span>}
+                  <h3>{t.name}</h3>
+                  <p className="svc-tier-use">{t.use}</p>
+                  <p className="svc-price">
+                    {t.price} <small>{t.priceNote}</small>
+                  </p>
+                  <ul>
+                    {t.features.map((f) => (
+                      <li key={f}>{f}</li>
+                    ))}
+                  </ul>
+                  <a href={t.href} className={`svc-btn ${t.featured ? "svc-btn-primary" : "svc-btn-ghost"}`}>
+                    Subscribe
+                  </a>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+          <p className="svc-rate-note svc-mono-note">
+            need the whole engine — site, care, content, and managed ads? ·{" "}
+            <a href="#book" className="svc-inline">
+              book a consult
+            </a>{" "}
+            and we&apos;ll scope it around your business
+          </p>
+        </div>
+      </section>
+
+      {/* ── Sheet 06: delivery network (navy plate) ─────────── */}
       <section className="svc-sheet svc-plate-section" id="network">
         <div className="container">
           <div className="svc-sheet-tag">
-            <span className="svc-no">Sheet 04</span> delivery network
+            <span className="svc-no">Sheet 06</span> delivery network
           </div>
           <div className="svc-globe-wrap">
             <GoldEmblem />
@@ -266,90 +432,12 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* ── Sheet 05: the rate card ─────────────────────────── */}
-      <section className="svc-sheet" id="pricing">
+      {/* ── Sheet 07: field report ──────────────────────────── */}
+      <section className="svc-sheet svc-sheet-soft" id="work">
         <div className="container">
           <ScrollReveal>
             <div className="svc-sheet-tag">
-              <span className="svc-no">Sheet 05</span> the rate card
-            </div>
-            <h2 className="svc-h2">Flat numbers. No mystery invoices.</h2>
-            <p className="svc-lede">
-              Fixed price, fixed scope, evidence-backed delivery. Deposit starts
-              the clock; every build starts with a free consult if you&apos;d
-              rather talk first.
-            </p>
-          </ScrollReveal>
-
-          <div className="svc-tiers">
-            {buildTiers.map((t, i) => (
-              <ScrollReveal key={t.name} delay={i * 100}>
-                <div className={`svc-tier${t.featured ? " svc-tier-feat" : ""}`} style={{ height: "100%" }}>
-                  {t.featured && <span className="svc-tier-flag">Most builds</span>}
-                  <h3>{t.name}</h3>
-                  <p className="svc-tier-use">{t.use}</p>
-                  <p className="svc-price">
-                    {t.price} <small>{t.priceNote}</small>
-                  </p>
-                  <ul>
-                    {t.features.map((f) => (
-                      <li key={f}>{f}</li>
-                    ))}
-                  </ul>
-                  <a href={t.cta.href} className={`btn ${t.featured ? "btn-primary" : "btn-outline"}`}>
-                    {t.cta.label}
-                  </a>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-
-          <ScrollReveal>
-            <h2 className="svc-h2" style={{ marginTop: 72 }}>
-              Monthly growth plans
-            </h2>
-            <p className="svc-lede">
-              Attach to any build — or bring the site you already have.
-            </p>
-          </ScrollReveal>
-          <div className="svc-tiers">
-            {monthlyPlans.map((t, i) => (
-              <ScrollReveal key={t.name} delay={i * 100}>
-                <div className={`svc-tier${t.featured ? " svc-tier-feat" : ""}`} style={{ height: "100%" }}>
-                  {t.featured && <span className="svc-tier-flag">Best value</span>}
-                  <h3>{t.name}</h3>
-                  <p className="svc-tier-use">{t.use}</p>
-                  <p className="svc-price">
-                    {t.price} <small>{t.priceNote}</small>
-                  </p>
-                  <ul>
-                    {t.features.map((f) => (
-                      <li key={f}>{f}</li>
-                    ))}
-                  </ul>
-                  <a href={t.href} className={`btn ${t.featured ? "btn-primary" : "btn-outline"}`}>
-                    Subscribe
-                  </a>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-          <p className="svc-rate-note svc-mono-note">
-            need the whole engine — site, care, content, and managed ads? ·{" "}
-            <a href="#book" style={{ color: "var(--cyan)" }}>
-              book a consult
-            </a>{" "}
-            and we&apos;ll scope it around your business
-          </p>
-        </div>
-      </section>
-
-      {/* ── Sheet 06: field report ──────────────────────────── */}
-      <section className="svc-sheet svc-gridfield" id="work">
-        <div className="container">
-          <ScrollReveal>
-            <div className="svc-sheet-tag">
-              <span className="svc-no">Sheet 06</span> field report
+              <span className="svc-no">Sheet 07</span> field report
             </div>
           </ScrollReveal>
           <div className="svc-proof">
@@ -390,7 +478,7 @@ export default function ServicesPage() {
               <ScrollReveal delay={200}>
                 <p className="svc-mono-note" style={{ marginTop: 24 }}>
                   want the deeper portfolio?{" "}
-                  <Link href="/projects" style={{ color: "var(--cyan)" }}>
+                  <Link href="/projects" className="svc-inline">
                     see all projects →
                   </Link>
                 </p>
@@ -411,12 +499,12 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* ── Sheet 07: straight answers ──────────────────────── */}
+      {/* ── Sheet 08: straight answers ──────────────────────── */}
       <section className="svc-sheet" id="faq">
         <div className="container">
           <ScrollReveal>
             <div className="svc-sheet-tag">
-              <span className="svc-no">Sheet 07</span> straight answers
+              <span className="svc-no">Sheet 08</span> straight answers
             </div>
             <h2 className="svc-h2" style={{ margin: "0 auto 8px", textAlign: "center", maxWidth: "none" }}>
               Things owners ask us.
@@ -435,12 +523,12 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* ── Sheet 08: start here ────────────────────────────── */}
-      <section className="svc-sheet svc-gridfield" id="book">
+      {/* ── Sheet 09: start here ────────────────────────────── */}
+      <section className="svc-sheet svc-sheet-soft" id="book">
         <div className="container">
           <ScrollReveal>
             <div className="svc-sheet-tag">
-              <span className="svc-no">Sheet 08</span> start here
+              <span className="svc-no">Sheet 09</span> start here
             </div>
           </ScrollReveal>
           <div className="svc-cta-grid">
@@ -464,14 +552,58 @@ export default function ServicesPage() {
             <CalEmbed calLink={CAL_LINK} />
             <p className="svc-mono-note" style={{ marginTop: 14 }}>
               calendar not loading?{" "}
-              <a href={CAL_LINK} target="_blank" rel="noopener" style={{ color: "var(--cyan)" }}>
+              <a href={CAL_LINK} target="_blank" rel="noopener" className="svc-inline">
                 open the booking page directly →
               </a>{" "}
               or{" "}
-              <Link href="/contact" style={{ color: "var(--cyan)" }}>
+              <Link href="/contact" className="svc-inline">
                 send a message
               </Link>
             </p>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ── Ready to get started? (Stripe-style closer) ─────── */}
+      <section className="svc-getstarted" aria-label="Ready to get started?">
+        <div className="container svc-gs-grid">
+          <ScrollReveal>
+            <div>
+              <h2 className="svc-h2">Ready to get started?</h2>
+              <p className="svc-lede">
+                Book a free consult, or send the two-minute brief and get a
+                plan by tomorrow — scope, price, and ship date in plain
+                English.
+              </p>
+              <div className="svc-gs-ctas">
+                <a href={CAL_LINK} target="_blank" rel="noopener" className="svc-btn svc-btn-primary">
+                  Book a free consult <span className="svc-arrow">›</span>
+                </a>
+                <a href="#book" className="svc-btn svc-btn-ghost">
+                  Send the brief
+                </a>
+              </div>
+            </div>
+          </ScrollReveal>
+          <ScrollReveal delay={100}>
+            <div className="svc-gs-link">
+              <span className="svc-gs-icon" aria-hidden="true">$</span>
+              <b>See what you&apos;ll pay</b>
+              <p>Flat build prices and monthly plans — no hidden fees, no mystery invoices.</p>
+              <a href="#pricing" className="svc-inline">
+                Pricing details ›
+              </a>
+            </div>
+          </ScrollReveal>
+          <ScrollReveal delay={180}>
+            <div className="svc-gs-link">
+              <span className="svc-gs-icon" aria-hidden="true">⇆</span>
+              <b>Already have a site?</b>
+              <p>Send it with the brief — we&apos;ll redline your homepage before you decide anything.</p>
+              <a href="#redline" className="svc-inline">
+                See the redline ›
+              </a>
+            </div>
           </ScrollReveal>
         </div>
       </section>

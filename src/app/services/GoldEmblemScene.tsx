@@ -12,8 +12,8 @@ import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import {
   buildGoldEmblemGeometry,
-  AURUM_GOLD,
-  RIBBON_GOLD,
+  GLOW_BLURPLE,
+  HUB_YELLOW,
 } from "./gold-emblem-data";
 
 function seededRandom(seed: number): number {
@@ -95,7 +95,7 @@ export default function GoldEmblemScene() {
     hubGeo.setAttribute("position", new THREE.BufferAttribute(hubPositions, 3));
     const hubMat = new THREE.PointsMaterial({
       size: 0.075,
-      color: new THREE.Color(RIBBON_GOLD).convertSRGBToLinear(),
+      color: new THREE.Color(HUB_YELLOW).convertSRGBToLinear(),
       sizeAttenuation: true,
       depthWrite: false,
       depthTest: true,
@@ -111,7 +111,7 @@ export default function GoldEmblemScene() {
     // 3 · Back-side fresnel glow, tracks cursor proximity.
     const glowMat = new THREE.ShaderMaterial({
       uniforms: {
-        glowColor: { value: new THREE.Color(AURUM_GOLD) },
+        glowColor: { value: new THREE.Color(GLOW_BLURPLE) },
         glowIntensity: { value: 0.09 },
       },
       vertexShader: `
@@ -141,7 +141,7 @@ export default function GoldEmblemScene() {
     glow.renderOrder = 3;
     scene.add(glow);
 
-    // 4 · Ambient gold dust.
+    // 4 · Ambient blurple dust.
     const dustPositions = new Float32Array(200 * 3);
     for (let i = 0; i < 200; i++) {
       dustPositions[i * 3] = (seededRandom(i * 3) - 0.5) * 12;
@@ -152,7 +152,7 @@ export default function GoldEmblemScene() {
     dustGeo.setAttribute("position", new THREE.BufferAttribute(dustPositions, 3));
     const dustMat = new THREE.PointsMaterial({
       size: 0.01,
-      color: new THREE.Color(AURUM_GOLD),
+      color: new THREE.Color(GLOW_BLURPLE),
       transparent: true,
       opacity: 0.18,
       sizeAttenuation: true,

@@ -304,9 +304,13 @@ export interface GoldEmblemGeometry {
   hubPositions: Float32Array;
 }
 
-export const RIBBON_GOLD = "#E8C058";
-export const AURUM_GOLD = "#D4A842";
-export const DEEP_INDIGO = "#1A1F54";
+/* Stripe-gradient palette — blurple ribbon, cyan globe, pink routes,
+   warm-yellow hub nodes. */
+export const RIBBON_BLURPLE = "#8F88FF";
+export const GLOBE_CYAN = "#00D4FF";
+export const ARC_PINK = "#FF5996";
+export const HUB_YELLOW = "#FFCB57";
+export const GLOW_BLURPLE = "#635BFF";
 
 export function buildGoldEmblemGeometry(): GoldEmblemGeometry {
   const ribbonPositions = generateRibbon();
@@ -322,18 +326,20 @@ export function buildGoldEmblemGeometry(): GoldEmblemGeometry {
   globePositions.set(arcs, surface.length + graticule.length);
 
   // Colors — authored sRGB, converted to linear for the vertex buffers,
-  // rendered with toneMapping off so the metal stays intentional.
-  const ribbonGold = new THREE.Color(RIBBON_GOLD).convertSRGBToLinear();
-  const aurumGold = new THREE.Color(AURUM_GOLD).convertSRGBToLinear();
+  // rendered with toneMapping off so the brights stay intentional.
+  const ribbonBlurple = new THREE.Color(RIBBON_BLURPLE).convertSRGBToLinear();
+  const globeCyan = new THREE.Color(GLOBE_CYAN).convertSRGBToLinear();
+  const arcPink = new THREE.Color(ARC_PINK).convertSRGBToLinear();
   const slate = new THREE.Color("#33416F").convertSRGBToLinear();
   const temp = new THREE.Color();
 
   const ribbonColors = new Float32Array(ribbonPositions.length);
   for (let i = 0; i < ribbonPositions.length / 3; i++) {
-    temp.copy(ribbonGold);
-    const variation = seededRandom(i) * 0.04;
+    temp.copy(ribbonBlurple);
+    // seeded jitter drifts a few points toward pink for a gradient shimmer
+    const variation = seededRandom(i) * 0.06;
     temp.r = Math.min(1, temp.r + variation);
-    temp.g = Math.min(1, temp.g + variation * 0.5);
+    temp.b = Math.min(1, temp.b + variation * 0.3);
     ribbonColors[i * 3] = temp.r;
     ribbonColors[i * 3 + 1] = temp.g;
     ribbonColors[i * 3 + 2] = temp.b;
@@ -346,22 +352,22 @@ export function buildGoldEmblemGeometry(): GoldEmblemGeometry {
 
   let ci = 0;
   for (let i = 0; i < surfaceCount; i++, ci++) {
-    // Dimmed aurum with slate depth cue toward the poles.
+    // Dimmed cyan with slate depth cue toward the poles.
     const y = Math.abs(surface[i * 3 + 1]) / GLOBE_RADIUS;
-    temp.copy(aurumGold).multiplyScalar(0.52).lerp(slate, y * 0.22);
+    temp.copy(globeCyan).multiplyScalar(0.42).lerp(slate, y * 0.28);
     const jitter = (seededRandom(i * 7) - 0.5) * 0.06;
-    globeColors[ci * 3] = Math.max(0, temp.r + jitter);
+    globeColors[ci * 3] = Math.max(0, temp.r + jitter * 0.4);
     globeColors[ci * 3 + 1] = Math.max(0, temp.g + jitter * 0.6);
-    globeColors[ci * 3 + 2] = Math.max(0, temp.b);
+    globeColors[ci * 3 + 2] = Math.max(0, temp.b + jitter);
   }
   for (let i = 0; i < graticuleCount; i++, ci++) {
-    temp.copy(aurumGold).multiplyScalar(0.78);
+    temp.copy(globeCyan).multiplyScalar(0.68);
     globeColors[ci * 3] = temp.r;
     globeColors[ci * 3 + 1] = temp.g;
     globeColors[ci * 3 + 2] = temp.b;
   }
   for (let i = 0; i < arcCount; i++, ci++) {
-    temp.copy(ribbonGold);
+    temp.copy(arcPink);
     globeColors[ci * 3] = temp.r;
     globeColors[ci * 3 + 1] = temp.g;
     globeColors[ci * 3 + 2] = temp.b;
