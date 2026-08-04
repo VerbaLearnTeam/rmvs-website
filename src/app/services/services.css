@@ -112,10 +112,79 @@
   justify-content: center;
   gap: clamp(20px, 3.5vh, 36px);
   overflow: hidden;
-  padding: 72px 16px 24px;
+  /* top padding keeps the (shrinking) title clear of the sticky site header */
+  padding: 92px 16px 24px;
+}
+
+/* watercolor wash — scroll-driven via --hp (0 → 1) set from ScrollHero */
+.svc-wash-defs {
+  position: absolute;
+}
+
+/* Only the wash container animates (opacity + scale — compositor-only);
+   the filtered blobs themselves stay static so their expensive turbulence
+   rasterization is done once and cached. */
+.svc-wash {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+  opacity: var(--hp, 0);
+  transform: scale(calc(0.82 + var(--hp, 0) * 0.22));
+  will-change: transform, opacity;
+}
+
+.svc-wash-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: url(#svc-watercolor);
+  transform: translate(-50%, -50%);
+}
+
+.svc-wash-1 {
+  left: 20%;
+  top: 32%;
+  width: 46vw;
+  height: 34vw;
+  background: radial-gradient(closest-side, rgba(212, 168, 66, 0.5), rgba(212, 168, 66, 0.2) 55%, transparent 72%);
+}
+
+.svc-wash-2 {
+  left: 80%;
+  top: 64%;
+  width: 42vw;
+  height: 32vw;
+  background: radial-gradient(closest-side, rgba(34, 211, 238, 0.38), rgba(34, 211, 238, 0.14) 55%, transparent 72%);
+}
+
+.svc-wash-3 {
+  left: 74%;
+  top: 20%;
+  width: 32vw;
+  height: 26vw;
+  background: radial-gradient(closest-side, rgba(232, 192, 88, 0.42), transparent 70%);
+}
+
+.svc-wash-4 {
+  left: 24%;
+  top: 78%;
+  width: 36vw;
+  height: 28vw;
+  background: radial-gradient(closest-side, rgba(51, 65, 111, 0.4), transparent 70%);
+}
+
+[data-theme="light"] .svc-wash-1 {
+  background: radial-gradient(closest-side, rgba(212, 168, 66, 0.42), rgba(212, 168, 66, 0.16) 55%, transparent 72%);
+}
+
+[data-theme="light"] .svc-wash-4 {
+  background: radial-gradient(closest-side, rgba(26, 31, 84, 0.16), transparent 70%);
 }
 
 .svc-hero-title {
+  position: relative;
+  z-index: 1;
   display: flex;
   gap: 0.32em;
   justify-content: center;
@@ -126,6 +195,8 @@
   line-height: 1.05;
   white-space: nowrap;
   text-align: center;
+  transform-origin: center top;
+  will-change: transform, opacity;
 }
 
 .svc-hero-title .svc-t-half {
@@ -140,6 +211,7 @@
 
 .svc-hero-panel {
   position: relative;
+  z-index: 1;
   width: min(420px, 86vw);
   height: 40svh;
   min-height: 260px;
@@ -147,11 +219,44 @@
   overflow: hidden;
   border: 1px solid var(--svc-plate-line);
   background: var(--svc-plate);
-  box-shadow: 0 30px 80px -20px rgba(5, 10, 20, 0.55);
+  box-shadow:
+    0 30px 80px -20px rgba(5, 10, 20, 0.55),
+    0 0 calc(var(--hp, 0) * 90px) rgba(212, 168, 66, calc(var(--hp, 0) * 0.22));
   will-change: width, height;
+  container-type: size;
+}
+
+/* inside the hero, the render's type scales with the panel itself so the
+   expanded view reads like a real homepage instead of stranded small text */
+.svc-hero-panel .svc-mini-body {
+  padding: clamp(18px, 6cqw, 72px);
+  gap: clamp(10px, 2.2cqh, 22px);
+}
+
+.svc-hero-panel .svc-mini-kicker {
+  font-size: clamp(0.62rem, 1.4cqw, 1rem);
+}
+
+.svc-hero-panel .svc-mini-body h3 {
+  font-size: clamp(1.2rem, 4.4cqw, 3.1rem);
+}
+
+.svc-hero-panel .svc-mini-body p {
+  font-size: clamp(0.78rem, 1.8cqw, 1.15rem);
+  max-width: 52ch;
+}
+
+.svc-hero-panel .svc-mini-btn {
+  font-size: clamp(0.7rem, 1.5cqw, 1rem);
+}
+
+.svc-hero-panel .svc-mini-url {
+  font-size: clamp(0.6rem, 1.1cqw, 0.8rem);
 }
 
 .svc-hero-sub {
+  position: relative;
+  z-index: 1;
   text-align: center;
   max-width: 620px;
   transition: opacity 0.25s linear;
@@ -183,6 +288,8 @@
 }
 
 .svc-hero-cta {
+  position: relative;
+  z-index: 1;
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
@@ -478,20 +585,20 @@
 .svc-tag-before { left: 12px; background: #e6e9ec; color: #5a6472; }
 .svc-tag-after { right: 12px; background: #22d3ee; color: #06222e; }
 
-/* the "before" grim site — fixed colors on purpose (it's a prop) */
+/* the "before" grim site — deliberately generic black-and-white (it's a prop) */
 .svc-grim {
   position: absolute;
   inset: 0;
-  background: #f3f2ef;
-  color: #4a4a46;
+  background: #fdfdfd;
+  color: #333333;
   font-family: Arial, Helvetica, sans-serif;
   display: flex;
   flex-direction: column;
 }
 
 .svc-grim-top {
-  background: #5a2d2d;
-  color: #eedddd;
+  background: #3d3d3d;
+  color: #f5f5f5;
   font-size: clamp(0.68rem, 1.4vw, 0.95rem);
   padding: 8px 14px;
   font-weight: bold;
@@ -509,7 +616,7 @@
 
 .svc-grim h4 {
   font-size: clamp(0.82rem, 2vw, 1.3rem);
-  color: #2e2e2c;
+  color: #111111;
   text-decoration: underline;
   font-family: inherit;
   font-weight: bold;
@@ -523,15 +630,15 @@
 }
 
 .svc-grim-side {
-  background: #e4e1da;
-  border: 1px solid #c9c4b8;
+  background: #f0f0f0;
+  border: 1px solid #cccccc;
   padding: 10px;
   font-size: clamp(0.58rem, 1.1vw, 0.75rem);
   line-height: 1.7;
 }
 
 .svc-grim-side b { display: block; margin-bottom: 6px; }
-.svc-grim-blink { color: #bb0000; font-weight: bold; }
+.svc-grim-blink { color: #111111; font-weight: bold; }
 
 /* ---------- process steps ---------- */
 .svc-steps {
@@ -969,7 +1076,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .svc-hero { height: auto; }
-  .svc-hero-sticky { position: relative; height: auto; min-height: 100svh; }
+  .svc-hero-sticky { position: relative; height: auto; min-height: 100svh; --hp: 0.6; }
   .svc-hero-panel { width: min(980px, 94vw) !important; height: 56svh !important; }
   .svc-hero-sub, .svc-hero-cta { opacity: 1 !important; pointer-events: auto !important; }
+  .svc-wash { transform: none; }
 }

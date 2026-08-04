@@ -44,7 +44,9 @@ export default function GoldEmblemScene() {
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 30);
-    camera.position.set(0, 0, 8.5);
+    // 9.4 (not Auron's 8.5): the ribbon lobes swing wide as the emblem
+    // rotates, and the square canvas was clipping them at the edges.
+    camera.position.set(0, 0, 9.4);
 
     const { ribbonPositions, ribbonColors, globePositions, globeColors, hubPositions } =
       buildGoldEmblemGeometry();

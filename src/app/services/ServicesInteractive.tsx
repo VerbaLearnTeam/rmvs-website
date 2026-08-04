@@ -61,7 +61,9 @@ export function MiniSite({
 
 export function ScrollHero() {
   const heroRef = useRef<HTMLDivElement>(null);
+  const stickyRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
   const leftRef = useRef<HTMLSpanElement>(null);
   const rightRef = useRef<HTMLSpanElement>(null);
   const subRef = useRef<HTMLDivElement>(null);
@@ -72,10 +74,12 @@ export function ScrollHero() {
   useEffect(() => {
     const hero = heroRef.current;
     const panel = panelRef.current;
-    if (!hero || !panel) return;
+    const sticky = stickyRef.current;
+    if (!hero || !panel || !sticky) return;
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       ctaRef.current?.classList.add("svc-in");
+      sticky.style.setProperty("--hp", "1");
       return;
     }
 
@@ -92,18 +96,27 @@ export function ScrollHero() {
       const vw = window.innerWidth;
       const vh = window.innerHeight;
 
+      // drives the watercolor wash bloom in CSS
+      sticky.style.setProperty("--hp", e.toFixed(4));
+
       // panel grows from a card into a near-fullscreen render
       const wMin = Math.min(420, vw * 0.86);
       const wMax = Math.min(1080, vw * 0.94);
       const hMin = Math.max(260, vh * 0.4);
-      const hMax = vh * 0.68;
+      const hMax = vh * 0.64;
       panel.style.width = `${wMin + (wMax - wMin) * e}px`;
       panel.style.height = `${hMin + (hMax - hMin) * e}px`;
 
-      // title halves drift apart, staying fully legible
-      const spread = Math.min(vw * 0.06, 72) * e;
+      // title recedes as the render takes the stage: halves drift apart
+      // while the whole line shrinks and softens (also keeps it clear of
+      // the sticky site header as the panel grows)
+      const spread = Math.min(vw * 0.045, 56) * e;
       if (leftRef.current) leftRef.current.style.transform = `translateX(${-spread}px)`;
       if (rightRef.current) rightRef.current.style.transform = `translateX(${spread}px)`;
+      if (titleRef.current) {
+        titleRef.current.style.transform = `scale(${1 - 0.22 * e})`;
+        titleRef.current.style.opacity = String(1 - 0.4 * e);
+      }
 
       // supporting copy fades out early; CTA fades in at the end
       if (subRef.current) {
@@ -113,7 +126,8 @@ export function ScrollHero() {
       }
       ctaRef.current?.classList.toggle("svc-in", p > 0.82);
 
-      const annoOn = p > 0.25 && p < 0.8 ? "1" : "0";
+      // annotations only while the panel is still small enough not to collide
+      const annoOn = p > 0.18 && p < 0.5 ? "1" : "0";
       if (annoARef.current) annoARef.current.style.opacity = annoOn;
       if (annoBRef.current) annoBRef.current.style.opacity = annoOn;
     };
@@ -136,8 +150,23 @@ export function ScrollHero() {
 
   return (
     <header className="svc-hero" ref={heroRef}>
-      <div className="svc-hero-sticky svc-gridfield">
-        <h1 className="svc-hero-title" aria-label="The site that books your calls.">
+      <div className="svc-hero-sticky svc-gridfield" ref={stickyRef}>
+        {/* watercolor wash — blooms outward as the drawing unrolls */}
+        <svg className="svc-wash-defs" width="0" height="0" aria-hidden="true" focusable="false">
+          <filter id="svc-watercolor" x="-30%" y="-30%" width="160%" height="160%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.011 0.017" numOctaves="3" seed="7" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="110" />
+            <feGaussianBlur stdDeviation="6" />
+          </filter>
+        </svg>
+        <div className="svc-wash" aria-hidden="true">
+          <span className="svc-wash-blob svc-wash-1" />
+          <span className="svc-wash-blob svc-wash-2" />
+          <span className="svc-wash-blob svc-wash-3" />
+          <span className="svc-wash-blob svc-wash-4" />
+        </div>
+
+        <h1 className="svc-hero-title" aria-label="The site that books your calls." ref={titleRef}>
           <span className="svc-t-half" ref={leftRef}>
             The site that
           </span>
