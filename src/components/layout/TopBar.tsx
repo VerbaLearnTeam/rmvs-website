@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ThemeToggle } from "@/components/shared/ThemeToggle";
+import { MobileMenu } from "./MobileMenu";
 import { TopBarScroll } from "./TopBarScroll";
 
 const navLinks = [
@@ -39,9 +40,10 @@ export default function TopBar() {
 
           <div className="nav-cta">
             <ThemeToggle />
-            <Link href="/contact" className="btn btn-nav">
+            <Link href="/contact" className="btn btn-nav nav-cta-contact">
               Get in Touch
             </Link>
+            <MobileMenu links={navLinks} />
           </div>
         </div>
       </div>

@@ -135,7 +135,10 @@ export function ScrollHero() {
       // top pad (92) + title + gap + panel + clearance + bottom block + 18
       const avail = visibleH - 92 - titleH - gapPx - bottomH - 18 - 22;
       const desired = vh * (0.56 + 0.26 * e);
-      const h = Math.max(280, Math.min(desired, avail));
+      // floor yields to `avail` on short screens so the panel never grows
+      // underneath the absolutely-positioned sub copy / CTA block
+      const floor = Math.min(280, Math.max(160, avail));
+      const h = Math.max(floor, Math.min(desired, avail));
 
       panel.style.width = `${w}px`;
       panel.style.height = `${h}px`;
@@ -149,7 +152,9 @@ export function ScrollHero() {
       if (rightRef.current) rightRef.current.style.transform = `translateX(${spread}px)`;
       if (titleRef.current) {
         titleRef.current.style.transform = `scale(${1 - 0.22 * e})`;
-        titleRef.current.style.opacity = String(1 - 0.4 * e);
+        // on phones the expanded panel fills the screen, so the title must
+        // vanish completely or it ghosts behind the fixed site header
+        titleRef.current.style.opacity = String(vw <= 768 ? 1 - e : 1 - 0.4 * e);
       }
 
       // supporting copy fades out early; CTA fades in at the end

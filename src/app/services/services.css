@@ -375,7 +375,9 @@
   z-index: 1;
   width: min(420px, 86vw);
   height: 40svh;
-  min-height: 260px;
+  /* matches the JS height floor — a higher value here would override the
+     scripted height on short screens and push the panel under the sub copy */
+  min-height: 160px;
   border-radius: 14px;
   overflow: hidden;
   border: 1px solid var(--svc-plate-line);
@@ -1515,6 +1517,8 @@
   .svc-compare { aspect-ratio: 4 / 3.4; }
   .svc-grim-body { grid-template-columns: 1fr; }
   .svc-grim-side { display: none; }
+  /* tags sit at the bottom on phones so they never cover the mock copy */
+  .svc-cmp-tag { top: auto; bottom: 12px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
