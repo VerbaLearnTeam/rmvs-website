@@ -59,6 +59,11 @@ export function MiniSite({
    near-fullscreen, then the CTA row fades in.
    ============================================================ */
 
+/** Fixed layout width of the homepage render inside the hero panel.
+    The iframe always lays out at desktop width and is scaled to fit
+    the panel, so the mini view shows the real desktop homepage. */
+const FRAME_W = 1080;
+
 export function ScrollHero() {
   const heroRef = useRef<HTMLDivElement>(null);
   const stickyRef = useRef<HTMLDivElement>(null);
@@ -81,6 +86,8 @@ export function ScrollHero() {
       ctaRef.current?.classList.add("svc-in");
       panel.classList.add("svc-live");
       sticky.style.setProperty("--hp", "1");
+      const w = Math.min(980, window.innerWidth * 0.94);
+      panel.style.setProperty("--fs", (w / FRAME_W).toFixed(4));
       return;
     }
 
@@ -100,13 +107,39 @@ export function ScrollHero() {
       // drives the watercolor wash bloom in CSS
       sticky.style.setProperty("--hp", e.toFixed(4));
 
-      // panel grows from a card into a near-fullscreen render
+      // panel grows from a tall card into a near-fullscreen render.
+      // The iframe inside is a FIXED-size desktop render scaled via
+      // transform (--fs) — compositor-only, so the nested page never
+      // re-lays-out during scroll (this was the source of the jank).
       const wMin = Math.min(420, vw * 0.86);
       const wMax = Math.min(1080, vw * 0.94);
-      const hMin = Math.max(260, vh * 0.4);
-      const hMax = vh * 0.64;
-      panel.style.width = `${wMin + (wMax - wMin) * e}px`;
-      panel.style.height = `${hMin + (hMax - hMin) * e}px`;
+      const w = wMin + (wMax - wMin) * e;
+
+      // Height: take everything the visible viewport allows once the
+      // title has shrunk and the sub copy has crossfaded into the CTA
+      // row (both overlay the bottom, out of flow — .svc-hero-bottom).
+      // Before the hero sticks, part of it sits below the fold (the page
+      // offsets content for the fixed header), so size the sticky to the
+      // visible remainder to keep everything on screen at load.
+      const stickyTop = Math.max(0, sticky.getBoundingClientRect().top);
+      const visibleH = vh - stickyTop;
+      sticky.style.height = `${visibleH}px`;
+
+      // offsetHeight ignores transforms — apply this frame's title scale
+      // analytically (measuring the rect would lag one frame behind)
+      const titleH = (titleRef.current?.offsetHeight ?? 80) * (1 - 0.22 * e);
+      const subH = subRef.current?.offsetHeight ?? 150;
+      const ctaH = ctaRef.current?.offsetHeight ?? 48;
+      const gapPx = Math.min(26, Math.max(14, vh * 0.022));
+      const bottomH = ctaH + (subH - ctaH) * (1 - e);
+      // top pad (92) + title + gap + panel + clearance + bottom block + 18
+      const avail = visibleH - 92 - titleH - gapPx - bottomH - 18 - 22;
+      const desired = vh * (0.56 + 0.26 * e);
+      const h = Math.max(280, Math.min(desired, avail));
+
+      panel.style.width = `${w}px`;
+      panel.style.height = `${h}px`;
+      panel.style.setProperty("--fs", (w / FRAME_W).toFixed(4));
 
       // title recedes as the render takes the stage: halves drift apart
       // while the whole line shrinks and softens (also keeps it clear of
@@ -187,13 +220,15 @@ export function ScrollHero() {
               <span className="svc-mini-dot" />
               <span className="svc-mini-url">rmvs.org</span>
             </div>
-            <iframe
-              className="svc-hero-frame"
-              src="/"
-              title="rmvs.org — our live homepage, rendered inside the page"
-              loading="eager"
-              tabIndex={-1}
-            />
+            <div className="svc-hero-frame-wrap">
+              <iframe
+                className="svc-hero-frame"
+                src="/"
+                title="rmvs.org — our live homepage, rendered inside the page"
+                loading="eager"
+                tabIndex={-1}
+              />
+            </div>
           </div>
         </div>
 
@@ -208,30 +243,32 @@ export function ScrollHero() {
           as you scroll
         </span>
 
-        <div className="svc-hero-sub" ref={subRef}>
-          <p>
-            RMVS builds the website, wires every technical thing behind it, and
-            runs the marketing that fills it. You talk to a person — not a
-            ticket queue.
-          </p>
-          <div className="svc-hero-cta-top">
+        <div className="svc-hero-bottom">
+          <div className="svc-hero-sub" ref={subRef}>
+            <p>
+              RMVS builds the website, wires every technical thing behind it,
+              and runs the marketing that fills it. You talk to a person — not
+              a ticket queue.
+            </p>
+            <div className="svc-hero-cta-top">
+              <a href="#book" className="svc-btn svc-btn-primary">
+                Get started <span className="svc-arrow">›</span>
+              </a>
+              <a href="#pricing" className="svc-btn svc-btn-ghost">
+                See the rate card
+              </a>
+            </div>
+            <div className="svc-scroll-cue">scroll to expand</div>
+          </div>
+
+          <div className="svc-hero-cta" ref={ctaRef}>
             <a href="#book" className="svc-btn svc-btn-primary">
-              Get started <span className="svc-arrow">›</span>
+              Book a free consult <span className="svc-arrow">›</span>
             </a>
             <a href="#pricing" className="svc-btn svc-btn-ghost">
               See the rate card
             </a>
           </div>
-          <div className="svc-scroll-cue">scroll to expand</div>
-        </div>
-
-        <div className="svc-hero-cta" ref={ctaRef}>
-          <a href="#book" className="svc-btn svc-btn-primary">
-            Book a free consult <span className="svc-arrow">›</span>
-          </a>
-          <a href="#pricing" className="svc-btn svc-btn-ghost">
-            See the rate card
-          </a>
         </div>
       </div>
     </header>

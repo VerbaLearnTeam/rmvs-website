@@ -237,8 +237,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: clamp(18px, 3vh, 32px);
+  /* stack from the top — the sub/CTA block overlays the bottom, and
+     ScrollHero sizes the panel to exactly fill the space between */
+  justify-content: flex-start;
+  gap: clamp(14px, 2.2vh, 26px);
   overflow: hidden;
   /* top padding keeps the (shrinking) title clear of the sticky site header */
   padding: 92px 16px 24px;
@@ -382,27 +384,60 @@
     0 30px 80px -20px rgba(10, 37, 64, 0.45),
     0 0 calc(var(--hp, 0) * 90px) rgba(99, 91, 255, calc(var(--hp, 0) * 0.25));
   will-change: width, height;
+  flex-shrink: 0;
 }
 
-/* the hero panel hosts the real rmvs.org homepage in an iframe;
-   scrolling inside unlocks once the panel is (nearly) fullscreen */
-.svc-hero-frame {
+/* The hero panel hosts the real rmvs.org homepage in an iframe.
+   The iframe lays out ONCE at a fixed desktop size and is scaled to
+   the panel with a transform (--fs set from ScrollHero) — the nested
+   page never re-lays-out during scroll, which keeps expansion smooth
+   and shows the desktop homepage in miniature. Scrolling inside
+   unlocks once the panel is (nearly) fullscreen. */
+.svc-hero-frame-wrap {
   flex: 1;
-  width: 100%;
+  position: relative;
   min-height: 0;
+  overflow: hidden;
+  background: var(--svc-bg);
+}
+
+.svc-hero-frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1080px;
+  height: 2400px;
   border: 0;
   display: block;
   background: var(--svc-bg);
   pointer-events: none;
+  transform: scale(var(--fs, 0.39));
+  transform-origin: top left;
+  will-change: transform;
 }
 
 .svc-hero-panel.svc-live .svc-hero-frame {
   pointer-events: auto;
 }
 
-.svc-hero-sub {
-  position: relative;
+/* bottom block overlays the hero (out of flow) so the panel can take
+   all remaining height; the sub copy crossfades into the CTA row */
+.svc-hero-bottom {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 18px;
   z-index: 1;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}
+
+.svc-hero-bottom > * {
+  grid-area: 1 / 1;
+}
+
+.svc-hero-sub {
   text-align: center;
   max-width: 640px;
   transition: opacity 0.25s linear;
@@ -443,12 +478,11 @@
 }
 
 .svc-hero-cta {
-  position: relative;
-  z-index: 1;
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
   justify-content: center;
+  align-self: end;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.35s ease;
@@ -1487,6 +1521,8 @@
   .svc-hero { height: auto; }
   .svc-hero-sticky { position: relative; height: auto; min-height: 100svh; --hp: 0.6; }
   .svc-hero-panel { width: min(980px, 94vw) !important; height: 56svh !important; }
+  .svc-hero-bottom { position: static; display: grid; gap: 18px; }
+  .svc-hero-bottom > * { grid-area: auto; }
   .svc-hero-sub, .svc-hero-cta { opacity: 1 !important; pointer-events: auto !important; }
   .svc-wash { transform: none; }
 }
