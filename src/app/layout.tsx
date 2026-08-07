@@ -92,6 +92,14 @@ export default function RootLayout({
           }}
         />
         <link rel="alternate" type="application/rss+xml" title="RMVS Engineering Blog" href="/feed.xml" />
+        {/* Privacy-friendly analytics by Plausible (outbound links, file
+            downloads, and form submissions enabled site-side) */}
+        <script async src="https://plausible.io/js/pa-8WGyA10BVVa7eQvQ-ujNK.js" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()`,
+          }}
+        />
       </head>
       <body className={`${dmSans.variable} ${jetbrainsMono.variable}`}>
         <AppShell>{children}</AppShell>
