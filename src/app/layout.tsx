@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { DM_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import AppShell from "@/components/AppShell";
+import AdPixels from "@/components/shared/AdPixels";
 import { generateOrganizationSchema } from "@/lib/structured-data";
 
 const dmSans = DM_Sans({
@@ -102,6 +103,7 @@ export default function RootLayout({
         />
       </head>
       <body className={`${dmSans.variable} ${jetbrainsMono.variable}`}>
+        <AdPixels />
         <AppShell>{children}</AppShell>
       </body>
     </html>

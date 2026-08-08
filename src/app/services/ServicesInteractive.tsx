@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, ReactNode, useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { trackEvent, utmSummaryLine } from "@/lib/pixels";
 
 /* ============================================================
    Shared mini browser render — used by the hero, the compare
@@ -415,6 +416,7 @@ export function LeadBrief() {
             `Business: ${business || "(not provided)"}`,
             `Industry: ${vertical || "(not provided)"}`,
             `Current site: ${site || "(none — new build)"}`,
+            utmSummaryLine(),
           ].join("\n"),
         }),
       });
@@ -425,6 +427,7 @@ export function LeadBrief() {
         return;
       }
       setStatus("ok");
+      trackEvent("ContactFormSubmit");
       form.reset();
     } catch {
       setStatus("error");

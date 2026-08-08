@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { contactSchema, contactMessages, type ContactFormData } from "@/lib/forms/schemas";
+import { trackEvent, utmSummaryLine } from "@/lib/pixels";
 
 export default function ContactForm() {
   const [serverMessage, setServerMessage] = useState<string | null>(null);
@@ -26,7 +27,10 @@ export default function ContactForm() {
     const res = await fetch("/api/contact", {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify(values)
+      body: JSON.stringify({
+        ...values,
+        message: `${values.message}\n\n${utmSummaryLine()}`
+      })
     });
     
     const json = await res.json().catch(() => null);
@@ -43,6 +47,7 @@ export default function ContactForm() {
 
     setServerMessage(contactMessages.success);
     setIsSuccess(true);
+    trackEvent("ContactFormSubmit");
     reset();
   }
 
