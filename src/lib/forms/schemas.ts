@@ -20,7 +20,8 @@ export const contactSchema = z.object({
     .string({ message: "Message is required." })
     .trim()
     .min(10, { message: "Message must be at least 10 characters." })
-    .max(2000, { message: "Message must be 2000 characters or fewer." })
+    .max(2000, { message: "Message must be 2000 characters or fewer." }),
+  event_id: z.string().uuid().optional(),
 });
 
 export type ContactFormData = z.infer<typeof contactSchema>;

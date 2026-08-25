@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { newEventId, trackEvent } from "@/lib/pixels";
 
 export default function NewsletterSignup() {
   const [email, setEmail] = useState("");
@@ -12,6 +13,7 @@ export default function NewsletterSignup() {
 
     setStatus("loading");
 
+    const eventID = newEventId();
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
@@ -19,12 +21,14 @@ export default function NewsletterSignup() {
         body: JSON.stringify({
           name: "Newsletter Subscriber",
           email,
+          event_id: eventID,
           subject: "Newsletter Signup",
           message: `Newsletter signup request from: ${email}`,
         }),
       });
 
       if (res.ok) {
+        trackEvent("ContactFormSubmit", { eventID });
         setStatus("success");
         setEmail("");
       } else {

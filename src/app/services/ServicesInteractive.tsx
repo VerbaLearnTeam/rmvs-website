@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, ReactNode, useEffect, useRef, useState, useSyncExternalStore } from "react";
-import { trackEvent, utmSummaryLine } from "@/lib/pixels";
+import { newEventId, trackEvent, utmSummaryLine } from "@/lib/pixels";
 
 /* ============================================================
    Shared mini browser render — used by the hero, the compare
@@ -403,6 +403,7 @@ export function LeadBrief() {
 
     setStatus("sending");
     setError("");
+    const eventID = newEventId();
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
@@ -410,6 +411,7 @@ export function LeadBrief() {
         body: JSON.stringify({
           name,
           email,
+          event_id: eventID,
           subject: `Services lead — ${business || name}`,
           message: [
             `New two-minute brief from the services page.`,
@@ -427,7 +429,7 @@ export function LeadBrief() {
         return;
       }
       setStatus("ok");
-      trackEvent("ContactFormSubmit");
+      trackEvent("ContactFormSubmit", { eventID });
       form.reset();
     } catch {
       setStatus("error");

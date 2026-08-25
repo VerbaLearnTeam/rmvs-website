@@ -17,11 +17,15 @@ type CanonicalEvent =
 
 /** canonical event -> [Meta standard event, Reddit event] */
 const EVENT_MAP: Record<CanonicalEvent, [string, string]> = {
-  ContactFormSubmit: ["Contact", "Lead"],
+  ContactFormSubmit: ["Lead", "Lead"],
   ScheduleCall: ["Schedule", "Custom"],
   InitiateCheckout: ["InitiateCheckout", "AddToCart"],
   Lead: ["Lead", "Lead"],
 };
+
+export function newEventId(): string {
+  return crypto.randomUUID();
+}
 
 declare global {
   interface Window {
@@ -32,12 +36,16 @@ declare global {
 
 export function trackEvent(event: CanonicalEvent, data?: Record<string, unknown>) {
   const [meta, reddit] = EVENT_MAP[event];
+  const eventID =
+    typeof data?.eventID === "string" && data.eventID ? data.eventID : newEventId();
+  const rest = { ...(data ?? {}) };
+  delete rest.eventID;
   try {
-    window.fbq?.("track", meta, data);
+    window.fbq?.("track", meta, rest, { eventID });
     if (reddit === "Custom") {
-      window.rdt?.("track", "Custom", { customEventName: event, ...data });
+      window.rdt?.("track", "Custom", { customEventName: event, eventID, ...rest });
     } else {
-      window.rdt?.("track", reddit, data);
+      window.rdt?.("track", reddit, { eventID, ...rest });
     }
   } catch {
     /* tracking must never break the page */

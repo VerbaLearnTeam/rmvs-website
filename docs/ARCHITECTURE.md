@@ -1,5 +1,13 @@
 # Systems Architecture Reference
 
+**Current production (2026-08-25), do not contradict:** this site is hosted on
+**AWS Amplify** (`dn1zrfm6bzj7a`, rmvs-workload), live at https://rmvs.org.
+Registrar is Squarespace; authoritative DNS is Route 53
+`Z06944291HFSI0MT2571Z`. Plausible is live. Meta Pixel dataset
+`1050783991020921` is for this site only.
+Sections below that still say "Railway" describe the *pre-cutover* template
+and the generic reusable architecture, not today's production host.
+
 A comprehensive, reusable architecture template derived from the RMVS website (rmvs.org). Every layer — deployment, rendering, design system, component conventions, SEO/AEO, and quality assurance — is documented below with diagrams and specifications that can be applied to any modern marketing / portfolio / content site.
 
 ---

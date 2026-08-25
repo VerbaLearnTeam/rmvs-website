@@ -10,7 +10,7 @@ export default function PrivacyPage() {
         <div className="container" style={{ maxWidth: 800 }}>
           <h1>Privacy Policy</h1>
           <p className="muted" style={{ marginBottom: 30 }}>
-            Last updated: February 2026
+            Last updated: August 2026
           </p>
 
           <div className="panel" style={{ marginBottom: 24 }}>
@@ -68,7 +68,9 @@ export default function PrivacyPage() {
             </p>
             <ul className="feature-list">
               <li>Firebase (authentication, database, analytics)</li>
-              <li>Google AdMob (advertising)</li>
+              <li>Plausible Analytics (cookieless first-party website statistics)</li>
+              <li>Meta Pixel and Conversions API (advertising measurement and delivery on Facebook and Instagram; hashed contact details on form submits)</li>
+              <li>Google AdMob (advertising in some applications)</li>
               <li>RevenueCat (subscription management)</li>
               <li>App Store Connect (distribution)</li>
             </ul>

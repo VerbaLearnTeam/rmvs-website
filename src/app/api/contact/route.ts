@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { contactSchema, zodFieldErrors } from "@/lib/forms/schemas";
 import { sendEmail, contactNotificationTemplate } from "@/lib/email/send";
 import { sendSmsNotification } from "@/lib/sms/send";
+import { clientIpFrom, sendMetaCapiEvent } from "@/lib/meta-capi";
 
 export async function POST(request: Request) {
   try {
@@ -18,7 +19,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const { name, email, subject, message } = result.data;
+    const { name, email, subject, message, event_id } = result.data;
 
     // Send notification email to owner
     const notifyEmail = process.env.NOTIFY_EMAIL || "RMonaghanVentureStudios@rmvs.org";
@@ -38,6 +39,18 @@ export async function POST(request: Request) {
     await sendSmsNotification({
       body: `RMVS Contact: ${name} (${email}) — ${subject}`,
     });
+
+    if (event_id) {
+      await sendMetaCapiEvent({
+        eventName: "Lead",
+        eventId: event_id,
+        eventSourceUrl: request.headers.get("referer") || "https://rmvs.org/contact",
+        email,
+        name,
+        clientIp: clientIpFrom(request),
+        userAgent: request.headers.get("user-agent") || undefined,
+      });
+    }
 
     return NextResponse.json({
       message: "Thanks for reaching out! I'll get back to you as soon as possible.",
