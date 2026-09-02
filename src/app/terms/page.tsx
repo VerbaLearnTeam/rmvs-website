@@ -10,7 +10,7 @@ export default function TermsPage() {
         <div className="container" style={{ maxWidth: 800 }}>
           <h1>Terms of Use</h1>
           <p className="muted" style={{ marginBottom: 30 }}>
-            Last updated: February 2026
+            Last updated: September 2026
           </p>
 
           <div className="panel" style={{ marginBottom: 24 }}>
@@ -68,11 +68,81 @@ export default function TermsPage() {
           </div>
 
           <div className="panel" style={{ marginBottom: 24 }}>
-            <h2>Subscriptions and Payments</h2>
+            <h2>Subscriptions and Payments (Applications)</h2>
             <p className="muted">
               Some features of our applications may require a paid subscription. Payment processing is handled 
               through Apple&apos;s App Store and RevenueCat. Subscription terms, pricing, and cancellation policies 
               are governed by those platforms&apos; terms of service.
+            </p>
+          </div>
+
+          <div className="panel" style={{ marginBottom: 24 }}>
+            <h2>Website &amp; Marketing Services</h2>
+            <p className="muted" style={{ marginBottom: 12 }}>
+              The following terms govern website design, development, hosting, and marketing
+              services purchased from RMonaghan Venture Studios LLC (including purchases made
+              through Stripe payment links on this website). Where a signed service agreement or
+              written scope exists for your project, that document controls over this section.
+            </p>
+            <h3 style={{ marginTop: 16 }}>Kickoff and Delivery Timeline</h3>
+            <p className="muted" style={{ marginBottom: 12 }}>
+              Advertised delivery timelines (for example, &quot;five days&quot;) mean five business
+              days from kickoff. Kickoff occurs once we have received (a) the applicable deposit or
+              payment and (b) the required client materials: business details, logo or brand
+              assets if available, photos, service descriptions, and access to any existing domain
+              or accounts we must work with. Delays in providing required materials or approvals
+              extend the timeline accordingly and do not constitute a breach by RMVS.
+            </p>
+            <h3 style={{ marginTop: 16 }}>Scope, Revisions, and Changes</h3>
+            <p className="muted" style={{ marginBottom: 12 }}>
+              Each build includes the pages and features stated in its offer description and up to
+              two rounds of revisions before launch. Additional revision rounds, new pages, or
+              features beyond the stated scope are quoted separately before any work begins.
+              Monthly plans include only the deliverables listed in the plan description; work
+              beyond that scope is out-of-scope and quoted separately.
+            </p>
+            <h3 style={{ marginTop: 16 }}>Deposits, Cancellation, and Refunds</h3>
+            <p className="muted" style={{ marginBottom: 12 }}>
+              Deposits reserve a build slot and start the project clock. If you cancel before
+              kickoff, your deposit is refundable minus any payment-processing fees. After kickoff,
+              deposits are non-refundable to the extent work has been performed. Monthly plans may
+              be cancelled at any time with 30 days&apos; written notice; you retain your site,
+              domain, content, and accounts after cancellation. Third-party fees (domain
+              registration, ad spend, software subscriptions) already incurred are non-refundable.
+            </p>
+            <h3 style={{ marginTop: 16 }}>Advertising and Third-Party Costs</h3>
+            <p className="muted" style={{ marginBottom: 12 }}>
+              Advertising spend is always separate from management fees and is billed directly to
+              your own ad accounts. Third-party services (domains, hosting where applicable,
+              software tools, AI-agent usage) may carry their own costs, which are disclosed before
+              they are incurred and passed through at cost unless stated otherwise.
+            </p>
+            <h3 style={{ marginTop: 16 }}>Ownership</h3>
+            <p className="muted" style={{ marginBottom: 12 }}>
+              Upon full payment, you own your domain, website files, content, creative produced for
+              you, and the accounts created for your business (hosting, analytics, booking, ads).
+              We receive every login on your behalf during the engagement and hand all credentials
+              to you. RMVS retains ownership of its internal tooling, templates, and processes.
+            </p>
+            <h3 style={{ marginTop: 16 }}>Client Content and Claims</h3>
+            <p className="muted" style={{ marginBottom: 12 }}>
+              You are responsible for the accuracy and legality of the content, claims,
+              credentials, licenses, and testimonials you supply for your website and advertising,
+              and you represent that you have the rights to all materials you provide. You agree to
+              indemnify RMVS against claims arising from client-supplied content or claims.
+            </p>
+            <h3 style={{ marginTop: 16 }}>Portfolio Display</h3>
+            <p className="muted" style={{ marginBottom: 12 }}>
+              Unless you request otherwise in writing, RMVS may display completed work (including
+              screenshots and a link to your live site) in its portfolio and marketing materials.
+            </p>
+            <h3 style={{ marginTop: 16 }}>Results Disclaimer and Warranty</h3>
+            <p className="muted">
+              We build to conversion best practices, but no specific volume of traffic, leads,
+              rankings, or revenue is guaranteed. Each launched website includes a 30-day post-launch
+              window during which we fix defects in the delivered work (bugs, broken links,
+              configuration errors) at no charge; this does not cover new feature requests or
+              changes to scope.
             </p>
           </div>
 

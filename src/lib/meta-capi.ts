@@ -17,7 +17,7 @@ function splitName(name: string): { fn?: string; ln?: string } {
 }
 
 type CapiEvent = {
-  eventName: "Lead" | "Schedule" | "InitiateCheckout" | "PageView";
+  eventName: "Lead" | "Schedule" | "InitiateCheckout" | "PageView" | "Purchase";
   eventId: string;
   eventSourceUrl?: string;
   email?: string;

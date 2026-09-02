@@ -22,6 +22,7 @@ export default function AdPixels() {
       if (!a) return;
       if (a.href.includes("buy.stripe.com")) trackEvent("InitiateCheckout");
       else if (a.href.includes("cal.com")) trackEvent("ScheduleCall");
+      else if (a.href.startsWith("tel:")) trackEvent("PhoneClick");
     };
     document.addEventListener("click", onClick, { capture: true, passive: true });
     return () => document.removeEventListener("click", onClick, { capture: true });

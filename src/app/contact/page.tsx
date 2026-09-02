@@ -37,8 +37,10 @@ export default function ContactPage() {
               Contact
             </h1>
             <p style={{ maxWidth: 600 }}>
-              Interested in collaborating, investing, or just want to chat about technology? 
-              Fill out the form below or reach out directly.
+              Need a website that books jobs? Start with a{" "}
+              <a href="/services#book" style={{ color: "var(--accent)" }}>free homepage redline</a>.
+              For everything else — collaborations, investing, or technology questions — use the
+              form below or reach out directly.
             </p>
           </ScrollReveal>
         </div>
@@ -75,10 +77,10 @@ export default function ContactPage() {
               <GlassCard enableTilt={false} className="panel" style={{ marginTop: 20 }}>
                 <h3>Looking for Something Specific?</h3>
                 <ul className="feature-list">
+                  <li><strong>Websites & marketing:</strong> <a href="/services" style={{ color: "var(--accent)" }}>Five-day builds and growth plans</a> for service businesses — start with a free redline</li>
                   <li><strong>Investors:</strong> Reach out about VerbaLearn or Auron</li>
                   <li><strong>Collaborations:</strong> Open to partnerships and projects</li>
                   <li><strong>Consulting:</strong> iOS, web, AI/ML development</li>
-                  <li><strong>Events:</strong> Unplugged PGH performances or partnerships</li>
                 </ul>
               </GlassCard>
             </ScrollReveal>

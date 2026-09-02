@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const navLinks = [
+  { href: "/services", label: "Services" },
   { href: "/about", label: "About" },
   { href: "/projects", label: "Projects" },
   { href: "/blog", label: "Blog" },
@@ -24,7 +25,8 @@ export default function Footer() {
               <span>RMVS</span>
             </div>
             <p style={{ color: "var(--white-dim)", fontSize: "0.88rem", lineHeight: 1.6, maxWidth: 280 }}>
-              Digital innovation lab specializing in web design, digital marketing, and cross-platform AI-native software.
+              RMVS builds and operates conversion-focused websites and digital systems for
+              service businesses, while continuing to develop its own software ventures.
             </p>
           </div>
 

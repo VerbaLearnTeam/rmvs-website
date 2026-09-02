@@ -33,11 +33,11 @@ const projects = [
     status: "Prototype"
   },
   {
-    title: "We Make Pages",
-    tagline: "Websites that actually work",
-    description: "Flat-rate website builds and full digital presence management for small businesses. Custom sites starting at $500, with ongoing hosting, SEO, ads, and AI chat agent plans.",
-    href: "/projects/wemakepages",
-    badge: "Web Agency",
+    title: "Nexus",
+    tagline: "One graph. Zero silos.",
+    description: "Relationship intelligence platform: CRM, advertising, investors, team, social, and data on one shared graph — provenance on every write, honest attribution, and agent-native APIs from day one.",
+    href: "/projects/nexus",
+    badge: "Platform",
     status: "Live"
   },
   {
@@ -82,8 +82,9 @@ export default function ProjectsPage() {
               Projects & Ventures
             </h1>
             <p style={{ maxWidth: 700 }}>
-              From AI-powered learning tools to clinical AI and agent-native developer tooling,
-              our portfolio keeps expanding into new frontiers.
+              RMVS builds and operates conversion-focused websites and digital systems for
+              service businesses, while continuing to develop its own software ventures —
+              from AI-powered learning tools to clinical AI and agent-native platforms.
             </p>
           </ScrollReveal>
         </div>

@@ -20,6 +20,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: `${BASE_URL}/redline`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
       url: `${BASE_URL}/about`,
       lastModified: new Date(),
       changeFrequency: "monthly",
@@ -61,7 +67,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "verbalearn",
     "auron",
     "orchard",
-    "wemakepages",
+    "nexus",
     "sunkist-goofbox",
     "unplugged",
   ].map((slug) => ({

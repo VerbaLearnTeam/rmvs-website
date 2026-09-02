@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bluevane Heating & Cooling — Same-day heating and air-conditioning repair in Greater Pittsburgh</title>
+<style>
+  :root {
+    --navy: #12314e; --navy-deep: #0c2337; --cream: #faf6ef; --white: #ffffff;
+    --copper: #c96f2d; --copper-soft: #e8a34a; --ink: #1c2b3a; --ink-soft: #55677a;
+    --line: #e5ddd0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: "Helvetica Neue", Arial, sans-serif; color: var(--ink); background: var(--cream); }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+  .serif { font-family: Georgia, "Times New Roman", serif; }
+
+  .util { background: var(--navy-deep); color: #cfdcea; font-size: 13px; }
+  .util .wrap { display: flex; justify-content: space-between; align-items: center; height: 36px; }
+  .util b { color: #fff; font-weight: 600; }
+  .util a { color: var(--copper-soft); text-decoration: none; font-weight: 700; }
+
+  header.site { background: var(--white); border-bottom: 1px solid var(--line); position: sticky; top: 0; }
+  header.site .wrap { display: flex; align-items: center; height: 72px; gap: 28px; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--navy); }
+  .brand .nm { font-weight: 700; font-size: 17px; line-height: 1.1; }
+  .brand .nm small { display: block; font-weight: 500; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--copper); }
+  nav.main { display: flex; gap: 26px; margin-left: auto; }
+  nav.main a { color: var(--ink); text-decoration: none; font-size: 15px; font-weight: 500; }
+  .hdr-phone { color: var(--navy); font-weight: 700; text-decoration: none; font-size: 15px; white-space: nowrap; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border-radius: 8px; padding: 13px 22px; font-size: 15px; font-weight: 700; text-decoration: none; min-height: 44px; }
+  .btn-copper { background: var(--copper); color: #fff; }
+  .btn-outline { border: 1.5px solid var(--navy); color: var(--navy); background: transparent; }
+  header.site .btn { padding: 10px 18px; }
+
+  .hero { background: var(--cream); }
+  .hero .wrap { display: grid; grid-template-columns: 1.02fr 0.98fr; gap: 48px; align-items: center; padding-top: 44px; padding-bottom: 44px; }
+  .hero h1 { font-size: 52px; line-height: 1.06; color: var(--navy); letter-spacing: -0.01em; }
+  .hero h1 .accent { color: var(--copper); }
+  .hero .sub { margin-top: 18px; font-size: 17px; line-height: 1.65; color: var(--ink-soft); max-width: 46ch; }
+  .hero .ctas { display: flex; gap: 14px; margin-top: 26px; flex-wrap: wrap; }
+  .hero .meta { margin-top: 18px; font-size: 14px; color: var(--ink-soft); display: flex; align-items: center; gap: 8px; }
+  .hero-photo { position: relative; }
+  .hero-photo img { width: 100%; height: 430px; object-fit: cover; object-position: 62% 40%; border-radius: 14px; display: block; }
+  .hero-badge { position: absolute; left: 22px; bottom: -20px; background: var(--navy); color: #fff; border-radius: 10px; padding: 14px 18px; display: flex; gap: 12px; align-items: center; box-shadow: 0 14px 34px -14px rgba(12,35,55,0.55); }
+  .hero-badge b { display: block; font-size: 14px; }
+  .hero-badge span { font-size: 12px; color: #b9c9da; }
+
+  .trust { background: var(--white); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .trust .wrap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; padding-top: 26px; padding-bottom: 26px; }
+  .trust-item { display: flex; gap: 12px; align-items: flex-start; }
+  .trust-item b { display: block; font-size: 14.5px; color: var(--navy); margin-bottom: 2px; }
+  .trust-item span { font-size: 13px; color: var(--ink-soft); line-height: 1.45; }
+
+  .svcs { padding: 56px 0 64px; }
+  .svcs .kicker { text-align: center; font-size: 12.5px; letter-spacing: 0.18em; font-weight: 700; color: var(--copper); text-transform: uppercase; }
+  .svcs h2 { text-align: center; font-size: 34px; color: var(--navy); margin-top: 10px; }
+  .svc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 34px; }
+  .svc-card { background: var(--white); border: 1px solid var(--line); border-radius: 12px; padding: 24px 20px; }
+  .svc-card .ic { width: 46px; height: 46px; border-radius: 10px; background: #f2e8d9; display: grid; place-items: center; margin-bottom: 14px; }
+  .svc-card h3 { font-size: 17px; color: var(--navy); margin-bottom: 6px; }
+  .svc-card p { font-size: 13.5px; line-height: 1.55; color: var(--ink-soft); }
+
+  .proofrow { padding-bottom: 72px; }
+  .proofrow .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .proof-card { background: var(--white); border: 1px solid var(--line); border-radius: 12px; padding: 26px; }
+  .proof-card h3 { color: var(--navy); font-size: 18px; margin-bottom: 8px; }
+  .proof-card p { color: var(--ink-soft); font-size: 14.5px; line-height: 1.6; }
+  .proof-card .lnk { display: inline-block; margin-top: 14px; color: var(--copper); font-weight: 700; text-decoration: none; font-size: 14px; }
+
+  .mobilebar { display: none; }
+
+  @media (max-width: 860px) {
+    .wrap { padding: 0 18px; }
+    .util .wrap { font-size: 12px; }
+    .util .right { display: none; }
+    header.site .wrap { height: 62px; gap: 14px; }
+    nav.main, .hdr-phone { display: none; }
+    header.site .btn { margin-left: auto; }
+    .hero .wrap { grid-template-columns: 1fr; gap: 26px; padding-top: 30px; padding-bottom: 34px; }
+    .hero h1 { font-size: 38px; }
+    .hero .ctas .btn { flex: 1 1 100%; }
+    .hero-photo img { height: 300px; }
+    .trust .wrap { grid-template-columns: 1fr 1fr; gap: 16px; }
+    .svc-grid { grid-template-columns: 1fr 1fr; }
+    .proofrow .wrap { grid-template-columns: 1fr; }
+    body { padding-bottom: 74px; }
+    .mobilebar { display: flex; position: fixed; left: 0; right: 0; bottom: 0; background: var(--navy-deep); padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); gap: 12px; z-index: 50; }
+    .mobilebar .btn { flex: 1; }
+    .mobilebar .btn-call { background: #fff; color: var(--navy); }
+  }
+</style>
+</head>
+<body>
+  <div class="util">
+    <div class="wrap">
+      <div>Same-day appointments · Serving Greater Pittsburgh</div>
+      <div class="right">Call now: <a href="tel:+14125550147">(412) 555-0147</a></div>
+    </div>
+  </div>
+
+  <header class="site">
+    <div class="wrap">
+      <a class="brand" href="#">
+        <svg viewBox="0 0 40 40" width="34" height="34" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="#12314e"/><path d="M20 7c3 4.4 6.8 7.4 6.8 12.4 0 4.6-3 7.9-6.8 7.9s-6.8-3.3-6.8-7.9C13.2 14.4 17 11.4 20 7z" fill="#d97b3f"/><g stroke="#e9f2fb" stroke-width="1.6" stroke-linecap="round"><line x1="20" y1="27" x2="20" y2="35"/><line x1="16.6" y1="29" x2="23.4" y2="33"/><line x1="23.4" y1="29" x2="16.6" y2="33"/></g></svg>
+        <span class="nm">Bluevane Heating & Cooling<small>Greater Pittsburgh · since 1998</small></span>
+      </a>
+      <nav class="main">
+        <a href="#">Services</a><a href="#">Maintenance</a><a href="#">About</a><a href="#">Reviews</a>
+      </nav>
+      <a class="hdr-phone" href="tel:+14125550147">(412) 555-0147</a>
+      <a class="btn btn-copper" href="#">Request Service</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <h1 class="serif">No heat? No AC?<br><span class="accent">Get same-day help.</span></h1>
+        <p class="sub">Heating and air-conditioning repair, replacement, and seasonal
+        maintenance from a licensed local team serving Greater Pittsburgh.</p>
+        <div class="ctas">
+          <a class="btn btn-copper" href="#">Request service</a>
+          <a class="btn btn-outline" href="tel:+14125550147">Call (412) 555-0147</a>
+        </div>
+        <div class="meta"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="none" stroke="#c96f2d" stroke-width="1.6"/><path d="M6 10.2l2.6 2.6L14 7.6" fill="none" stroke="#c96f2d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> Same-day appointments available · 24-hour emergency service</div>
+      </div>
+      <div class="hero-photo">
+        <img src="technician.png" alt="Bluevane technician inspecting a residential AC condenser" width="1568" height="882">
+        <div class="hero-badge">
+          <svg viewBox="0 0 40 40" width="34" height="34" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="#12314e"/><path d="M20 7c3 4.4 6.8 7.4 6.8 12.4 0 4.6-3 7.9-6.8 7.9s-6.8-3.3-6.8-7.9C13.2 14.4 17 11.4 20 7z" fill="#d97b3f"/><g stroke="#e9f2fb" stroke-width="1.6" stroke-linecap="round"><line x1="20" y1="27" x2="20" y2="35"/><line x1="16.6" y1="29" x2="23.4" y2="33"/><line x1="23.4" y1="29" x2="16.6" y2="33"/></g></svg>
+          <span><b>Licensed &amp; insured</b><span>Serving Greater Pittsburgh since 1998</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="trust">
+    <div class="wrap">
+      <div class="trust-item"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="none" stroke="#c96f2d" stroke-width="1.6"/><path d="M6 10.2l2.6 2.6L14 7.6" fill="none" stroke="#c96f2d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Licensed &amp; insured</b><span>Background-checked local technicians.</span></span></div>
+      <div class="trust-item"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="none" stroke="#c96f2d" stroke-width="1.6"/><path d="M6 10.2l2.6 2.6L14 7.6" fill="none" stroke="#c96f2d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Upfront estimates</b><span>Honest pricing before any work starts.</span></span></div>
+      <div class="trust-item"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="none" stroke="#c96f2d" stroke-width="1.6"/><path d="M6 10.2l2.6 2.6L14 7.6" fill="none" stroke="#c96f2d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Same-day appointments</b><span>Fast help when you need it most.</span></span></div>
+      <div class="trust-item"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="none" stroke="#c96f2d" stroke-width="1.6"/><path d="M6 10.2l2.6 2.6L14 7.6" fill="none" stroke="#c96f2d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Serving Pittsburgh since 1998</b><span>A local team neighbors rely on.</span></span></div>
+    </div>
+  </section>
+
+  <section class="svcs">
+    <div class="wrap">
+      <div class="kicker">Our services</div>
+      <h2 class="serif">Complete comfort, one local team.</h2>
+      <div class="svc-grid">
+        <div class="svc-card"><div class="ic"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="#12314e" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.4 2"/></svg></div><h3>AC repair</h3><p>Fast diagnosis and same-day cooling repair for all makes and models.</p></div>
+        <div class="svc-card"><div class="ic"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="#12314e" stroke-width="1.7" stroke-linecap="round"><path d="M12 3c2.4 3.4 5.2 5.7 5.2 9.5A5.2 5.2 0 0 1 12 17.7a5.2 5.2 0 0 1-5.2-5.2C6.8 8.7 9.6 6.4 12 3z"/><path d="M12 21v-3.3"/></svg></div><h3>Furnace repair</h3><p>No heat? We restore safe, efficient heating — quickly.</p></div>
+        <div class="svc-card"><div class="ic"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="#12314e" stroke-width="1.7" stroke-linecap="round"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M8 9h8M8 12.5h8M8 16h5"/></svg></div><h3>System installation</h3><p>High-efficiency systems sized and installed right the first time.</p></div>
+        <div class="svc-card"><div class="ic"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="#12314e" stroke-width="1.7" stroke-linecap="round"><path d="M14.5 6.5a4.2 4.2 0 0 0-5.9 5.9L4 17v3h3l4.6-4.6a4.2 4.2 0 0 0 5.9-5.9l-2.6 2.6-2.4-2.4 2.6-2.6z"/></svg></div><h3>Seasonal maintenance</h3><p>Tune-ups that extend system life and prevent breakdowns.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="proofrow">
+    <div class="wrap">
+      <div class="proof-card">
+        <h3>Customer reviews</h3>
+        <p>Read what homeowners across Greater Pittsburgh say about working with Bluevane —
+        from emergency repairs to full system installations.</p>
+        <a class="lnk" href="#">Read customer reviews →</a>
+      </div>
+      <div class="proof-card">
+        <h3>Our service area</h3>
+        <p>We provide heating and cooling service throughout Greater Pittsburgh and
+        surrounding communities, 8:00 AM – 5:00 PM weekdays with 24-hour emergency coverage.</p>
+        <a class="lnk" href="#">Check your neighborhood →</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="mobilebar">
+    <a class="btn btn-call" href="tel:+14125550147">Call (412) 555-0147</a>
+    <a class="btn btn-copper" href="#">Request service</a>
+  </div>
+</body>
+</html>

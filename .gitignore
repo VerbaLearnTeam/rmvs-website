@@ -43,3 +43,7 @@ next-env.d.ts
 # source materials (not for deployment)
 Rory Photos/
 RMVS website blog n updates/
+
+# mockup pipeline artifacts (generated screenshots live in public/images/redline)
+mockups/node_modules/
+mockups/qa/

@@ -40,14 +40,14 @@ export const projects: Project[] = [
     tags: ["Swift", "Rust", "GPUI", "MCP", "Xcode"],
   },
   {
-    title: "We Make Pages",
-    slug: "wemakepages",
+    title: "Nexus",
+    slug: "nexus",
     description:
-      "Flat-rate website builds and full digital presence management. One price, no surprises, 48-hour turnaround.",
-    badge: "Web Agency",
+      "Relationship intelligence platform. CRM, advertising, investors, team, social, and data — one shared graph with provenance on every write, agent-native from day one.",
+    badge: "Platform",
     status: "live",
     statusLabel: "Live",
-    tags: ["React", "Vite", "SEO", "n8n", "AI Chat"],
+    tags: ["TypeScript", "Next.js", "PostgreSQL", "MCP", "AI Agents"],
   },
   {
     title: "Sunkist Goofbox",

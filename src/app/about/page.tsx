@@ -47,6 +47,11 @@ const skills = [
 
 const roles = [
   {
+    title: "Owner",
+    company: "RMonaghan Venture Studios LLC",
+    description: "Building and operating conversion-focused websites and digital systems for service businesses — design, build, launch, and ongoing growth — with one point of contact from redline to report."
+  },
+  {
     title: "Founder & CEO",
     company: "VerbaLearn",
     description: "Leading product vision and execution for an all-in-one learning suite, simplifying the modern study stack into a single, faster workflow."
@@ -55,11 +60,6 @@ const roles = [
     title: "Co-Founder",
     company: "Auron Tomography Intelligence System",
     description: "Developing machine learning systems to analyze CTA brain scans and identify arterial abnormalities linked to stroke risk."
-  },
-  {
-    title: "Owner",
-    company: "RMonaghan Venture Studios LLC",
-    description: "Running a digital innovation lab specializing in AI-integrated iOS apps and end-to-end product development."
   }
 ];
 
@@ -79,8 +79,9 @@ export default function AboutPage() {
               Rory David Monaghan
             </h1>
             <p style={{ maxWidth: 700 }}>
-              Neuroscience and psychology student at the University of Pittsburgh, full-stack developer, 
-              and entrepreneur building AI-integrated products across healthcare, education, and automotive.
+              Pittsburgh-based founder, developer, and marketer. Rory builds and operates
+              conversion-focused websites and digital systems for service businesses through RMVS,
+              while continuing to develop AI-integrated products across education and healthcare.
             </p>
           </ScrollReveal>
 

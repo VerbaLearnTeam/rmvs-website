@@ -1,56 +1,14 @@
 "use client";
 
-import { FormEvent, ReactNode, useEffect, useRef, useState, useSyncExternalStore } from "react";
+import Image from "next/image";
+import {
+  FormEvent,
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
 import { newEventId, trackEvent, utmSummaryLine } from "@/lib/pixels";
-
-/* ============================================================
-   Shared mini browser render — used by the hero, the compare
-   slider, and the case-study panel.
-   ============================================================ */
-
-export function MiniSite({
-  url,
-  kicker,
-  heading,
-  body,
-  primary,
-  secondary,
-  center = false,
-}: {
-  url: string;
-  kicker: string;
-  heading: ReactNode;
-  body: string;
-  primary: string;
-  secondary?: string;
-  center?: boolean;
-}) {
-  return (
-    <div className={`svc-mini${center ? " svc-mini-center" : ""}`} aria-hidden="true">
-      <div className="svc-mini-bar">
-        <span className="svc-mini-dot" />
-        <span className="svc-mini-dot" />
-        <span className="svc-mini-dot" />
-        <span className="svc-mini-url">{url}</span>
-      </div>
-      <div className="svc-mini-body">
-        <span className="svc-mini-kicker">{kicker}</span>
-        <h3>{heading}</h3>
-        <p>{body}</p>
-        <div className="svc-mini-cta-row">
-          <button className="svc-mini-btn" type="button" tabIndex={-1}>
-            {primary}
-          </button>
-          {secondary && (
-            <button className="svc-mini-btn svc-o" type="button" tabIndex={-1}>
-              {secondary}
-            </button>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
 
 /* ============================================================
    Scroll-expansion hero.
@@ -209,12 +167,20 @@ export function ScrollHero() {
           <span className="svc-wash-blob svc-wash-5" />
         </div>
 
-        <h1 className="svc-hero-title" aria-label="Your Right Hand Man for the Digital Realm" ref={titleRef}>
+        <div className="svc-hero-eyebrow">
+          RMVS · websites + growth systems for service businesses
+        </div>
+
+        <h1
+          className="svc-hero-title"
+          aria-label="A five-day website built to turn local clicks into booked jobs"
+          ref={titleRef}
+        >
           <span className="svc-t-half" ref={leftRef}>
-            Your Right Hand Man
+            A five-day website built
           </span>
           <span className="svc-t-half svc-t-grad" ref={rightRef}>
-            for the Digital Realm
+            to book local jobs.
           </span>
         </h1>
 
@@ -252,27 +218,30 @@ export function ScrollHero() {
         <div className="svc-hero-bottom">
           <div className="svc-hero-sub" ref={subRef}>
             <p>
-              RMVS builds the website, wires every technical thing behind it,
-              and runs the marketing that fills it. You talk to a person — not
-              a ticket queue.
+              RMVS handles the website, booking, forms, analytics, domain, and
+              launch. You work directly with Rory — your right hand man for the
+              digital realm — not an account manager or ticket queue.
             </p>
             <div className="svc-hero-cta-top">
               <a href="#book" className="svc-btn svc-btn-primary">
-                Get started <span className="svc-arrow">›</span>
+                Get my free homepage redline <span className="svc-arrow">›</span>
               </a>
               <a href="#pricing" className="svc-btn svc-btn-ghost">
-                See the rate card
+                See pricing
               </a>
+            </div>
+            <div className="svc-hero-price-anchor">
+              landing pages from $750 · full sites from $1,500 · you own everything
             </div>
             <div className="svc-scroll-cue">scroll to expand</div>
           </div>
 
           <div className="svc-hero-cta" ref={ctaRef}>
             <a href="#book" className="svc-btn svc-btn-primary">
-              Book a free consult <span className="svc-arrow">›</span>
+              Get my free homepage redline <span className="svc-arrow">›</span>
             </a>
             <a href="#pricing" className="svc-btn svc-btn-ghost">
-              See the rate card
+              See pricing
             </a>
           </div>
         </div>
@@ -282,111 +251,193 @@ export function ScrollHero() {
 }
 
 /* ============================================================
-   Redline compare slider — drag (pointer) or arrow keys (the
-   invisible range input) to sweep between "their old site" and
-   "the RMVS build".
+   The Conversion Redline — image-based before/after comparison.
+
+   Both screenshots render the SAME fictional business (Bluevane
+   Heating & Cooling — see mockups/content.mjs) through two visual
+   systems, captured at matching viewports:
+     desktop 1440×900 · mobile 390×844 (2x)
+
+   Interaction: drag the divider (pointer/touch), arrow keys via
+   the native range input, or the Show before / Show after
+   fallback buttons. First meaningful movement fires the
+   diagnostic redline_engaged event (never a campaign conversion).
    ============================================================ */
 
-export function CompareSlider() {
+const REDLINE_VIEWS = {
+  desktop: {
+    before: "/images/redline/redline-before-desktop.png",
+    after: "/images/redline/redline-after-desktop.png",
+    width: 2880,
+    height: 1800,
+    sizes: "(max-width: 1024px) 94vw, 960px",
+  },
+  mobile: {
+    before: "/images/redline/redline-before-mobile.png",
+    after: "/images/redline/redline-after-mobile.png",
+    width: 780,
+    height: 1688,
+    sizes: "(max-width: 520px) 86vw, 360px",
+  },
+} as const;
+
+type RedlineView = keyof typeof REDLINE_VIEWS;
+
+const INITIAL_CUT = 55;
+
+const PHONE_MQ = "(max-width: 768px)";
+const subscribePhoneMq = (onChange: () => void) => {
+  const mq = window.matchMedia(PHONE_MQ);
+  mq.addEventListener("change", onChange);
+  return () => mq.removeEventListener("change", onChange);
+};
+const readIsPhone = () => window.matchMedia(PHONE_MQ).matches;
+const readIsPhoneServer = () => false;
+
+export function RedlineCompare() {
   const boxRef = useRef<HTMLDivElement>(null);
-  const [cut, setCut] = useState(50);
+  const engagedRef = useRef(false);
+  // On an actual phone, default to the mobile comparison — it's the
+  // more persuasive (and honest) demonstration there.
+  const isPhone = useSyncExternalStore(subscribePhoneMq, readIsPhone, readIsPhoneServer);
+  const [userView, setUserView] = useState<RedlineView | null>(null);
+  const [cut, setCut] = useState(INITIAL_CUT);
+  const [animate, setAnimate] = useState(false);
+  const view: RedlineView = userView ?? (isPhone ? "mobile" : "desktop");
+
+  const markEngaged = (next: number) => {
+    if (!engagedRef.current && Math.abs(next - INITIAL_CUT) > 4) {
+      engagedRef.current = true;
+      trackEvent("RedlineEngaged", { view });
+    }
+  };
+
+  const moveTo = (next: number, smooth = false) => {
+    const clamped = Math.min(100, Math.max(0, next));
+    setAnimate(smooth);
+    setCut(clamped);
+    markEngaged(clamped);
+  };
 
   const setFromClientX = (clientX: number) => {
     const box = boxRef.current;
     if (!box) return;
     const r = box.getBoundingClientRect();
-    setCut(Math.min(100, Math.max(0, ((clientX - r.left) / r.width) * 100)));
+    moveTo(((clientX - r.left) / r.width) * 100);
   };
 
+  const v = REDLINE_VIEWS[view];
+
   return (
-    <div
-      className="svc-compare"
-      ref={boxRef}
-      style={{ ["--cut" as string]: `${cut}%` }}
-      onPointerMove={(e) => {
-        if (e.buttons === 1 || e.pointerType === "touch") setFromClientX(e.clientX);
-      }}
-      onPointerDown={(e) => setFromClientX(e.clientX)}
-    >
-      <div className="svc-cmp-layer">
-        <div className="svc-grim" aria-hidden="true">
-          <div className="svc-grim-top">WELCOME TO OUR HOME PAGE!!</div>
-          <div className="svc-grim-body">
-            <div>
-              <h4>About Our Company Services</h4>
-              <p>
-                We have been proudly serving the area since 2009 with quality
-                service and satisfaction guaranteed. Please feel free to browse
-                our website for more information about all of the services that
-                we offer to our valued customers.
-              </p>
-              <p>
-                For a quote please call during business hours or send us a fax.
-                We look forward to hearing from you soon!
-              </p>
-              <p className="svc-grim-blink">** UNDER CONSTRUCTION — CHECK BACK SOON **</p>
-            </div>
-            <div className="svc-grim-side">
-              <b>Quick Links</b>
-              Home
-              <br />
-              About Us
-              <br />
-              Services
-              <br />
-              Gallery (broken)
-              <br />
-              Guestbook
-            </div>
-          </div>
+    <div className="svc-redline">
+      <div className="svc-redline-toolbar">
+        <div className="svc-redline-tags">
+          <span className="svc-cmp-tag svc-tag-before">Before · 2004-era site</span>
+          <span className="svc-cmp-tag svc-tag-after">After · RMVS five-day rebuild</span>
         </div>
-        <span className="svc-cmp-tag svc-tag-before">before — their old site</span>
+        <div className="svc-redline-views" role="group" aria-label="Comparison device view">
+          {(["desktop", "mobile"] as const).map((k) => (
+            <button
+              key={k}
+              type="button"
+              className={`svc-view-btn${view === k ? " svc-view-on" : ""}`}
+              aria-pressed={view === k}
+              onClick={() => {
+                setUserView(k);
+                setAnimate(false);
+              }}
+            >
+              {k === "desktop" ? "Desktop" : "Mobile"}
+            </button>
+          ))}
+        </div>
       </div>
 
-      <div className="svc-cmp-layer svc-cmp-after">
-        <MiniSite
-          center
-          url="yourbusiness.com"
-          kicker="Licensed + insured · same-day quotes"
-          heading={
-            <>
-              Booked out is the goal.
-              <br />
-              Here&apos;s the button.
-            </>
-          }
-          body="Clear services, real proof, and a scheduler wired to your calendar. Loads fast on the phone your customer is actually holding."
-          primary="Book a call"
-          secondary="Get a quote"
+      <div
+        className={`svc-compare svc-compare-${view}${animate ? " svc-cmp-anim" : ""}`}
+        ref={boxRef}
+        style={{
+          ["--cut" as string]: `${cut}%`,
+          aspectRatio: `${v.width} / ${v.height}`,
+        }}
+        onPointerMove={(e) => {
+          if (e.buttons === 1 || e.pointerType === "touch") setFromClientX(e.clientX);
+        }}
+        onPointerDown={(e) => setFromClientX(e.clientX)}
+      >
+        <div className="svc-cmp-layer">
+          <Image
+            src={v.before}
+            alt={`Before: a dated 2004-era HVAC contractor website (${view} view) for the fictional Bluevane Heating & Cooling`}
+            width={v.width}
+            height={v.height}
+            sizes={v.sizes}
+            className="svc-cmp-img"
+          />
+        </div>
+
+        <div className="svc-cmp-layer svc-cmp-after">
+          <Image
+            src={v.after}
+            alt={`After: the modern RMVS rebuild (${view} view) of the same fictional Bluevane Heating & Cooling website`}
+            width={v.width}
+            height={v.height}
+            sizes={v.sizes}
+            className="svc-cmp-img"
+          />
+        </div>
+
+        <div className="svc-cmp-handle" aria-hidden="true">
+          <span className="svc-cmp-grip">&lt;&gt;</span>
+        </div>
+        <input
+          className="svc-cmp-range"
+          type="range"
+          min={0}
+          max={100}
+          step={1}
+          value={Math.round(cut)}
+          onChange={(e) => moveTo(Number(e.target.value))}
+          aria-label="Comparison divider between the old website and the RMVS rebuild — arrow keys move the divider"
         />
-        <span className="svc-cmp-tag svc-tag-after">after — the RMVS build</span>
       </div>
 
-      <div className="svc-cmp-handle" aria-hidden="true">
-        <span className="svc-cmp-grip">&lt;&gt;</span>
+      <div className="svc-redline-controls">
+        <button type="button" className="svc-btn svc-btn-ghost svc-btn-sm" onClick={() => moveTo(100, true)}>
+          Show before
+        </button>
+        <span className="svc-mono-note">drag the divider or use the arrow keys</span>
+        <button type="button" className="svc-btn svc-btn-ghost svc-btn-sm" onClick={() => moveTo(0, true)}>
+          Show after
+        </button>
       </div>
-      <input
-        className="svc-cmp-range"
-        type="range"
-        min={0}
-        max={100}
-        step={1}
-        value={Math.round(cut)}
-        onChange={(e) => setCut(Number(e.target.value))}
-        aria-label="Reveal slider comparing the old site and the RMVS build"
-      />
+
+      <p className="svc-redline-disclaimer">
+        Fictional website demonstration. The company, personnel, reviews,
+        credentials, contact information, and service claims shown are
+        illustrative and do not represent an actual RMVS client.
+      </p>
     </div>
   );
 }
 
 /* ============================================================
-   Two-minute brief — posts to the existing /api/contact route
+   The redline brief — posts to the existing /api/contact route
    (email + SMS notification), with a honeypot for spam.
+   Lead fires only after the backend accepts the submission;
+   redline_started fires on first focus (diagnostic only).
    ============================================================ */
 
 export function LeadBrief() {
   const [status, setStatus] = useState<"idle" | "sending" | "ok" | "error">("idle");
   const [error, setError] = useState("");
+  const startedRef = useRef(false);
+
+  const onFirstFocus = () => {
+    if (startedRef.current) return;
+    startedRef.current = true;
+    trackEvent("RedlineStarted");
+  };
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -412,12 +463,12 @@ export function LeadBrief() {
           name,
           email,
           event_id: eventID,
-          subject: `Services lead — ${business || name}`,
+          subject: `Redline request — ${business || name}`,
           message: [
-            `New two-minute brief from the services page.`,
+            `New homepage redline request from the services page.`,
             `Business: ${business || "(not provided)"}`,
             `Industry: ${vertical || "(not provided)"}`,
-            `Current site: ${site || "(none — new build)"}`,
+            `Current homepage: ${site || "(none — new build)"}`,
             utmSummaryLine(),
           ].join("\n"),
         }),
@@ -429,6 +480,8 @@ export function LeadBrief() {
         return;
       }
       setStatus("ok");
+      // Fires only after the backend accepted the form — dedupes against
+      // the server-side Meta CAPI Lead via the shared event ID.
       trackEvent("ContactFormSubmit", { eventID });
       form.reset();
     } catch {
@@ -438,16 +491,17 @@ export function LeadBrief() {
   };
 
   return (
-    <form className="svc-leadform" onSubmit={onSubmit} noValidate={false}>
-      <h3>The two-minute brief</h3>
+    <form className="svc-leadform" onSubmit={onSubmit} onFocus={onFirstFocus} noValidate={false}>
+      <h3>Get your free homepage redline</h3>
       <p className="svc-mono-note" style={{ marginBottom: 20 }}>
-        replies same business day
+        free · no call required · no obligation · replies same business day
       </p>
 
       {status === "ok" && (
         <div className="svc-form-ok" role="status">
-          Got it — your brief is in. You&apos;ll hear back today with next steps
-          and a timeline.
+          Got it — your redline is in the queue. You&apos;ll receive an
+          annotated markup of your homepage and a proposed new hero by the
+          next business day. Want to talk it through? Book a time below.
         </div>
       )}
       {status === "error" && (
@@ -474,16 +528,16 @@ export function LeadBrief() {
           <option value="" disabled>
             Pick the closest
           </option>
+          <option>Trades / home services</option>
           <option>Finance / lending / consulting</option>
           <option>Legal / accounting / insurance</option>
           <option>Health / dental / wellness</option>
-          <option>Trades / home services</option>
           <option>Auto / detailing / shop</option>
           <option>Food / retail / other</option>
         </select>
       </div>
       <div className="svc-field">
-        <label htmlFor="svc-site">Current website (optional — we&apos;ll redline it)</label>
+        <label htmlFor="svc-site">Your current homepage (optional — no site yet is fine)</label>
         <input id="svc-site" name="current_site" type="url" className="input" placeholder="https://" />
       </div>
 
@@ -495,7 +549,7 @@ export function LeadBrief() {
       </div>
 
       <button className="svc-btn svc-btn-primary" type="submit" style={{ width: "100%" }} disabled={status === "sending"}>
-        {status === "sending" ? "Sending…" : "Send the brief"}
+        {status === "sending" ? "Sending…" : "Redline my homepage"}
       </button>
     </form>
   );

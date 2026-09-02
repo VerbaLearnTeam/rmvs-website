@@ -19,15 +19,16 @@ export default function Counter({ end, label, suffix = "", duration = 2000 }: Co
     if (!el) return;
 
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReduced) {
-      setCount(end);
-      return;
-    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !started.current) {
           started.current = true;
+          if (prefersReduced) {
+            setCount(end);
+            observer.unobserve(el);
+            return;
+          }
           const startTime = performance.now();
 
           const animate = (now: number) => {

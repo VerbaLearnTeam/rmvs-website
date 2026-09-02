@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
         destination: "/projects/verbalearn",
         permanent: true,
       },
+      {
+        source: "/projects/wemakepages",
+        destination: "/projects/nexus",
+        permanent: true,
+      },
     ];
   },
 };

@@ -17,19 +17,19 @@ export default function ScrollReveal({ children, delay = 0, className = "" }: Sc
     if (!el) return;
 
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReduced) {
-      setVisible(true);
-      return;
-    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setTimeout(() => setVisible(true), delay);
+          if (prefersReduced) {
+            setVisible(true);
+          } else {
+            setTimeout(() => setVisible(true), delay);
+          }
           observer.unobserve(el);
         }
       },
-      { threshold: 0.15 }
+      { threshold: prefersReduced ? 0 : 0.15 }
     );
 
     observer.observe(el);

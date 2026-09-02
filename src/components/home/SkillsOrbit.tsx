@@ -29,13 +29,7 @@ export default function SkillsOrbit() {
   const animRef = useRef<number>(0);
 
   useEffect(() => {
-    setMounted(true);
-
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReduced) {
-      setAngles(orbits.map((_, i) => (i * Math.PI) / 3));
-      return;
-    }
 
     const animate = () => {
       setAngles((prev) =>
@@ -44,7 +38,17 @@ export default function SkillsOrbit() {
       animRef.current = requestAnimationFrame(animate);
     };
 
-    animRef.current = requestAnimationFrame(animate);
+    // First paint happens inside a rAF callback so hydration completes with
+    // the server markup before the client-only pills mount.
+    animRef.current = requestAnimationFrame(() => {
+      setMounted(true);
+      if (prefersReduced) {
+        setAngles(orbits.map((_, i) => (i * Math.PI) / 3));
+        return;
+      }
+      animRef.current = requestAnimationFrame(animate);
+    });
+
     return () => cancelAnimationFrame(animRef.current);
   }, []);
 

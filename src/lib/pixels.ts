@@ -1,7 +1,8 @@
 "use client";
 
 /**
- * Ad-platform event tracking for Meta + Reddit pixels.
+ * Ad-platform event tracking for Meta + Reddit pixels (plus Plausible
+ * custom goals when the script is present).
  *
  * The base pixels are injected by <AdPixels /> only when
  * NEXT_PUBLIC_META_PIXEL_ID / NEXT_PUBLIC_REDDIT_PIXEL_ID are set at build
@@ -13,14 +14,22 @@ type CanonicalEvent =
   | "ContactFormSubmit"
   | "ScheduleCall"
   | "InitiateCheckout"
-  | "Lead";
+  | "Lead"
+  | "RedlineEngaged"
+  | "RedlineStarted"
+  | "PhoneClick";
 
-/** canonical event -> [Meta standard event, Reddit event] */
-const EVENT_MAP: Record<CanonicalEvent, [string, string]> = {
-  ContactFormSubmit: ["Lead", "Lead"],
-  ScheduleCall: ["Schedule", "Custom"],
-  InitiateCheckout: ["InitiateCheckout", "AddToCart"],
-  Lead: ["Lead", "Lead"],
+/** canonical event -> [Meta event, isMetaCustom, Reddit event] */
+const EVENT_MAP: Record<CanonicalEvent, [string, boolean, string]> = {
+  ContactFormSubmit: ["Lead", false, "Lead"],
+  ScheduleCall: ["Schedule", false, "Custom"],
+  InitiateCheckout: ["InitiateCheckout", false, "AddToCart"],
+  Lead: ["Lead", false, "Lead"],
+  // Diagnostic engagement events — custom on every platform, never a
+  // campaign's primary conversion.
+  RedlineEngaged: ["redline_engaged", true, "Custom"],
+  RedlineStarted: ["redline_started", true, "Custom"],
+  PhoneClick: ["Contact", false, "Custom"],
 };
 
 export function newEventId(): string {
@@ -31,62 +40,102 @@ declare global {
   interface Window {
     fbq?: (...args: unknown[]) => void;
     rdt?: (...args: unknown[]) => void;
+    plausible?: (event: string, opts?: { props?: Record<string, unknown> }) => void;
   }
 }
 
 export function trackEvent(event: CanonicalEvent, data?: Record<string, unknown>) {
-  const [meta, reddit] = EVENT_MAP[event];
+  const [meta, metaCustom, reddit] = EVENT_MAP[event];
   const eventID =
     typeof data?.eventID === "string" && data.eventID ? data.eventID : newEventId();
   const rest = { ...(data ?? {}) };
   delete rest.eventID;
   try {
-    window.fbq?.("track", meta, rest, { eventID });
+    window.fbq?.(metaCustom ? "trackCustom" : "track", meta, rest, { eventID });
     if (reddit === "Custom") {
       window.rdt?.("track", "Custom", { customEventName: event, eventID, ...rest });
     } else {
       window.rdt?.("track", reddit, { eventID, ...rest });
     }
+    window.plausible?.(event, { props: rest });
   } catch {
     /* tracking must never break the page */
   }
 }
 
 const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"] as const;
-const UTM_STORAGE_KEY = "rmvs_utms";
+const CLICK_ID_KEYS = ["gclid", "gbraid", "wbraid", "fbclid", "msclkid"] as const;
+const ATTR_STORAGE_KEY = "rmvs_attribution";
+const LEGACY_UTM_KEY = "rmvs_utms";
 
-/** First-touch UTM capture: call once per page load; stores the first UTM
- *  set seen this session so attribution survives in-site navigation. */
+export interface Attribution {
+  [key: string]: string;
+}
+
+/** First-touch attribution capture: call once per page load. Stores UTMs,
+ *  ad-platform click IDs, referrer, landing page, and landing timestamp so
+ *  the full record can be attached to leads, bookings, and payments instead
+ *  of being reconstructed later. Persisted in localStorage (first touch
+ *  wins) with a sessionStorage fallback. */
 export function captureUtms() {
   try {
-    if (sessionStorage.getItem(UTM_STORAGE_KEY)) return;
+    const store = pickStore();
+    if (!store || store.getItem(ATTR_STORAGE_KEY)) return;
+
     const params = new URLSearchParams(window.location.search);
-    const utms: Record<string, string> = {};
-    for (const k of UTM_KEYS) {
+    const attr: Attribution = {};
+    for (const k of [...UTM_KEYS, ...CLICK_ID_KEYS]) {
       const v = params.get(k);
-      if (v) utms[k] = v;
+      if (v) attr[k] = v;
     }
-    if (Object.keys(utms).length) {
-      sessionStorage.setItem(UTM_STORAGE_KEY, JSON.stringify(utms));
+    if (document.referrer && !document.referrer.includes(window.location.hostname)) {
+      attr.referrer = document.referrer;
+    }
+    // Only persist a record once there is actually something to attribute,
+    // plus landing context so variants can be compared.
+    if (Object.keys(attr).length) {
+      attr.landing_page = window.location.pathname;
+      attr.landed_at = new Date().toISOString();
+      store.setItem(ATTR_STORAGE_KEY, JSON.stringify(attr));
     }
   } catch {
     /* storage unavailable */
   }
 }
 
-export function getUtms(): Record<string, string> {
+function pickStore(): Storage | null {
   try {
-    return JSON.parse(sessionStorage.getItem(UTM_STORAGE_KEY) ?? "{}");
+    return window.localStorage;
+  } catch {
+    try {
+      return window.sessionStorage;
+    } catch {
+      return null;
+    }
+  }
+}
+
+export function getAttribution(): Attribution {
+  try {
+    const store = pickStore();
+    const raw =
+      store?.getItem(ATTR_STORAGE_KEY) ??
+      window.sessionStorage.getItem(LEGACY_UTM_KEY);
+    return raw ? JSON.parse(raw) : {};
   } catch {
     return {};
   }
 }
 
+/** @deprecated use getAttribution() */
+export function getUtms(): Record<string, string> {
+  return getAttribution();
+}
+
 /** Human-readable attribution line for lead notification emails. */
 export function utmSummaryLine(): string {
-  const utms = getUtms();
-  if (!Object.keys(utms).length) return "Attribution: direct / organic";
-  return `Attribution: ${UTM_KEYS.filter((k) => utms[k])
-    .map((k) => `${k}=${utms[k]}`)
-    .join(", ")}`;
+  const attr = getAttribution();
+  const keys = Object.keys(attr);
+  if (!keys.length) return "Attribution: direct / organic";
+  return `Attribution: ${keys.map((k) => `${k}=${attr[k]}`).join(", ")}`;
 }
