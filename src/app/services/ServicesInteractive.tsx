@@ -63,8 +63,19 @@ export function ScrollHero() {
       const vw = window.innerWidth;
       const vh = window.innerHeight;
 
+      // Once the hero is fully scrolled (p = 1) the sticky container slides
+      // up and out of the viewport — dragging the still-visible title and
+      // saturated wash directly underneath the translucent site header,
+      // where they smear through the glass and look glitchy. The title sits
+      // only ~13px clear of the header while pinned, so it must vanish
+      // almost immediately on exit (60px); the ambient wash can fade over
+      // a gentler quarter-viewport of travel.
+      const exitTravel = Math.max(0, vh - rect.bottom);
+      const titleExit = Math.min(1, exitTravel / 60);
+      const washExit = Math.min(1, exitTravel / (vh * 0.25));
+
       // drives the watercolor wash bloom in CSS
-      sticky.style.setProperty("--hp", e.toFixed(4));
+      sticky.style.setProperty("--hp", (e * (1 - washExit)).toFixed(4));
 
       // panel grows from a tall card into a near-fullscreen render.
       // The iframe inside is a FIXED-size desktop render scaled via
@@ -112,8 +123,10 @@ export function ScrollHero() {
       if (titleRef.current) {
         titleRef.current.style.transform = `scale(${1 - 0.22 * e})`;
         // on phones the expanded panel fills the screen, so the title must
-        // vanish completely or it ghosts behind the fixed site header
-        titleRef.current.style.opacity = String(vw <= 768 ? 1 - e : 1 - 0.4 * e);
+        // vanish completely or it ghosts behind the fixed site header;
+        // on all viewports it fades fully during the exit slide (same reason)
+        const rest = vw <= 768 ? 1 - e : 1 - 0.4 * e;
+        titleRef.current.style.opacity = String(rest * (1 - titleExit));
       }
 
       // supporting copy fades out early; CTA fades in at the end
