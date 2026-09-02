@@ -167,20 +167,12 @@ export function ScrollHero() {
           <span className="svc-wash-blob svc-wash-5" />
         </div>
 
-        <div className="svc-hero-eyebrow">
-          RMVS · websites + growth systems for service businesses
-        </div>
-
-        <h1
-          className="svc-hero-title"
-          aria-label="A five-day website built to turn local clicks into booked jobs"
-          ref={titleRef}
-        >
+        <h1 className="svc-hero-title" aria-label="Your Right Hand Man for the Digital Realm" ref={titleRef}>
           <span className="svc-t-half" ref={leftRef}>
-            A five-day website built
+            Your Right Hand Man
           </span>
           <span className="svc-t-half svc-t-grad" ref={rightRef}>
-            to book local jobs.
+            for the Digital Realm
           </span>
         </h1>
 
@@ -218,30 +210,27 @@ export function ScrollHero() {
         <div className="svc-hero-bottom">
           <div className="svc-hero-sub" ref={subRef}>
             <p>
-              RMVS handles the website, booking, forms, analytics, domain, and
-              launch. You work directly with Rory — your right hand man for the
-              digital realm — not an account manager or ticket queue.
+              RMVS builds the website, wires every technical thing behind it,
+              and runs the marketing that fills it. You talk to a person — not
+              a ticket queue.
             </p>
             <div className="svc-hero-cta-top">
               <a href="#book" className="svc-btn svc-btn-primary">
-                Get my free homepage redline <span className="svc-arrow">›</span>
+                Get started <span className="svc-arrow">›</span>
               </a>
               <a href="#pricing" className="svc-btn svc-btn-ghost">
-                See pricing
+                See the rate card
               </a>
-            </div>
-            <div className="svc-hero-price-anchor">
-              landing pages from $750 · full sites from $1,500 · you own everything
             </div>
             <div className="svc-scroll-cue">scroll to expand</div>
           </div>
 
           <div className="svc-hero-cta" ref={ctaRef}>
             <a href="#book" className="svc-btn svc-btn-primary">
-              Get my free homepage redline <span className="svc-arrow">›</span>
+              Book a free consult <span className="svc-arrow">›</span>
             </a>
             <a href="#pricing" className="svc-btn svc-btn-ghost">
-              See pricing
+              See the rate card
             </a>
           </div>
         </div>
