@@ -7,7 +7,8 @@
  * is literally true.
  *
  * All details are fictional:
- * - (412) 555-01xx numbers sit in the NANPA-reserved fictitious block.
+ * - No phone or fax number appears anywhere — contact is email/request-form
+ *   only, so no real business's number can ever be implied.
  * - The .example TLD is reserved (RFC 2606) and can never resolve.
  * - No contractor license number is shown anywhere.
  * - No third-party brand logos (card networks, financing, social) appear.
@@ -17,9 +18,6 @@ export const business = {
   name: "Bluevane Heating & Cooling",
   shortName: "Bluevane",
   domain: "bluevaneheating.example",
-  phone: "(412) 555-0147",
-  phoneHref: "tel:+14125550147",
-  fax: "(412) 555-0148",
   email: "service@bluevaneheating.example",
   area: "Greater Pittsburgh",
   since: "1998",

@@ -114,8 +114,8 @@ const beforeHtml = `<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//E
         ${servicesList.map((s) => `<li>${s}</li>`).join("\n        ")}
         <li>24 hour emergency service</li>
       </ul>
-      <p class="estlink">For a free estimate please call us during regular business hours, send us a fax at
-      ${b.fax}, or <a href="mailto:${b.email}">email us for an estimate</a>.</p>
+      <p class="estlink">For a free estimate please <a href="mailto:${b.email}">email us</a> during
+      regular business hours or stop by our office. We will respond promptly!</p>
       <div class="gallery">
         <h3 style="margin-top:0">Customer Project Photos</h3>
         <span class="thumb"><img src="technician-small.jpg" alt="install photo"></span>
@@ -124,7 +124,7 @@ const beforeHtml = `<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//E
     </div>
     <div id="side">
       <div class="sidebox">
-        <div class="bigphone">${b.phone}</div>
+        <div class="bigphone">FREE ESTIMATES!</div>
         <div style="font-size:11px; font-weight:bold;">24 Hour Emergency Service</div>
       </div>
       <div class="sidebox">
@@ -140,9 +140,8 @@ const beforeHtml = `<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//E
       <div class="sidebox">
         <h4>Contact Us</h4>
         <div style="font-size:11px; line-height:1.7;">
-          Phone: ${b.phone}<br>
-          Fax: ${b.fax}<br>
-          Email:<br><a href="mailto:${b.email}">${b.email}</a>
+          Email us at:<br><a href="mailto:${b.email}">${b.email}</a><br>
+          We will respond promptly!
         </div>
       </div>
     </div>
@@ -269,7 +268,7 @@ const afterHtml = `<!DOCTYPE html>
   <div class="util">
     <div class="wrap">
       <div>Same-day appointments · Serving ${b.area}</div>
-      <div class="right">Call now: <a href="${b.phoneHref}">${b.phone}</a></div>
+      <div class="right">24-hour emergency service</div>
     </div>
   </div>
 
@@ -282,7 +281,7 @@ const afterHtml = `<!DOCTYPE html>
       <nav class="main">
         <a href="#">Services</a><a href="#">Maintenance</a><a href="#">About</a><a href="#">Reviews</a>
       </nav>
-      <a class="hdr-phone" href="${b.phoneHref}">${b.phone}</a>
+      <a class="hdr-phone" href="#">Get an estimate</a>
       <a class="btn btn-copper" href="#">Request Service</a>
     </div>
   </header>
@@ -295,7 +294,7 @@ const afterHtml = `<!DOCTYPE html>
         maintenance from a licensed local team serving ${b.area}.</p>
         <div class="ctas">
           <a class="btn btn-copper" href="#">Request service</a>
-          <a class="btn btn-outline" href="${b.phoneHref}">Call ${b.phone}</a>
+          <a class="btn btn-outline" href="#">Get an estimate</a>
         </div>
         <div class="meta">${check} Same-day appointments available · 24-hour emergency service</div>
       </div>
@@ -350,7 +349,7 @@ const afterHtml = `<!DOCTYPE html>
   </section>
 
   <div class="mobilebar">
-    <a class="btn btn-call" href="${b.phoneHref}">Call ${b.phone}</a>
+    <a class="btn btn-call" href="#">Get an estimate</a>
     <a class="btn btn-copper" href="#">Request service</a>
   </div>
 </body>

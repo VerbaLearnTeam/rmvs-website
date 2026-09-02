@@ -23,7 +23,7 @@ export function SheetTag({ no, label }: { no: string; label: string }) {
 
 const REDLINE_DIFFS = [
   ["Buried offer", "immediate answer"],
-  ["Email and fax", "one-tap call and booking"],
+  ["Buried email link", "one-tap request and booking"],
   ["Trust below the fold", "proof beside the CTA"],
   ["Fixed-width desktop", "built for the phone"],
 ];
@@ -39,7 +39,7 @@ export function RedlineSheet({ no }: { no: string }) {
           </h2>
           <p className="svc-lede">
             Both sides use the exact same fictional HVAC company — the same
-            services, phone number, credentials, and service area. Drag the
+            services, contact details, credentials, and service area. Drag the
             divider to see what changes when customers can understand, trust,
             and act in seconds.
           </p>
